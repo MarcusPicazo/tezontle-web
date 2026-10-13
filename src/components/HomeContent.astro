@@ -2,6 +2,7 @@
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import ProgressRail from './ProgressRail.astro';
+import TowerCanvas from '../three/TowerCanvas';
 import Piedra from './scenes/Piedra.astro';
 import Cimientos from './scenes/Cimientos.astro';
 import Torre from './scenes/Torre.astro';
@@ -20,9 +21,12 @@ interface Props {
 const { dict } = Astro.props;
 ---
 
+<div class="fixed inset-0 z-0 bg-noche pointer-events-none" aria-hidden="true">
+  <TowerCanvas client:only="react" />
+</div>
 <Header dict={dict} />
 <ProgressRail dict={dict} />
-<main id="contenido">
+<main id="contenido" class="relative z-10">
   <Piedra t={dict.scenes.piedra} />
   <Cimientos t={dict.scenes.cimientos} />
   <Torre t={dict.scenes.torre} />
