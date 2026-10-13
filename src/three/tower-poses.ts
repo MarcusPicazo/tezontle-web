@@ -33,7 +33,7 @@ export function stackedPose(index: number): Pose {
   return { position: [0, index * towerGeometry.floorHeight, 0], rotation: [0, 0, 0] };
 }
 
-function lerp(a: number, b: number, t: number): number {
+export function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 

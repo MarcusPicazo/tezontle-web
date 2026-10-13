@@ -58,3 +58,24 @@ if (scenes.length && railDots.size) {
   );
   scenes.forEach((scene) => progress.observe(scene));
 }
+
+// Punto de la fila enfocada en el mockup de laptop (escena 5): mismo scroll y mismos
+// colores que tiñen esa unidad en la torre 3D (src/three/tower-status.ts), para que las
+// dos lecturas de "se vendió sola" queden sincronizadas.
+const focusDot = document.getElementById('panel-focus-dot');
+if (focusDot && !reduceMotion) {
+  const AVAILABLE_RGB = [79, 157, 110];
+  const SOLD_RGB = [92, 89, 85];
+  const lerpChannel = (a: number, b: number, t: number) => Math.round(a + (b - a) * t);
+
+  ScrollTrigger.create({
+    trigger: '#vendido',
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+    onUpdate: (self) => {
+      const [r, g, b] = AVAILABLE_RGB.map((channel, i) => lerpChannel(channel, SOLD_RGB[i], self.progress));
+      focusDot.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    },
+  });
+}

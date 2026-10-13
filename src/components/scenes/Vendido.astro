@@ -7,16 +7,58 @@ interface Props {
 }
 
 const { t } = Astro.props;
+
+// Mismos colores que src/three/tower-status.ts (disponible/vendida) — mantener en
+// sincronía a mano si cambian ahí. El punto de la fila enfocada arranca "disponible";
+// src/scripts/motion.ts lo anima a "vendida" con el mismo scroll que mueve la torre 3D.
+const AVAILABLE_COLOR = '#4f9d6e';
+const RESERVED_COLOR = '#d9a443';
 ---
 
-<Scene id="vendido" tone="arena">
-  <span
-    data-reveal
-    class="inline-flex items-center gap-2 rounded-full bg-grafito/8 px-3 py-1 text-sm font-semibold text-piedra ring-1 ring-grafito/10"
-  >
-    {t.tag}
-  </span>
-  <h2 class="mt-6 max-w-2xl font-display text-3xl text-grafito sm:text-5xl" data-reveal style="--d:120ms">
-    {t.heading}
-  </h2>
+<Scene id="vendido" tone="canvas">
+  <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
+    <div class="max-w-xl">
+      <span
+        data-reveal
+        class="inline-flex items-center gap-2 rounded-full bg-laton/15 px-3 py-1 text-sm font-semibold text-laton"
+      >
+        {t.tag}
+      </span>
+      <h2 class="mt-6 font-display text-3xl text-cal sm:text-5xl" data-reveal style="--d:120ms">
+        {t.heading}
+      </h2>
+    </div>
+
+    <div class="mx-auto w-[300px] shrink-0 sm:mx-0" data-reveal style="--d:220ms">
+      <!-- Mockup de laptop: HTML/CSS sobre la escena, no una imagen. -->
+      <div class="rounded-t-xl border-[6px] border-b-0 border-grafito bg-grafito p-3">
+        <div class="rounded-md bg-cal px-4 py-3">
+          <p class="text-[11px] font-semibold tracking-wide text-piedra uppercase">{t.tag}</p>
+          <ul class="mt-3 space-y-1.5 text-sm text-grafito">
+            <li class="flex items-center justify-between rounded-lg bg-grafito/5 px-3 py-2">
+              <span>701</span>
+              <span class="h-2.5 w-2.5 rounded-full" style={`background-color:${AVAILABLE_COLOR}`} aria-hidden="true"
+              ></span>
+            </li>
+            <li class="flex items-center justify-between rounded-lg bg-laton/10 px-3 py-2 ring-1 ring-laton/30">
+              <span class="font-semibold">804</span>
+              <span
+                id="panel-focus-dot"
+                class="h-2.5 w-2.5 rounded-full transition-colors"
+                style={`background-color:${AVAILABLE_COLOR}`}
+                aria-hidden="true"
+              ></span>
+            </li>
+            <li class="flex items-center justify-between rounded-lg bg-grafito/5 px-3 py-2">
+              <span>902</span>
+              <span class="h-2.5 w-2.5 rounded-full" style={`background-color:${RESERVED_COLOR}`} aria-hidden="true"
+              ></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="h-3 rounded-b-xl bg-grafito" aria-hidden="true"></div>
+      <div class="mx-auto h-1.5 w-20 rounded-b-md bg-piedra" aria-hidden="true"></div>
+    </div>
+  </div>
 </Scene>

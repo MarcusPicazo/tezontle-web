@@ -34,7 +34,8 @@ export interface Dictionary {
     departamento: {
       railLabel: string;
       heading: string;
-      fichaLabels: string[];
+      /** Orden fijo: plano, precio, esquema de pagos — SPEC §3 escena 4. */
+      fichaLabels: [string, string, string];
       whatsappMessage: string;
     };
     vendido: {
