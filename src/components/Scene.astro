@@ -1,0 +1,20 @@
+---
+interface Props {
+  id: string;
+  tone?: 'noche' | 'arena' | 'cal';
+}
+
+const { id, tone = 'arena' } = Astro.props;
+
+const toneClass = {
+  noche: 'bg-noche text-cal',
+  arena: 'bg-arena text-grafito',
+  cal: 'bg-cal text-grafito',
+}[tone];
+---
+
+<section id={id} data-scene class:list={['relative flex min-h-dvh items-center px-6 py-28 sm:px-10', toneClass]}>
+  <div class="mx-auto w-full max-w-5xl">
+    <slot />
+  </div>
+</section>

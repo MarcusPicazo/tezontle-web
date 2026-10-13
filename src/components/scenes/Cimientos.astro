@@ -1,0 +1,30 @@
+---
+import Scene from '../Scene.astro';
+import type { Dictionary } from '../../i18n/types';
+
+interface Props {
+  t: Dictionary['scenes']['cimientos'];
+}
+
+const { t } = Astro.props;
+---
+
+<Scene id="cimientos" tone="arena">
+  <h2 class="max-w-2xl font-display text-3xl text-grafito sm:text-5xl" data-reveal>
+    {t.heading}
+  </h2>
+  <ul class="mt-12 grid gap-4 sm:grid-cols-3">
+    {
+      t.points.map((point, i) => (
+        <li
+          data-reveal
+          style={`--d:${150 + i * 120}ms`}
+          class="rounded-2xl bg-cal px-6 py-8 ring-1 ring-grafito/10"
+        >
+          <span aria-hidden="true" class="mb-4 block h-1.5 w-8 rounded-full bg-piedra" />
+          <p class="font-display text-lg text-grafito">{point}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Scene>

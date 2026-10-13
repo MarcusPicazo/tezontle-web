@@ -1,0 +1,24 @@
+---
+import Scene from '../Scene.astro';
+import type { Dictionary } from '../../i18n/types';
+
+interface Props {
+  t: Dictionary['scenes']['piedra'];
+}
+
+const { t } = Astro.props;
+---
+
+<Scene id="piedra" tone="noche">
+  <p class="flex gap-1.5" aria-hidden="true" data-reveal>
+    <span class="h-2 w-10 rounded-full bg-grafito"></span>
+    <span class="h-2 w-10 rounded-full bg-rojo-tezontle"></span>
+    <span class="h-2 w-10 rounded-full bg-grafito"></span>
+  </p>
+  <h1 class="mt-8 max-w-2xl font-display text-4xl text-cal sm:text-6xl" data-reveal style="--d:120ms">
+    {t.heading}
+  </h1>
+  <p class="mt-6 max-w-lg text-lg text-cal/75" data-reveal style="--d:260ms">
+    {t.sub}
+  </p>
+</Scene>

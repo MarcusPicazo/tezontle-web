@@ -1,0 +1,22 @@
+---
+import Scene from '../Scene.astro';
+import type { Dictionary } from '../../i18n/types';
+
+interface Props {
+  t: Dictionary['scenes']['vendido'];
+}
+
+const { t } = Astro.props;
+---
+
+<Scene id="vendido" tone="arena">
+  <span
+    data-reveal
+    class="inline-flex items-center gap-2 rounded-full bg-grafito/8 px-3 py-1 text-sm font-semibold text-piedra ring-1 ring-grafito/10"
+  >
+    {t.tag}
+  </span>
+  <h2 class="mt-6 max-w-2xl font-display text-3xl text-grafito sm:text-5xl" data-reveal style="--d:120ms">
+    {t.heading}
+  </h2>
+</Scene>

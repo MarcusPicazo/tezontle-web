@@ -1,0 +1,26 @@
+---
+import type { Dictionary } from '../i18n/types';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+const altHref = dict.lang === 'es' ? '/en/' : '/';
+---
+
+<header class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-between px-4 pt-6 sm:px-6">
+  <a
+    href={dict.lang === 'es' ? '/' : '/en/'}
+    class="pointer-events-auto flex items-center rounded-full bg-cal/85 px-4 py-2 ring-1 ring-grafito/10 backdrop-blur-xl"
+  >
+    <img src="/logo.svg" alt="Tezontle 3D" class="h-5 w-auto" />
+  </a>
+  <a
+    href={altHref}
+    aria-label={dict.nav.switchToLabel}
+    class="pointer-events-auto flex items-center rounded-full bg-cal/85 px-4 py-2 text-sm font-semibold text-grafito ring-1 ring-grafito/10 backdrop-blur-xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.03] active:scale-[0.98]"
+  >
+    {dict.nav.switchTo}
+  </a>
+</header>

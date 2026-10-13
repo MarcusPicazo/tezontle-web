@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { es } from '../i18n/es';
+import { site } from '../data/site';
+
+const dict = { ...es, meta: { title: es.privacyPage.title, description: es.privacyPage.body } };
+---
+
+<Layout dict={dict}>
+  <main id="contenido" class="flex min-h-dvh items-center bg-arena px-6 py-28 text-grafito sm:px-10">
+    <div class="mx-auto w-full max-w-2xl">
+      <h1 class="font-display text-3xl sm:text-4xl">{es.privacyPage.heading}</h1>
+      <p class="mt-6 text-lg text-grafito/80">{es.privacyPage.body}</p>
+      <p class="mt-6">
+        <a href={`mailto:${site.email}`} class="link">{site.email}</a>
+      </p>
+      <a href="/" class="btn btn-ghost-dark mt-10 inline-flex">{es.privacyPage.back}</a>
+    </div>
+  </main>
+</Layout>

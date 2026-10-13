@@ -1,0 +1,30 @@
+---
+import type { Dictionary } from '../i18n/types';
+import { sceneOrder } from '../data/scenes';
+
+interface Props {
+  dict: Dictionary;
+}
+
+const { dict } = Astro.props;
+---
+
+<nav
+  aria-label={dict.progress.label}
+  class="pointer-events-none fixed inset-y-0 right-4 z-40 hidden items-center md:flex lg:right-6"
+>
+  <ol class="pointer-events-auto flex flex-col gap-3 rounded-full bg-cal/70 px-2.5 py-4 ring-1 ring-grafito/10 backdrop-blur-xl">
+    {
+      sceneOrder.map((id) => (
+        <li>
+          <a
+            href={`#${id}`}
+            data-rail-dot={id}
+            aria-label={dict.scenes[id].railLabel}
+            class="rail-dot"
+          />
+        </li>
+      ))
+    }
+  </ol>
+</nav>
