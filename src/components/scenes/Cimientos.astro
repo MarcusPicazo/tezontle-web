@@ -9,8 +9,8 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="cimientos" tone="arena">
-  <h2 class="max-w-2xl font-display text-3xl text-grafito sm:text-5xl" data-reveal>
+<Scene id="cimientos" tone="canvas">
+  <h2 class="max-w-2xl font-display text-3xl text-cal sm:text-5xl" data-reveal>
     {t.heading}
   </h2>
   <ul class="mt-12 grid gap-4 sm:grid-cols-3">
@@ -19,10 +19,10 @@ const { t } = Astro.props;
         <li
           data-reveal
           style={`--d:${150 + i * 120}ms`}
-          class="rounded-2xl bg-cal px-6 py-8 ring-1 ring-grafito/10"
+          class="rounded-2xl bg-cal/10 px-6 py-8 ring-1 ring-cal/20 backdrop-blur-md"
         >
-          <span aria-hidden="true" class="mb-4 block h-1.5 w-8 rounded-full bg-piedra" />
-          <p class="font-display text-lg text-grafito">{point}</p>
+          <span aria-hidden="true" class="mb-4 block h-1.5 w-8 rounded-full bg-laton" />
+          <p class="font-display text-lg text-cal">{point}</p>
         </li>
       ))
     }

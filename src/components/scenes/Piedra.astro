@@ -9,11 +9,11 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="piedra" tone="noche">
+<Scene id="piedra" tone="canvas">
   <p class="flex gap-1.5" aria-hidden="true" data-reveal>
-    <span class="h-2 w-10 rounded-full bg-grafito"></span>
+    <span class="h-2 w-10 rounded-full bg-cal/30"></span>
     <span class="h-2 w-10 rounded-full bg-rojo-tezontle"></span>
-    <span class="h-2 w-10 rounded-full bg-grafito"></span>
+    <span class="h-2 w-10 rounded-full bg-cal/30"></span>
   </p>
   <h1 class="mt-8 max-w-2xl font-display text-4xl text-cal sm:text-6xl" data-reveal style="--d:120ms">
     {t.heading}
