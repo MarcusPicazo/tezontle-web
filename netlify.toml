@@ -1,0 +1,6 @@
+# Solo hace falta si más adelante conectas el repo de Git en vez de subir dist/ a mano
+# (SPEC: sitio 100% estático, sin adapter de servidor). Las cabeceras de caché viven en
+# public/_headers, que Astro copia tal cual a dist/ y Netlify lee igual en ambos casos.
+[build]
+  command = "pnpm build"
+  publish = "dist"
