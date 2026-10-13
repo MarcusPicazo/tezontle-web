@@ -18,16 +18,16 @@ const altHref = dict.lang === 'es' ? '/en/' : '/';
       © {year} {brand.fullName}. {dict.footer.rights}
     </p>
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-      <a href={privacyHref} class="link decoration-cal/35 hover:text-laton hover:decoration-laton">
+      <a href={privacyHref} class="link decoration-cal/35 hover:decoration-laton">
         {dict.footer.privacy}
       </a>
-      <a href={`mailto:${site.email}`} class="link decoration-cal/35 hover:text-laton hover:decoration-laton">
+      <a href={`mailto:${site.email}`} class="link decoration-cal/35 hover:decoration-laton">
         {dict.footer.contactLabel}: {site.email}
       </a>
       <a
         href={altHref}
         aria-label={dict.nav.switchToLabel}
-        class="link decoration-cal/35 hover:text-laton hover:decoration-laton"
+        class="link decoration-cal/35 hover:decoration-laton"
       >
         {dict.nav.switchTo}
       </a>

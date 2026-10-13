@@ -54,7 +54,12 @@ export function ProceduralTower() {
   );
   const glassMaterial = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
+      // MeshStandardMaterial, no Physical: sin mapa de entorno real el clearcoat casi no
+      // se nota y sí cuesta un segundo lóbulo especular por pixel en las 9 unidades —
+      // en Android medio eso pesa más de lo que aporta (SPEC §8: >=50 fps). FrontSide
+      // porque la cámara siempre queda afuera del volumen de la torre (ver TowerCanvas),
+      // así que la cara trasera nunca hace falta y cuesta la mitad de fragmentos.
+      new THREE.MeshStandardMaterial({
         // Blanco puro: el tinte real de cada unidad viene del color de instancia
         // (disponible/apartado/vendido), que se multiplica contra este color base.
         color: '#ffffff',
@@ -62,9 +67,6 @@ export function ProceduralTower() {
         opacity: 0.32,
         roughness: 0.12,
         metalness: 0,
-        clearcoat: 0.5,
-        clearcoatRoughness: 0.2,
-        side: THREE.DoubleSide,
         depthWrite: false,
       }),
     [],

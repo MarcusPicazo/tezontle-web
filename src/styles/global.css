@@ -165,6 +165,16 @@ address {
   html.js:not(.stills) .still-bg {
     display: none;
   }
+
+  /* SPEC §8: Safari de iPhone. Tailwind 4 no agrega el prefijo -webkit- para
+     backdrop-filter (lo necesitan las versiones de iOS anteriores a la 18), así que el
+     vidrio esmerilado del header, el raíl y las tarjetas se perdía ahí sin esto. Reusa
+     la misma variable que ya arma cada utilidad .backdrop-blur-*. */
+  .backdrop-blur-md,
+  .backdrop-blur-xl,
+  .backdrop-blur-3xl {
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, blur(0));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
