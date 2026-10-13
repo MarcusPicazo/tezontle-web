@@ -1,0 +1,14 @@
+---
+// Fallback de SPEC §4: imagen fija de esta escena, capturada de la propia escena 3D
+// (public/stills/, ver scripts/capture-stills.mjs). Visible por defecto para que
+// funcione sin JS; src/styles/global.css la oculta cuando sí se carga la escena 3D.
+interface Props {
+  src: string;
+}
+
+const { src } = Astro.props;
+---
+
+<div class="still-bg absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+  <img src={src} alt="" class="h-full w-full object-cover" loading="lazy" />
+</div>
