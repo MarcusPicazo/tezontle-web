@@ -1,5 +1,6 @@
 ---
 import Scene from '../Scene.astro';
+import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -16,6 +17,7 @@ const RESERVED_COLOR = '#d9a443';
 ---
 
 <Scene id="vendido" tone="canvas">
+  <StillBackground src="/stills/vendido.jpg" />
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
     <div class="max-w-xl">
       <span

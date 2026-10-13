@@ -13,7 +13,27 @@ const { dict } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // SPEC §4: fallback a imágenes fijas por escena en móvil de gama baja,
+      // prefers-reduced-motion, ahorro de datos o si no hay WebGL. Síncrono y en el
+      // <head> para que no haya parpadeo entre el fallback y la escena 3D.
+      (function () {
+        try {
+          var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var nav = navigator;
+          var saveData = !!(nav.connection && nav.connection.saveData);
+          var cores = nav.hardwareConcurrency || 8;
+          var memory = nav.deviceMemory || 8;
+          var lowEnd = cores <= 4 && memory <= 4;
+          var canvas = document.createElement('canvas');
+          var hasWebgl = !!(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+          if (reduceMotion || saveData || lowEnd || !hasWebgl) {
+            document.documentElement.classList.add('stills');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>{dict.meta.title}</title>
     <meta name="description" content={dict.meta.description} />
     <link rel="canonical" href={dict.lang === 'es' ? '/' : '/en/'} />

@@ -1,6 +1,7 @@
 ---
 import Scene from '../Scene.astro';
 import Pending from '../Pending.astro';
+import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 import { site, whatsappHref } from '../../data/site';
 
@@ -11,7 +12,8 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="cierre" tone="noche">
+<Scene id="cierre" tone="canvas">
+  <StillBackground src="/stills/cierre.jpg" />
   <h2 class="max-w-xl font-display text-4xl text-cal sm:text-6xl" data-reveal>
     {t.heading}
   </h2>

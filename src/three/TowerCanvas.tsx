@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
-import type { PerspectiveCamera } from 'three';
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import type { AmbientLight, DirectionalLight, Fog, PerspectiveCamera } from 'three';
 import { Canvas, useThree } from '@react-three/fiber';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,7 +12,7 @@ import { FOCUS_FLOOR_INDEX } from './tower-status';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Encuadre amplio (escenas 1-3): el mismo de antes.
+// Encuadre amplio (escenas 1-3 y, de vuelta, escena 9): el mismo de antes.
 const WIDE_POSITION: [number, number, number] = [9, 5.4, 11];
 const WIDE_TARGET: [number, number, number] = [0, towerCenterY * 0.85, 0];
 // Mismo azimut que el encuadre amplio, solo que mucho más cerca: se acerca al eje
@@ -35,8 +36,9 @@ const CLOSE_FOV = 18;
 
 /**
  * Encuadre amplio en escenas 1-3; en la escena 4 ("la cámara se acerca a una unidad",
- * SPEC §3) se acerca según el scroll hasta el piso enfocado, y se queda ahí durante la
- * escena 5 (nada vuelve a tocar la cámara después de la escena 4).
+ * SPEC §3) se acerca según el scroll hasta el piso enfocado y se queda ahí durante la
+ * escena 5; en la escena 9 ("la torre terminada", SPEC §3) se aleja de vuelta al
+ * encuadre amplio para mostrarla completa.
  */
 function CameraRig() {
   const camera = useThree((state) => state.camera);
@@ -80,13 +82,98 @@ function CameraRig() {
       },
     });
 
-    setCamera(zoomTrigger.progress);
+    // Vuelta al encuadre amplio en la escena 9: t=1 (cerrado en la unidad) al entrar,
+    // t=0 (torre completa) al salir — el inverso del acercamiento de la escena 4.
+    const pullBackTrigger = ScrollTrigger.create({
+      trigger: '#cierre',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: (self) => {
+        setCamera(1 - self.progress);
+        invalidate();
+      },
+    });
+
+    setCamera(Math.max(zoomTrigger.progress, 1 - pullBackTrigger.progress));
     invalidate();
 
-    return () => zoomTrigger.kill();
+    return () => {
+      zoomTrigger.kill();
+      pullBackTrigger.kill();
+    };
   }, [camera, invalidate]);
 
   return null;
+}
+
+const DAY_FOG_COLOR = towerColors.noche;
+// Tono cálido oscuro para el atardecer, mezcla de noche con rojo tezontle — no un color
+// nuevo de marca, es la misma paleta de SPEC §2 llevada a la atmósfera de la escena.
+const SUNSET_FOG_COLOR = '#2a1712';
+const DAY_LIGHT_COLOR = '#fff4e6';
+const SUNSET_LIGHT_COLOR = towerColors.laton;
+const DAY_LIGHT_INTENSITY = 1.1;
+const SUNSET_LIGHT_INTENSITY = 1.7;
+const DAY_AMBIENT_INTENSITY = 0.55;
+const SUNSET_AMBIENT_INTENSITY = 0.32;
+
+/** Luz, niebla y fondo: de día (escenas 1-8) a atardecer en la escena 9 (SPEC §4). */
+function SunsetRig() {
+  const invalidate = useThree((state) => state.invalidate);
+  const lightRef = useRef<DirectionalLight>(null!);
+  const ambientRef = useRef<AmbientLight>(null!);
+  const bgColorRef = useRef<THREE.Color>(null!);
+  const fogRef = useRef<Fog>(null!);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dayLight = new THREE.Color(DAY_LIGHT_COLOR);
+    const sunsetLight = new THREE.Color(SUNSET_LIGHT_COLOR);
+    const dayFog = new THREE.Color(DAY_FOG_COLOR);
+    const sunsetFog = new THREE.Color(SUNSET_FOG_COLOR);
+    const blended = new THREE.Color();
+
+    function setSunset(t: number) {
+      lightRef.current.color.copy(dayLight).lerp(sunsetLight, t);
+      lightRef.current.intensity = lerp(DAY_LIGHT_INTENSITY, SUNSET_LIGHT_INTENSITY, t);
+      ambientRef.current.intensity = lerp(DAY_AMBIENT_INTENSITY, SUNSET_AMBIENT_INTENSITY, t);
+      blended.copy(dayFog).lerp(sunsetFog, t);
+      bgColorRef.current.copy(blended);
+      fogRef.current.color.copy(blended);
+    }
+
+    if (reduceMotion) {
+      setSunset(0);
+      invalidate();
+      return;
+    }
+
+    const trigger = ScrollTrigger.create({
+      trigger: '#cierre',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: (self) => {
+        setSunset(self.progress);
+        invalidate();
+      },
+    });
+
+    setSunset(trigger.progress);
+    invalidate();
+
+    return () => trigger.kill();
+  }, [invalidate]);
+
+  return (
+    <>
+      <color ref={bgColorRef} attach="background" args={[towerColors.noche]} />
+      <fog ref={fogRef} attach="fog" args={[towerColors.noche, 9, 28]} />
+      <ambientLight ref={ambientRef} intensity={DAY_AMBIENT_INTENSITY} />
+      <directionalLight ref={lightRef} position={[6, 10, 4]} intensity={DAY_LIGHT_INTENSITY} color={DAY_LIGHT_COLOR} />
+    </>
+  );
 }
 
 /**
@@ -102,10 +189,7 @@ export default function TowerCanvas() {
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       camera={{ fov: 40, near: 0.1, far: 60 }}
     >
-      <color attach="background" args={[towerColors.noche]} />
-      <fog attach="fog" args={[towerColors.noche, 9, 28]} />
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[6, 10, 4]} intensity={1.1} color="#fff4e6" />
+      <SunsetRig />
       <CameraRig />
       <AdaptivePerformance dprRange={[1, 1.5]} />
       <ProceduralTower />

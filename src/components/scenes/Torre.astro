@@ -1,5 +1,6 @@
 ---
 import Scene from '../Scene.astro';
+import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -10,6 +11,7 @@ const { t } = Astro.props;
 ---
 
 <Scene id="torre" tone="canvas">
+  <StillBackground src="/stills/torre.jpg" />
   <span
     data-reveal
     class="inline-flex items-center gap-2 rounded-full bg-laton/15 px-3 py-1 text-sm font-semibold text-laton"

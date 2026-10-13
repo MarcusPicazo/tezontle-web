@@ -155,6 +155,16 @@ address {
     background-color: var(--color-laton);
     transform: scale(1.4);
   }
+
+  /* Capturas por escena (SPEC §4): visibles por defecto (así funcionan sin JS), se
+     ocultan solo cuando el JS decidió cargar la escena 3D de verdad (.js sin .stills). */
+  .still-bg {
+    display: block;
+  }
+
+  html.js:not(.stills) .still-bg {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
