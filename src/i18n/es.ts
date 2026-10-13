@@ -76,7 +76,37 @@ export const es: Dictionary = {
   privacyPage: {
     title: 'Aviso de privacidad · Tezontle 3D',
     heading: 'Aviso de privacidad',
-    body: 'Estamos preparando el aviso de privacidad completo. Mientras tanto, escríbanos si tiene cualquier pregunta sobre el tratamiento de sus datos.',
+    updatedLabel: 'Última actualización',
+    sections: [
+      {
+        heading: 'Responsable del tratamiento',
+        body: 'Tezontle 3D, con domicilio en Ciudad de México, México, es responsable del tratamiento de sus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.',
+      },
+      {
+        heading: 'Datos que recabamos',
+        body: 'Cuando agenda una llamada, solicita ver la demo o nos escribe por WhatsApp o correo, podemos recabar su nombre, correo electrónico, teléfono y el nombre de su desarrollo o empresa.',
+      },
+      {
+        heading: 'Finalidades',
+        body: 'Usamos sus datos para responder su solicitud de demo, agendar y dar seguimiento a llamadas, y darle soporte como cliente de la plataforma. No usamos sus datos para fines distintos sin su consentimiento.',
+      },
+      {
+        heading: 'Transferencias',
+        body: 'No transferimos sus datos personales a terceros, salvo que la ley lo requiera o usted nos dé su consentimiento expreso para un caso particular.',
+      },
+      {
+        heading: 'Derechos ARCO',
+        body: 'Usted puede acceder, rectificar o cancelar sus datos personales, así como oponerse a su tratamiento, escribiendo al correo de contacto. Atenderemos su solicitud en los plazos que marca la ley.',
+      },
+      {
+        heading: 'Analítica y cookies',
+        body: 'Este sitio usa analítica ligera y sin cookies de rastreo (Plausible) para entender qué tan útil es el sitio, sin identificarlo a usted ni seguirlo en otros sitios.',
+      },
+      {
+        heading: 'Cambios a este aviso',
+        body: 'Podemos actualizar este aviso de privacidad; la fecha de la versión vigente aparece al inicio de esta página.',
+      },
+    ],
     back: 'Volver al inicio',
   },
 };
