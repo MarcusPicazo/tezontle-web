@@ -75,7 +75,8 @@ export interface Dictionary {
   privacyPage: {
     title: string;
     heading: string;
-    body: string;
+    updatedLabel: string;
+    sections: { heading: string; body: string }[];
     back: string;
   };
 }

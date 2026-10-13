@@ -7,6 +7,7 @@ declare global {
     // Nombre distinto a window.lenis: esa global ya la declara el propio paquete lenis
     // con otro tipo (version/horizontal/snap/touch), no es la instancia.
     tezontleLenis?: Lenis;
+    plausible?: (eventName: string, options?: Record<string, unknown>) => void;
   }
 }
 
@@ -79,3 +80,13 @@ if (focusDot && !reduceMotion) {
     },
   });
 }
+
+// Analítica ligera (SPEC §7): eventos de conversión en Plausible. Nombres de evento en
+// inglés a propósito — es la convención habitual de Plausible/analítica, no texto de
+// cara al visitante, así que no vive en src/i18n.
+document.querySelectorAll<HTMLElement>('[data-analytics-event]').forEach((el) => {
+  el.addEventListener('click', () => {
+    const eventName = el.dataset.analyticsEvent;
+    if (eventName) window.plausible?.(eventName);
+  });
+});

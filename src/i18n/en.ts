@@ -76,7 +76,37 @@ export const en: Dictionary = {
   privacyPage: {
     title: 'Privacy notice · Tezontle 3D',
     heading: 'Privacy notice',
-    body: "We're preparing the full privacy notice. In the meantime, write to us with any question about how we handle your data.",
+    updatedLabel: 'Last updated',
+    sections: [
+      {
+        heading: 'Data controller',
+        body: 'Tezontle 3D, based in Mexico City, Mexico, is the controller responsible for your personal data under Mexico’s Federal Law on Protection of Personal Data Held by Private Parties (LFPDPPP).',
+      },
+      {
+        heading: 'Data we collect',
+        body: 'When you book a call, ask to see the demo, or write to us on WhatsApp or email, we may collect your name, email address, phone number, and the name of your development or company.',
+      },
+      {
+        heading: 'Purposes',
+        body: 'We use your data to respond to your demo request, schedule and follow up on calls, and support you as a platform customer. We do not use your data for other purposes without your consent.',
+      },
+      {
+        heading: 'Transfers',
+        body: 'We do not transfer your personal data to third parties, except where required by law or where you have given your express consent for a specific case.',
+      },
+      {
+        heading: 'Your rights',
+        body: 'Under Mexican law you can access, rectify, or delete your personal data, and object to its use, by writing to our contact email. We will respond within the legal time frame.',
+      },
+      {
+        heading: 'Analytics and cookies',
+        body: 'This site uses lightweight, cookie-free analytics (Plausible) to understand how useful the site is, without identifying you or tracking you across other sites.',
+      },
+      {
+        heading: 'Changes to this notice',
+        body: 'We may update this privacy notice; the date of the current version appears at the top of this page.',
+      },
+    ],
     back: 'Back to home',
   },
 };

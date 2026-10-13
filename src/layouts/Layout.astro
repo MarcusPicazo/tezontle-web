@@ -1,12 +1,36 @@
 ---
 import '../styles/global.css';
 import type { Dictionary } from '../i18n/types';
+import { analytics, brand, siteUrl } from '../data/site';
 
 interface Props {
   dict: Dictionary;
+  /** Ruta de ESTA página (ej. "/" o "/privacidad"). Default: la portada del idioma. */
+  path?: string;
+  /** Ruta de la misma página en el otro idioma (ej. "/en/" o "/en/privacy"). */
+  alternatePath?: string;
 }
 
-const { dict } = Astro.props;
+const {
+  dict,
+  path = dict.lang === 'es' ? '/' : '/en/',
+  alternatePath = dict.lang === 'es' ? '/en/' : '/',
+} = Astro.props;
+const canonicalUrl = new URL(path, siteUrl).toString();
+const alternateUrl = new URL(alternatePath, siteUrl).toString();
+// x-default siempre apunta a la versión en español de ESTA página.
+const defaultUrl = dict.lang === 'es' ? canonicalUrl : alternateUrl;
+const ogImageUrl = new URL('/og-image.jpg', siteUrl).toString();
+
+// Datos estructurados Organization (SPEC §7) — mismos placeholders que site.ts, no
+// inventa clientes ni cifras, solo describe a la propia empresa.
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: brand.fullName,
+  url: siteUrl,
+  logo: new URL('/logo.svg', siteUrl).toString(),
+};
 ---
 
 <html lang={dict.htmlLang}>
@@ -36,15 +60,40 @@ const { dict } = Astro.props;
     </script>
     <title>{dict.meta.title}</title>
     <meta name="description" content={dict.meta.description} />
-    <link rel="canonical" href={dict.lang === 'es' ? '/' : '/en/'} />
-    <link rel="alternate" hreflang="es" href="/" />
-    <link rel="alternate" hreflang="en" href="/en/" />
-    <link rel="alternate" hreflang="x-default" href="/" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={dict.lang} href={canonicalUrl} />
+    <link rel="alternate" hreflang={dict.lang === 'es' ? 'en' : 'es'} href={alternateUrl} />
+    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta property="og:title" content={dict.meta.title} />
     <meta property="og:description" content={dict.meta.description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={brand.fullName} />
+    <meta property="og:locale" content={dict.lang === 'es' ? 'es_MX' : 'en_US'} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={dict.meta.title} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={dict.meta.title} />
+    <meta name="twitter:description" content={dict.meta.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+
+    <!-- Analítica ligera (SPEC §7): Plausible, sin cookies. Dominio placeholder en
+         src/data/site.ts hasta tener la cuenta real; mientras tanto no reporta nada. -->
+    <script is:inline>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+    </script>
+    <script defer data-domain={analytics.plausibleDomain} src="https://plausible.io/js/script.js"></script>
   </head>
   <body class="bg-noche font-sans text-grafito">
     <a
