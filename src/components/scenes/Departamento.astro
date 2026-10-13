@@ -7,28 +7,64 @@ interface Props {
 }
 
 const { t } = Astro.props;
+const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
 ---
 
-<Scene id="departamento" tone="cal">
-  <h2 class="max-w-2xl font-display text-3xl text-grafito sm:text-5xl" data-reveal>
-    {t.heading}
-  </h2>
-  <div class="mt-10 flex flex-wrap items-start gap-6">
-    <ul class="flex flex-wrap gap-2" data-reveal style="--d:150ms">
-      {
-        t.fichaLabels.map((label) => (
-          <li class="rounded-full bg-grafito/5 px-4 py-1.5 text-sm font-semibold text-piedra ring-1 ring-grafito/10">
-            {label}
-          </li>
-        ))
-      }
-    </ul>
+<Scene id="departamento" tone="canvas">
+  <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
+    <h2 class="max-w-xl font-display text-3xl text-cal sm:text-5xl" data-reveal>
+      {t.heading}
+    </h2>
+
+    <div class="mx-auto w-[220px] shrink-0 sm:mx-0">
+      <!-- Mockup de celular: HTML/CSS sobre la escena, no una imagen. -->
+      <div
+        data-reveal
+        style="--d:180ms"
+        class="rounded-[2.25rem] border-[6px] border-grafito bg-grafito p-2 shadow-2xl shadow-noche"
+      >
+        <div class="mx-auto mb-2 h-1.5 w-12 rounded-full bg-cal/30" aria-hidden="true"></div>
+        <div class="rounded-[1.5rem] bg-cal px-4 py-4">
+          <svg
+            viewBox="0 0 64 44"
+            class="h-11 w-16 text-piedra"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <rect x="2" y="2" width="60" height="40" rx="2"></rect>
+            <line x1="32" y1="2" x2="32" y2="26"></line>
+            <line x1="2" y1="26" x2="62" y2="26"></line>
+          </svg>
+          <dl class="mt-4 space-y-3 text-xs">
+            <div class="flex items-center justify-between">
+              <dt class="font-semibold text-grafito">{planoLabel}</dt>
+              <dd class="h-2 w-10 rounded-full bg-grafito/15" aria-hidden="true"></dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="font-semibold text-grafito">{precioLabel}</dt>
+              <dd class="h-2 w-14 rounded-full bg-grafito/15" aria-hidden="true"></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-grafito">{pagosLabel}</dt>
+              <dd class="mt-1.5 flex gap-1" aria-hidden="true">
+                <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
+                <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
+                <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <p
+        data-reveal
+        style="--d:320ms"
+        class="mt-4 max-w-[220px] rounded-2xl rounded-bl-sm bg-grafito px-4 py-3 text-sm text-arena shadow-lg"
+      >
+        {t.whatsappMessage}
+      </p>
+    </div>
   </div>
-  <p
-    data-reveal
-    style="--d:280ms"
-    class="mt-6 inline-flex max-w-xs rounded-2xl rounded-bl-sm bg-grafito px-4 py-3 text-sm text-arena"
-  >
-    {t.whatsappMessage}
-  </p>
 </Scene>

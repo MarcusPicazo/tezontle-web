@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { towerColors, towerGeometry } from './tower-config';
 import { blendPose, floorStackProgress, rectPerimeterMullions, scatteredPose, stackedPose } from './tower-poses';
+import { FOCUS_FLOOR_INDEX, statusColors, unitStatusByFloor } from './tower-status';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +55,9 @@ export function ProceduralTower() {
   const glassMaterial = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        color: towerColors.cal,
+        // Blanco puro: el tinte real de cada unidad viene del color de instancia
+        // (disponible/apartado/vendido), que se multiplica contra este color base.
+        color: '#ffffff',
         transparent: true,
         opacity: 0.32,
         roughness: 0.12,
@@ -117,10 +120,33 @@ export function ProceduralTower() {
       groupRef.current.rotation.y = THREE.MathUtils.degToRad(deg);
     }
 
+    // Color de disponibilidad por piso (SPEC §3 escena 3): se fija una sola vez, no
+    // depende del scroll. El piso enfocado (escenas 4-5) lo vuelve a tocar `setSoldProgress`.
+    function applyStatusColors() {
+      const color = new THREE.Color();
+      for (let floor = 0; floor < numFloors; floor += 1) {
+        color.set(statusColors[unitStatusByFloor[floor]]);
+        glassRef.current.setColorAt(floor, color);
+      }
+      if (glassRef.current.instanceColor) glassRef.current.instanceColor.needsUpdate = true;
+    }
+
+    const soldFrom = new THREE.Color(statusColors.available);
+    const soldTo = new THREE.Color(statusColors.sold);
+    const soldColor = new THREE.Color();
+
+    /** Escena 5: la unidad enfocada pasa sola de disponible a vendida según el scroll. */
+    function setSoldProgress(progress: number) {
+      soldColor.copy(soldFrom).lerp(soldTo, progress);
+      glassRef.current.setColorAt(FOCUS_FLOOR_INDEX, soldColor);
+      if (glassRef.current.instanceColor) glassRef.current.instanceColor.needsUpdate = true;
+    }
+
     if (reduceMotion) {
       // Sin animación: la torre ya armada y quieta, sin bloques sueltos ni giro.
       writeFloorMatrices(1, true);
       groupRef.current.rotation.y = THREE.MathUtils.degToRad(15);
+      applyStatusColors();
       invalidate();
       return;
     }
@@ -147,13 +173,27 @@ export function ProceduralTower() {
       },
     });
 
+    const soldTrigger = ScrollTrigger.create({
+      trigger: '#vendido',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: (self) => {
+        setSoldProgress(self.progress);
+        invalidate();
+      },
+    });
+
     writeFloorMatrices(stackTrigger.progress, false);
     setRotation(rotateTrigger.progress);
+    applyStatusColors();
+    setSoldProgress(soldTrigger.progress);
     invalidate();
 
     return () => {
       stackTrigger.kill();
       rotateTrigger.kill();
+      soldTrigger.kill();
     };
   }, [invalidate]);
 
