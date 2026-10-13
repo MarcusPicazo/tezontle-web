@@ -1,0 +1,26 @@
+---
+import Scene from '../Scene.astro';
+import Pending from '../Pending.astro';
+import type { Dictionary } from '../../i18n/types';
+import { site, whatsappHref } from '../../data/site';
+
+interface Props {
+  t: Dictionary['scenes']['cierre'];
+}
+
+const { t } = Astro.props;
+---
+
+<Scene id="cierre" tone="noche">
+  <h2 class="max-w-xl font-display text-4xl text-cal sm:text-6xl" data-reveal>
+    {t.heading}
+  </h2>
+  <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:150ms">
+    <a href={site.demoUrl} class="btn btn-primary">{t.buttons.demo}</a>
+    <a href={site.calendarUrl} class="btn btn-ghost-light">{t.buttons.agendar}</a>
+    <a href={whatsappHref} class="btn btn-ghost-light">{t.buttons.whatsapp}</a>
+  </div>
+  <Pending class="mt-6 max-w-xl bg-cal/10 text-cal/70 ring-cal/20">
+    demoUrl, calendarUrl y whatsapp.number en src/data/site.ts son placeholders.
+  </Pending>
+</Scene>

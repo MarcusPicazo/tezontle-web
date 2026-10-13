@@ -1,0 +1,17 @@
+---
+import Scene from '../Scene.astro';
+import type { Dictionary } from '../../i18n/types';
+
+interface Props {
+  t: Dictionary['scenes']['nombre'];
+}
+
+const { t } = Astro.props;
+---
+
+<Scene id="nombre" tone="noche">
+  <span aria-hidden="true" class="mb-8 block h-1.5 w-16 rounded-full bg-rojo-tezontle" data-reveal></span>
+  <p class="max-w-2xl font-display text-2xl text-cal sm:text-4xl" data-reveal style="--d:120ms">
+    {t.heading}
+  </p>
+</Scene>
