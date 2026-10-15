@@ -58,6 +58,15 @@ const { dict } = Astro.props;
             aria-controls="lang-panel"
             class="lang-trigger flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold sm:px-3"
           >
+            <img
+              id="lang-trigger-flag"
+              src={dict.lang === 'es' ? '/flags/mx.svg' : '/flags/gb.svg'}
+              data-flag-es="/flags/mx.svg"
+              data-flag-en="/flags/gb.svg"
+              alt=""
+              aria-hidden="true"
+              class="h-3.5 w-5 shrink-0 rounded-[2px] object-cover"
+            />
             <span id="lang-trigger-code" data-code-es="ES" data-code-en="EN">{dict.lang === 'es' ? 'ES' : 'EN'}</span>
             <svg
               class="lang-chevron h-2.5 w-3 shrink-0 transition-transform duration-300"
