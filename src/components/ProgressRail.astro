@@ -1,6 +1,7 @@
 ---
 import type { Dictionary } from '../i18n/types';
-import { sceneOrder } from '../data/scenes';
+import { railGroups } from '../data/scenes';
+import T from './T.astro';
 import { es } from '../i18n/es';
 import { en } from '../i18n/en';
 
@@ -12,20 +13,26 @@ const { dict } = Astro.props;
 ---
 
 <nav
+  id="progress-rail"
   aria-label={dict.progress.label}
   class="pointer-events-none fixed inset-y-0 right-4 z-40 hidden items-center md:flex lg:right-6"
 >
   <ol class="pointer-events-auto flex flex-col gap-3 rounded-full bg-cal/70 px-2.5 py-4 ring-1 ring-grafito/10 backdrop-blur-xl">
     {
-      sceneOrder.map((id) => (
-        <li>
-          <a
-            href={`#${id}`}
-            data-rail-dot={id}
-            aria-label={dict.scenes[id].railLabel}
-            data-aria-es={es.scenes[id].railLabel}
-            data-aria-en={en.scenes[id].railLabel}
-            class="rail-dot"
+      railGroups.map((group) => (
+        <li class="group relative">
+          <a href={`#${group.scenes[0]}`} class="flex items-center justify-center p-1" aria-label={dict.rail[group.id]}>
+            <span data-rail-dot={group.id} aria-hidden="true" class="rail-dot" />
+          </a>
+          <!-- Nombre visible al pasar el cursor o enfocar el punto (antes solo era un
+               aria-label, invisible para quien usa mouse). -->
+          <T
+            as="span"
+            es={es.rail[group.id]}
+            en={en.rail[group.id]}
+            lang={dict.lang}
+            aria-hidden="true"
+            class="rail-tooltip pointer-events-none absolute top-1/2 right-full mr-3 rounded-full bg-grafito px-3 py-1 text-xs font-medium whitespace-nowrap text-cal opacity-0 shadow-lg transition duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
           />
         </li>
       ))

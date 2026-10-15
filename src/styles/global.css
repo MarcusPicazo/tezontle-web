@@ -183,6 +183,17 @@ address {
     transform: scale(1.4);
   }
 
+  /* Nombre del grupo del raíl: oculto hasta hover/foco (group-hover/group-focus-within en
+     ProgressRail.astro), nunca compite con el punto en reposo. */
+  .rail-tooltip {
+    transform: translateY(-50%) translateX(4px);
+  }
+
+  .group:hover .rail-tooltip,
+  .group:focus-within .rail-tooltip {
+    transform: translateY(-50%) translateX(0);
+  }
+
   /* Capturas por escena (SPEC §4): visibles por defecto (así funcionan sin JS), se ocultan
      solo cuando el JS decidió animar el recorrido de verdad (.js sin .stills). El mundo con
      scroll (ScrollWorld.astro) hace lo contrario con [data-stage], así nunca se ven los dos

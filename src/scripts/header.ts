@@ -9,7 +9,9 @@ const easeInOutSoft = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2)
 
 // Intercepta el clic del propio <a> (fase de burbuja, antes de llegar a window) y detiene
 // la propagación: si no, el listener de clics de Lenis (anchors: true, agregado en window)
-// vuelve a procesar el mismo href con SU ease por defecto justo después del nuestro.
+// vuelve a procesar el mismo href con SU ease por defecto justo después del nuestro. Cubre
+// el header Y el raíl lateral (#progress-rail, ProgressRail.astro): mismo scroll suave en
+// los dos disparadores de navegación del sitio.
 function initSmoothNav() {
   const lenis = window.tezontleLenis;
   if (!lenis) return; // reduced-motion: no hay instancia, se deja el salto nativo tal cual
@@ -25,26 +27,14 @@ function initSmoothNav() {
     goTo(0);
   });
 
-  document.querySelectorAll<HTMLAnchorElement>('#site-header nav a[href^="#"]').forEach((link) => {
+  document.querySelectorAll<HTMLAnchorElement>('#site-header nav a[href^="#"], #progress-rail a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       const id = link.getAttribute('href')?.slice(1);
       const section = id ? document.getElementById(id) : null;
       if (!section) return;
       event.preventDefault();
       event.stopPropagation();
-
-      if (id === 'cierre') {
-        // Escena 9: fijada (Scene.astro, min-h-[250dvh]), con los botones ligados al
-        // PROGRESO del scroll dentro del fijado (cierrePin.ts), no a si la sección ya
-        // entró en pantalla. Saltar solo a la cima del fijado deja progreso 0, es decir
-        // los botones todavía ocultos — por eso "Contacto" no los mostraba. 0.95 cae
-        // después de BUTTONS_END (0.9) con margen, sin depender del último pixel exacto.
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        const scrollDistance = section.offsetHeight - window.innerHeight;
-        goTo(sectionTop + 0.95 * scrollDistance);
-      } else {
-        goTo(section);
-      }
+      goTo(section);
     });
   });
 }

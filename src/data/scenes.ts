@@ -1,15 +1,32 @@
-// Orden de las 9 escenas del recorrido — SPEC §3. Único lugar que define el orden,
-// para que el raíl de progreso y la página siempre coincidan.
+// Orden de las escenas del recorrido — SPEC §3. Único lugar que define el orden, para que
+// el raíl de progreso, el header y la página siempre coincidan.
 export const sceneOrder = [
   'piedra',
   'cimientos',
   'torre',
   'departamento',
   'vendido',
-  'historia',
+  'paquete',
   'comoTrabajamos',
-  'nombre',
+  'contacto',
   'cierre',
 ] as const;
 
 export type SceneId = (typeof sceneOrder)[number];
+
+// El raíl lateral ya no marca escena por escena (eran 9 puntos): agrupa en 5, sincronizado
+// con los 4 enlaces del header + el logo ("Inicio"). href siempre apunta a la primera
+// escena del grupo, que es el mismo ancla que usa el header para esa sección.
+export const railGroups = [
+  { id: 'inicio', scenes: ['piedra', 'cimientos'] },
+  { id: 'showroom', scenes: ['torre', 'departamento', 'vendido'] },
+  { id: 'paquete', scenes: ['paquete'] },
+  { id: 'proceso', scenes: ['comoTrabajamos'] },
+  { id: 'contacto', scenes: ['contacto', 'cierre'] },
+] as const satisfies readonly { id: string; scenes: SceneId[] }[];
+
+export type RailGroupId = (typeof railGroups)[number]['id'];
+
+export const sceneToGroup = Object.fromEntries(
+  railGroups.flatMap((group) => group.scenes.map((scene) => [scene, group.id])),
+) as Record<SceneId, RailGroupId>;

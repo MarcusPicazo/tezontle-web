@@ -19,12 +19,20 @@ export const es: Dictionary = {
     sectionsLabel: 'Secciones',
     links: {
       showroom: 'El showroom 3D',
+      paquete: 'El paquete',
       comoTrabajamos: 'Cómo trabajamos',
       contacto: 'Contacto',
     },
   },
   progress: {
     label: 'Progreso del recorrido',
+  },
+  rail: {
+    inicio: 'Inicio',
+    showroom: 'Showroom',
+    paquete: 'Paquete',
+    proceso: 'Proceso',
+    contacto: 'Contacto',
   },
   scenes: {
     piedra: {
@@ -53,20 +61,67 @@ export const es: Dictionary = {
       heading: 'Su equipo marca apartado o vendido, y se actualiza en todas las pantallas.',
       tag: 'Panel de ventas',
     },
-    historia: {
-      railLabel: 'La historia',
-      heading: 'Y un sitio cinematográfico que cuenta su proyecto.',
-      tag: 'Landing',
+    paquete: {
+      railLabel: 'El paquete',
+      heading: 'El paquete completo',
+      intro: 'Tres piezas que trabajan juntas, armadas con su proyecto: sus renders, planos, precios y marca.',
+      blocks: [
+        {
+          tag: '01',
+          title: 'Maqueta 3D',
+          body: 'Su torre en 3D, interactiva. Sus compradores la exploran piso por piso, ven planos, precios y disponibilidad real, y le escriben por WhatsApp con el departamento exacto.',
+          bullets: ['Funciona en celular y computadora', 'Disponibilidad en vivo por colores', 'Contacto por departamento a WhatsApp'],
+          button: 'Visitar demo',
+        },
+        {
+          tag: '02',
+          title: 'Panel de ventas',
+          body: 'Donde su equipo controla el inventario: cambia precios y marca apartado o vendido, y la maqueta se actualiza al instante.',
+          bullets: ['Acceso con usuario para su equipo', 'Cambios en tiempo real', 'Adiós al Excel de disponibilidad'],
+          button: 'Solicitar demo del panel',
+        },
+        {
+          tag: '03',
+          title: 'Landing cinematográfica',
+          body: 'El sitio de su desarrollo: un recorrido en video que avanza con el scroll, con sus renders, amenidades y ubicación, y que lleva directo a la maqueta.',
+          bullets: ['Video que avanza con el scroll', 'Vistas con sus renders', 'Botón directo a la maqueta y a WhatsApp'],
+          button: 'Visitar demo',
+        },
+      ],
+      table: {
+        essentialLabel: 'Esencial',
+        completeLabel: 'Completo',
+        rows: ['Maqueta 3D con contacto por WhatsApp', 'Panel de ventas', 'Landing cinematográfica y vistas con renders'],
+        thirdRowEssential: 'Adicional',
+      },
+      quoteNote: 'Cotización en 24 horas según su proyecto.',
+      quoteButton: 'Pedir cotización',
+      demoLink: 'Ver la demo',
     },
     comoTrabajamos: {
       railLabel: 'Cómo trabajamos',
       heading: 'Cómo trabajamos',
       steps: ['Nos envía renders, planos y precios.', 'En dos semanas está listo.', 'Lo publicamos con su marca.'],
     },
-    nombre: {
-      railLabel: 'El nombre',
+    contacto: {
+      railLabel: 'Contacto',
       heading:
         'El tezontle es la piedra volcánica con la que se levantó la Ciudad de México. Nosotros ponemos la base digital para vender lo que se construye.',
+      form: {
+        title: 'Hablemos de su proyecto',
+        name: 'Nombre',
+        company: 'Desarrolladora',
+        city: 'Ciudad del proyecto',
+        unitsLabel: 'Número de departamentos',
+        unitsOptions: ['Menos de 50', '50 a 150', 'Más de 150'],
+        phone: 'WhatsApp o teléfono',
+        message: 'Mensaje',
+        messageOptional: 'Mensaje (opcional)',
+        submit: 'Enviar por WhatsApp',
+        required: 'Campo obligatorio',
+        agendar: 'Agendar llamada',
+        replyNote: 'Respondemos en menos de 24 horas.',
+      },
     },
     cierre: {
       railLabel: 'Cierre',

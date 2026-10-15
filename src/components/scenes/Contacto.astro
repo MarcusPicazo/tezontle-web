@@ -1,0 +1,158 @@
+---
+import Scene from '../Scene.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
+import type { Dictionary } from '../../i18n/types';
+import { site } from '../../data/site';
+
+interface Props {
+  lang: Dictionary['lang'];
+}
+
+const { lang } = Astro.props;
+const t = { es: es.scenes.contacto, en: en.scenes.contacto };
+const f = { es: t.es.form, en: t.en.form };
+---
+
+<Scene id="contacto" tone="media" dark>
+  <!-- Antes "El nombre" (solo la frase del tezontle, SPEC §3 escena 8); ahora además la
+       sección de contacto: la misma imagen/degradado de fondo, el texto a la izquierda y
+       la tarjeta de contacto a la derecha (apilados en móvil). -->
+  <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <img src="/escenas/5-piedra-detalle.jpg" alt="" fetchpriority="low" class="h-full w-full object-cover" />
+    <div
+      class="absolute inset-0 bg-linear-to-r from-noche/70 from-0% via-noche/50 via-30% to-transparent to-70% sm:via-15% sm:to-40%"
+    >
+    </div>
+    <div class="absolute inset-x-0 top-0 h-[15dvh] bg-linear-to-b from-cal to-transparent"></div>
+    <div class="absolute inset-x-0 bottom-0 h-[15dvh] bg-linear-to-t from-arena to-transparent"></div>
+  </div>
+
+  <div class="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-10">
+    <div class="max-w-xl">
+      <span aria-hidden="true" class="mb-8 block h-1.5 w-16 rounded-full bg-laton" data-reveal></span>
+      <T
+        as="p"
+        es={t.es.heading}
+        en={t.en.heading}
+        lang={lang}
+        class="block font-display text-2xl text-cal sm:text-4xl"
+        data-reveal
+        style="--d:120ms"
+      />
+    </div>
+
+    <div data-reveal style="--d:220ms" class="contact-card rounded-2xl p-6 sm:p-8">
+      <T as="h3" es={f.es.title} en={f.en.title} lang={lang} class="block font-display text-2xl text-cal" />
+
+      <form id="contact-form" class="mt-6 space-y-4">
+        <div>
+          <label for="contact-name" class="block text-sm font-medium text-cal/90">
+            <T es={f.es.name} en={f.en.name} lang={lang} />
+          </label>
+          <input id="contact-name" name="name" type="text" required class="contact-field mt-1.5" />
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label for="contact-company" class="block text-sm font-medium text-cal/90">
+              <T es={f.es.company} en={f.en.company} lang={lang} />
+            </label>
+            <input id="contact-company" name="company" type="text" required class="contact-field mt-1.5" />
+          </div>
+          <div>
+            <label for="contact-city" class="block text-sm font-medium text-cal/90">
+              <T es={f.es.city} en={f.en.city} lang={lang} />
+            </label>
+            <input id="contact-city" name="city" type="text" required class="contact-field mt-1.5" />
+          </div>
+        </div>
+
+        <div>
+          <label for="contact-units" class="block text-sm font-medium text-cal/90">
+            <T es={f.es.unitsLabel} en={f.en.unitsLabel} lang={lang} />
+          </label>
+          <select id="contact-units" name="units" required class="contact-field mt-1.5">
+            <option value="" disabled selected></option>
+            {f.es.unitsOptions.map((optEs, i) => (
+              <option value={lang === 'es' ? optEs : f.en.unitsOptions[i]} data-es={optEs} data-en={f.en.unitsOptions[i]}>
+                {lang === 'es' ? optEs : f.en.unitsOptions[i]}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label for="contact-phone" class="block text-sm font-medium text-cal/90">
+            <T es={f.es.phone} en={f.en.phone} lang={lang} />
+          </label>
+          <input id="contact-phone" name="phone" type="tel" required class="contact-field mt-1.5" />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-sm font-medium text-cal/90">
+            <T es={f.es.messageOptional} en={f.en.messageOptional} lang={lang} />
+          </label>
+          <textarea id="contact-message" name="message" rows="3" class="contact-field mt-1.5 resize-none"></textarea>
+        </div>
+
+        <button type="submit" data-analytics-event="Formulario de contacto" class="btn btn-primary w-full">
+          <T es={f.es.submit} en={f.en.submit} lang={lang} />
+        </button>
+      </form>
+
+      <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-cal/15 pt-5 text-sm">
+        <a href={site.calendarUrl} class="link text-cal decoration-cal/40 hover:decoration-laton">
+          <T es={f.es.agendar} en={f.en.agendar} lang={lang} />
+        </a>
+        <a href={`mailto:${site.email}`} class="link text-cal decoration-cal/40 hover:decoration-laton">{site.email}</a>
+      </div>
+      <p class="mt-3 text-xs text-cal/60">
+        <T es={f.es.replyNote} en={f.en.replyNote} lang={lang} />
+      </p>
+    </div>
+  </div>
+</Scene>
+
+<style>
+  /* Vidrio oscuro, mismo tratamiento que el header y el panel de idioma (Header.astro,
+     LanguageSwitch.astro): fondo grafito translúcido + blur, nunca un color fuera de la
+     paleta de la SPEC. */
+  .contact-card {
+    background: color-mix(in oklab, var(--color-grafito) 55%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 20px 40px -8px rgba(21, 23, 28, 0.35);
+  }
+
+  .contact-field {
+    display: block;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.5rem 0.75rem;
+    color: var(--color-cal);
+    font-size: var(--text-sm);
+  }
+
+  .contact-field::placeholder {
+    color: rgba(251, 249, 245, 0.4);
+  }
+
+  .contact-field:focus-visible {
+    outline: 2px solid var(--color-laton);
+    outline-offset: 1px;
+    border-color: transparent;
+  }
+
+  /* El <select> nativo no hereda el fondo oscuro en su lista desplegada en todos los
+     navegadores: forzamos un color de opción legible por si acaso. */
+  .contact-field option {
+    color: var(--color-grafito);
+  }
+</style>

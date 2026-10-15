@@ -36,14 +36,19 @@ const { dict } = Astro.props;
            justify-between: con columnas de ancho distinto a los lados no quedaban al centro).
            Ocultos hasta lg: el selector de idioma de este sitio ocupa más que el de la
            referencia, así que a md: todavía no cabían cómodos. -->
+      <!-- data-nav-link agrupa cada enlace con su grupo del raíl (src/data/scenes.ts): un
+           solo observer en motion.ts prende raíl y header a la vez (ver ProgressRail.astro). -->
       <nav aria-label={dict.nav.sectionsLabel} class="col-start-2 hidden items-center gap-6 lg:flex">
-        <a href="#torre" class="nav-link text-[15px] font-medium whitespace-nowrap">
+        <a href="#torre" data-nav-link="showroom" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.showroom} en={en.nav.links.showroom} lang={dict.lang} />
         </a>
-        <a href="#comoTrabajamos" class="nav-link text-[15px] font-medium whitespace-nowrap">
+        <a href="#paquete" data-nav-link="paquete" class="nav-link text-[15px] font-medium whitespace-nowrap">
+          <T es={es.nav.links.paquete} en={en.nav.links.paquete} lang={dict.lang} />
+        </a>
+        <a href="#comoTrabajamos" data-nav-link="proceso" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.comoTrabajamos} en={en.nav.links.comoTrabajamos} lang={dict.lang} />
         </a>
-        <a href="#cierre" class="nav-link text-[15px] font-medium whitespace-nowrap">
+        <a href="#contacto" data-nav-link="contacto" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.contacto} en={en.nav.links.contacto} lang={dict.lang} />
         </a>
       </nav>
@@ -176,12 +181,14 @@ const { dict } = Astro.props;
   }
 
   .nav-link:hover,
-  .nav-link:focus-visible {
+  .nav-link:focus-visible,
+  .nav-link.is-active {
     opacity: 1;
   }
 
   .nav-link:hover::after,
-  .nav-link:focus-visible::after {
+  .nav-link:focus-visible::after,
+  .nav-link.is-active::after {
     right: 0;
   }
 

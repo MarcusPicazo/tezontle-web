@@ -13,6 +13,11 @@ export const siteUrl = 'https://tezontle3d.com';
 export const site = {
   // Placeholder: URL de la demo de Aura.
   demoUrl: '#',
+  // Placeholder: demo pública de la maqueta 3D y de la landing cinematográfica (sección
+  // "El paquete"). "#" hasta tenerlas: los botones que las usan caen a #contacto en vez de
+  // quedar muertos (ver Paquete.astro).
+  demoMaquetaUrl: '#',
+  demoLandingUrl: '#',
   // Placeholder: enlace de Cal.com o Calendly.
   calendarUrl: '#',
   // Placeholder: correo de contacto.
@@ -25,7 +30,12 @@ export const whatsapp = {
   message: 'Hola, quiero ver una demo de Tezontle 3D.',
 };
 
-export const whatsappHref = `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message)}`;
+// Mensaje prearmado genérico (botón de Cierre) y builder para mensajes a la medida (demo
+// del panel de ventas en "El paquete", formulario de #contacto con los datos capturados).
+export const buildWhatsappHref = (message: string) =>
+  `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(message)}`;
+
+export const whatsappHref = buildWhatsappHref(whatsapp.message);
 
 // Aviso de privacidad (SPEC: "datos como variables en site.ts"). Domicilio genérico a
 // nivel ciudad, no una dirección fiscal real — placeholders hasta tener los datos
