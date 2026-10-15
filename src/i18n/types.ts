@@ -129,9 +129,12 @@ export interface Dictionary {
     };
   };
   footer: {
+    tagline: string;
     privacy: string;
     rights: string;
     contactLabel: string;
+    whatsappLabel: string;
+    linkedinLabel: string;
   };
   privacyPage: {
     title: string;

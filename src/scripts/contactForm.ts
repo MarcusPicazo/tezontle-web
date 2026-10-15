@@ -5,7 +5,9 @@ import { whatsapp } from '../data/site';
 // nativa corre antes de que este listener reciba el evento), así que aquí solo armamos el
 // mensaje y abrimos WhatsApp. Las etiquetas del mensaje se leen de los <label> ya
 // renderizados (T.astro), así el mensaje sale en el idioma que esté viendo el visitante sin
-// duplicar texto en este script.
+// duplicar texto en este script. "Número de departamentos" es un input de texto de solo
+// lectura (customSelect.ts, no un <select>), así que su .value ya trae el texto visible
+// correcto sin ningún caso especial aquí.
 export function initContactForm() {
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   if (!form) return;
@@ -13,16 +15,10 @@ export function initContactForm() {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name]')];
+    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[name]')];
     const lines = fields
       .map((field) => {
-        // <select>: el value es una clave estable (units-0, units-1…), no texto — el
-        // mensaje debe llevar lo que el visitante ve en pantalla, en el idioma que esté
-        // viendo (la opción elegida ya cambia de idioma con el switch, ver Contacto.astro).
-        const value =
-          field instanceof HTMLSelectElement
-            ? (field.options[field.selectedIndex]?.textContent ?? '').trim()
-            : field.value.trim();
+        const value = field.value.trim();
         if (!value) return null;
         const label = form.querySelector(`label[for="${field.id}"]`)?.textContent?.trim();
         return label ? `${label}: ${value}` : value;

@@ -73,20 +73,62 @@ const f = { es: t.es.form, en: t.en.form };
           <label for="contact-units" class="block text-sm font-medium text-cal/90">
             <T es={f.es.unitsLabel} en={f.en.unitsLabel} lang={lang} />
           </label>
-          <!-- value estable (no el texto visible): el texto de cada <option> sí cambia de
-               idioma con el switch (swapText en i18n.ts recorre .i18n-text, <option>
-               incluido), pero un <option> no puede llevar data-es/data-en en innerHTML Y un
-               value aparte sincronizado sin JS dedicado — contactForm.ts lee el TEXTO
-               visible de la opción elegida, no este value, así el mensaje de WhatsApp
-               siempre sale en el idioma que se ve en pantalla. -->
-          <select id="contact-units" name="units" required class="contact-field mt-1.5">
-            <option value="" disabled selected></option>
-            {f.es.unitsOptions.map((optEs, i) => (
-              <option value={`units-${i}`} class="i18n-text" data-es={optEs} data-en={f.en.unitsOptions[i]}>
-                {lang === 'es' ? optEs : f.en.unitsOptions[i]}
-              </option>
-            ))}
-          </select>
+          <!-- Desplegable propio en vez de <select> nativo: su lista la pinta el sistema
+               operativo (panel blanco, resaltado azul del SO), imposible de afinar al
+               vidrio oscuro del resto del sitio. input type=text readonly+required en vez
+               de un <select> o un hidden: a diferencia de type=hidden, SÍ participa en la
+               validación nativa del formulario (un hidden queda fuera de la validación por
+               spec). src/scripts/customSelect.ts lo maneja; mismo tratamiento visual que el
+               panel de idioma (LanguageSwitch.astro). -->
+          <div class="relative mt-1.5">
+            <input
+              id="contact-units"
+              name="units"
+              type="text"
+              inputmode="none"
+              autocomplete="off"
+              readonly
+              required
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="contact-units-listbox"
+              class="contact-field select-trigger w-full cursor-pointer pr-9"
+            />
+            <svg
+              data-select-chevron
+              class="pointer-events-none absolute top-1/2 right-3 h-2.5 w-3 -translate-y-1/2 text-cal/50 transition-transform duration-200"
+              viewBox="0 0 12 8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+            >
+              <path d="M1 1.5 L6 6.5 L11 1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <ul
+              id="contact-units-listbox"
+              role="listbox"
+              aria-label={f.es.unitsLabel}
+              class="select-listbox absolute z-20 mt-2 w-full rounded-xl p-1.5"
+              hidden
+            >
+              {f.es.unitsOptions.map((optEs, i) => (
+                <li>
+                  <button
+                    type="button"
+                    role="option"
+                    data-select-option
+                    data-index={i}
+                    class="select-option i18n-text block w-full rounded-lg px-3 py-2 text-left text-sm"
+                    data-es={optEs}
+                    data-en={f.en.unitsOptions[i]}
+                  >
+                    {lang === 'es' ? optEs : f.en.unitsOptions[i]}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div>
@@ -156,18 +198,38 @@ const f = { es: t.es.form, en: t.en.form };
     border-color: transparent;
   }
 
-  /* El <select> nativo no hereda el fondo oscuro de la tarjeta en su lista desplegada (la
-     pinta el sistema operativo, blanca por defecto): forzamos los mismos tonos grafito/cal
-     que el panel de idioma (LanguageSwitch.astro) para que no desentone. Soportado en
-     Chrome/Edge/Firefox; Safari sigue pintando su propio panel del sistema, sin romper
-     nada (el texto es legible de cualquier forma). */
-  .contact-field option {
-    background-color: var(--color-grafito);
-    color: var(--color-cal);
+  .select-trigger {
+    caret-color: transparent;
   }
 
-  .contact-field option:checked {
-    background-color: var(--color-laton);
-    color: var(--color-grafito);
+  [aria-expanded='true'] ~ [data-select-chevron] {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  /* Mismo vidrio oscuro que el panel de idioma (LanguageSwitch.astro): un <select> nativo
+     no puede lograr esto en su lista desplegada, la pinta el sistema operativo. */
+  .select-listbox {
+    background: color-mix(in oklab, var(--color-grafito) 92%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 20px 40px -8px rgba(21, 23, 28, 0.45);
+  }
+
+  .select-option {
+    color: var(--color-cal);
+    transition: background-color 200ms var(--ease-fluid);
+  }
+
+  .select-option:hover,
+  .select-option:focus-visible {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .select-option[aria-selected='true'] {
+    background-color: color-mix(in oklab, var(--color-laton) 25%, transparent);
+    color: var(--color-laton);
   }
 </style>
