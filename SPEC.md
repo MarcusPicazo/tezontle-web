@@ -38,28 +38,32 @@ Texto a la izquierda, imagen/video ocupando la pantalla detrás (los encuadres d
 vacío a la izquierda para el texto). Raíl de progreso lateral en escritorio: 5 puntos
 agrupados (no uno por escena), sincronizados con los enlaces del header — ver más abajo.
 
-1. **Piedra** — imagen `1-piedra`: bloques de tezontle sueltos sobre fondo arena.
-   ES: "Sus compradores eligen su departamento desde el celular."
-   Sub: "Showroom virtual 3D con inventario en vivo para preventas."
-   EN: "Let buyers choose their home from their phone." / "3D virtual showroom with live inventory for pre-sales."
-2. **Cimientos** — `clip-1` con el scroll: las piedras forman la base y suben los primeros 3 pisos.
-   ES: "Vender en preventa es vender algo que todavía no existe." + 3 puntos:
-   "Sin nada que mostrar" · "Inventario en Excel" · "Leads que no dicen qué quieren".
-   EN: "Pre-sales means selling something that doesn't exist yet." · "Nothing to show" ·
-   "Inventory in spreadsheets" · "Leads that don't say what they want".
-3. **La torre** — `clip-2` con el scroll: la torre sube piso por piso hasta completarse. Al final
-   entra un mockup de celular (HTML/CSS) con la grabación real del selector (`grab-selector`).
-   ES: "Su torre en 3D, con la disponibilidad real de cada departamento." Etiqueta: "Maqueta 3D".
-   EN: "Your tower in 3D, with real availability for every unit." Tag: "3D model".
-4. **El departamento** — el mismo celular; aparece un globo de WhatsApp (HTML):
-   "Hola, me interesa el 804".
-   ES: "El comprador elige, y a su asesor le llega el lead con la unidad exacta."
-   EN: "The buyer chooses, and your agent gets the lead with the exact unit."
-5. **Vendido** — mockup de laptop (HTML/CSS) con la grabación real del panel (`grab-panel`).
-   ES: "Su equipo marca apartado o vendido, y se actualiza en todas las pantallas." Etiqueta: "Panel de ventas".
-   EN: "Your team marks units reserved or sold, and every screen updates." Tag: "Sales panel".
-   Durante 3–5 el fondo es el último cuadro de `clip-2` (la torre completa), un poco atenuado.
-6. **El paquete** (`#paquete`) — fondo arena. Título "El paquete completo" / "The complete
+1. **A · Presentación** (`presentacion`) — imagen `1-piedra`, luego `clip-1` con el scroll
+   (piedras → base). Título, subtítulo, línea pequeña y los 2 botones visibles desde el
+   primer momento ("Ver la demo" latón → `demoUrl`; "El paquete" secundario → `#paquete`).
+   Una sola pantalla, sin fijar.
+   ES: "Sus compradores eligen su departamento desde el celular." · "Showroom virtual 3D con
+   inventario en vivo para preventas." · "Para desarrolladoras que venden algo que todavía
+   no existe."
+   EN: "Let buyers choose their home from their phone." · "3D virtual showroom with live
+   inventory for pre-sales." · "For developers selling what doesn't exist yet."
+2. **B · Experiencia del comprador** (`experiencia`) — `clip-2` con el scroll, la torre sube
+   piso por piso. A diferencia de A y C, esta escena SÍ se fija (`pin`, 150dvh): durante el
+   fijado la torre termina de subir y, ya avanzada esa misma pantalla, entran en secuencia
+   el mockup del celular con la ficha y luego el globo de WhatsApp "Hola, me interesa el
+   804" — nunca dos escenas, una sola con una secuencia (`src/scripts/experienciaPin.ts`).
+   ES: Etiqueta "Maqueta 3D". "Su comprador explora la torre, ve qué está disponible y le
+   escribe por el departamento exacto."
+   EN: Tag "3D model". "Buyers explore the tower, see what's available and message you
+   about the exact unit."
+3. **C · Control del equipo comercial** (`control`) — mismo fondo que B (último cuadro de
+   `clip-2`, la torre completa, un poco atenuado), sin fijar. Mockup de laptop con el panel
+   de ventas; la unidad 804 cambia de disponible a vendida con el scroll de la escena.
+   ES: Etiqueta "Panel de ventas". "Su equipo actualiza precios, apartados y vendidos, y
+   todo se refleja al instante." · "Sin Excel ni mensajes de '¿sigue disponible?'."
+   EN: Tag "Sales panel". "Your team updates prices, reservations and sales, reflected
+   instantly everywhere." · "No spreadsheets, no 'is it still available?' messages."
+4. **El paquete** (`#paquete`) — fondo arena. Título "El paquete completo" / "The complete
    package" + entrada ("Tres piezas que trabajan juntas…" / "Three pieces that work
    together…"). Tres bloques alternados (video 16:10 a un lado, texto al otro; en móvil
    video arriba y texto abajo), cada uno con etiqueta, título, 1–2 frases, 3 viñetas y un
@@ -75,10 +79,10 @@ agrupados (no uno por escena), sincronizados con los enlaces del header — ver 
    Esencial/Completo sin precios (maqueta+WhatsApp y panel en ambas columnas; landing
    "Adicional" en Esencial, incluida en Completo) + nota de cotización en 24h, botón
    "Pedir cotización" (→ `#contacto`) y link "Ver la demo". Nunca la palabra "CRM".
-7. **Cómo trabajamos** — tres tarjetas cal sobre arena.
+5. **Cómo trabajamos** — tres tarjetas cal sobre arena.
    ES: "1. Nos envía renders, planos y precios. 2. En dos semanas está listo. 3. Lo publicamos con su marca."
    EN: "1. Send us renders, plans and prices. 2. Ready in two weeks. 3. Published with your brand."
-8. **Contacto** (`#contacto`, antes "El nombre") — imagen `5-piedra-detalle` a pantalla
+6. **Contacto** (`#contacto`, antes "El nombre") — imagen `5-piedra-detalle` a pantalla
    completa con degradado oscuro. Texto de la piedra a la izquierda (se conserva):
    ES: "El tezontle es la piedra volcánica con la que se levantó la Ciudad de México.
    Nosotros ponemos la base digital para vender lo que se construye."
@@ -89,16 +93,16 @@ agrupados (no uno por escena), sincronizados con los enlaces del header — ver 
    WhatsApp o teléfono, Mensaje opcional) — botón "Enviar por WhatsApp" arma el mensaje con
    los datos y abre `wa.me`, sin backend ni datos guardados en ningún servidor. Debajo:
    "Agendar llamada", correo, aviso de respuesta en 24 horas.
-9. **Cierre** — `clip-3` con el scroll: la luz pasa de día a atardecer sobre la torre.
+7. **Cierre** — `clip-3` con el scroll: la luz pasa de día a atardecer sobre la torre.
    ES: "Véala funcionando." Botones: "Ver la demo" · "Agendar llamada" · WhatsApp.
    EN: "See it live." Buttons: "See the demo" · "Book a call" · WhatsApp.
 Pie: aviso de privacidad, © Tezontle 3D, selector ES/EN, correo.
 
 ### Header y raíl
-Header: El showroom 3D (`#torre`) · El paquete (`#paquete`) · Cómo trabajamos
+Header: El showroom 3D (`#experiencia`) · El paquete (`#paquete`) · Cómo trabajamos
 (`#comoTrabajamos`) · Contacto (`#contacto`) + botón "Ver la demo". El raíl lateral agrupa
-las 9 escenas en 5 puntos sincronizados con el header (mismo observer): Inicio (escenas
-1–2, = logo) · Showroom (3–5) · Paquete · Proceso (Cómo trabajamos) · Contacto (Contacto +
+las 7 escenas en 5 puntos sincronizados con el header (mismo observer): Inicio (escena A,
+= logo) · Showroom (B y C) · Paquete · Proceso (Cómo trabajamos) · Contacto (Contacto +
 Cierre + pie). Al entrar una escena en el centro de la pantalla se marcan a la vez el punto
 del raíl y el enlace del header de su grupo (texto al 100% + línea latón fija debajo);
 nombre del grupo visible al pasar el cursor o enfocar el punto. Clic en cualquiera de los

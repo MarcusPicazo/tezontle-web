@@ -2,15 +2,21 @@
 interface Props {
   id: string;
   tone?: 'noche' | 'arena' | 'cal' | 'media';
-  /** Fija el contenido en pantalla durante un recorrido más largo (SPEC: escena 9, para que
-   * el video tenga suficiente scroll para notarse) en vez de pasar en un solo tramo. */
+  /** Fija el contenido en pantalla durante un recorrido más largo (p. ej. el cierre, para
+   * que el video tenga suficiente scroll para notarse, o la experiencia del comprador, para
+   * que la torre termine de subir antes de que entren el celular y WhatsApp) en vez de
+   * pasar en un solo tramo. */
   pin?: boolean;
+  /** Cuánto scroll dura el fijado. Clase Tailwind arbitraria (no se puede generar en
+   * runtime: JIT solo reconoce literales en el código), así que esto es un valor en style,
+   * no una clase — mismo resultado visual. */
+  pinHeight?: string;
   /** Escenas oscuras (noche, o media con imagen oscura): src/scripts/scrollHint.ts lo lee
    * para poner el aviso de "siga bajando" en cal en vez de grafito mientras está encima. */
   dark?: boolean;
 }
 
-const { id, tone = 'arena', pin = false, dark = false } = Astro.props;
+const { id, tone = 'arena', pin = false, pinHeight = '250dvh', dark = false } = Astro.props;
 
 const toneClass = {
   noche: 'bg-noche text-cal',
@@ -25,7 +31,8 @@ const toneClass = {
   id={id}
   data-scene
   data-dark-scene={dark ? 'true' : undefined}
-  class:list={['relative px-6 sm:px-10', pin ? 'min-h-[250dvh]' : 'flex min-h-dvh items-center py-28', toneClass]}
+  class:list={['relative px-6 sm:px-10', pin ? '' : 'flex min-h-dvh items-center py-28', toneClass]}
+  style={pin ? `min-height:${pinHeight}` : undefined}
 >
   {
     pin ? (

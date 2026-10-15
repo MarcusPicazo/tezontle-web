@@ -35,31 +35,24 @@ export const en: Dictionary = {
     contacto: 'Contact',
   },
   scenes: {
-    piedra: {
-      railLabel: 'Stone',
+    presentacion: {
+      railLabel: 'Overview',
       heading: "Let buyers choose their home from their phone.",
       sub: '3D virtual showroom with live inventory for pre-sales.',
+      small: "For developers selling what doesn't exist yet.",
     },
-    cimientos: {
-      railLabel: 'Foundations',
-      heading: "Pre-sales means selling something that doesn't exist yet.",
-      points: ['Nothing to show', 'Inventory in spreadsheets', "Leads that don't say what they want"],
-    },
-    torre: {
-      railLabel: 'The tower',
-      heading: 'Your tower in 3D, with real availability for every unit.',
+    experiencia: {
+      railLabel: 'Experience',
       tag: '3D model',
-    },
-    departamento: {
-      railLabel: 'The unit',
-      heading: 'The buyer chooses, and your agent gets the lead with the exact unit.',
+      heading: 'Buyers explore the tower, see what\'s available and message you about the exact unit.',
       fichaLabels: ['Floor plan', 'Price', 'Payments'],
       whatsappMessage: "Hi, I'm interested in unit 804",
     },
-    vendido: {
-      railLabel: 'Sold',
-      heading: 'Your team marks units reserved or sold, and every screen updates.',
+    control: {
+      railLabel: 'Control',
       tag: 'Sales panel',
+      heading: 'Your team updates prices, reservations and sales, reflected instantly everywhere.',
+      small: 'No spreadsheets, no "is it still available?" messages.',
     },
     paquete: {
       railLabel: 'The package',

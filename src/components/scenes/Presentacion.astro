@@ -5,16 +5,20 @@ import T from '../T.astro';
 import { es } from '../../i18n/es';
 import { en } from '../../i18n/en';
 import type { Dictionary } from '../../i18n/types';
+import { site } from '../../data/site';
 
 interface Props {
   lang: Dictionary['lang'];
 }
 
 const { lang } = Astro.props;
-const t = { es: es.scenes.piedra, en: en.scenes.piedra };
+const t = { es: es.scenes.presentacion, en: en.scenes.presentacion };
 ---
 
-<Scene id="piedra" tone="media">
+<!-- Escena A: presentación. Fondo compartido con Experiencia/Control (mismo ScrollWorld,
+     ver HomeContent.astro): imagen 1-piedra al llegar, clip-1 avanza mientras se hace scroll
+     dentro de esta escena (piedras → base). -->
+<Scene id="presentacion" tone="media">
   <StillBackground src="/escenas/1-piedra.jpg" />
   <p class="flex gap-1.5" aria-hidden="true" data-reveal>
     <span class="h-2 w-10 rounded-full bg-grafito/15"></span>
@@ -39,4 +43,21 @@ const t = { es: es.scenes.piedra, en: en.scenes.piedra };
     data-reveal
     style="--d:260ms"
   />
+  <T
+    as="p"
+    es={t.es.small}
+    en={t.en.small}
+    lang={lang}
+    class="mt-3 block max-w-lg text-sm text-piedra"
+    data-reveal
+    style="--d:340ms"
+  />
+  <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--d:420ms">
+    <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary">
+      <T es={es.scenes.cierre.buttons.demo} en={en.scenes.cierre.buttons.demo} lang={lang} />
+    </a>
+    <a href="#paquete" data-analytics-event="El paquete" class="btn btn-ghost-dark">
+      <T es={es.nav.links.paquete} en={en.nav.links.paquete} lang={lang} />
+    </a>
+  </div>
 </Scene>

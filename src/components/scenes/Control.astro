@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const t = { es: es.scenes.vendido, en: en.scenes.vendido };
+const t = { es: es.scenes.control, en: en.scenes.control };
 
 // El punto de la fila enfocada arranca "disponible"; src/scripts/motion.ts lo anima a
 // "vendida" con el mismo scroll que recorre esta escena.
@@ -19,11 +19,10 @@ const AVAILABLE_COLOR = '#4f9d6e';
 const RESERVED_COLOR = '#d9a443';
 ---
 
-<Scene id="vendido" tone="media">
-  <!-- Mismo fondo que Departamento, por la misma razón (ver su comentario): sigue dentro
-       del ScrollWorld de Torre. -->
+<!-- Escena C: control del equipo comercial. Fondo compartido con Experiencia (mismo
+     ScrollWorld): el último cuadro de clip-2 (la torre completa) se queda fijo, sin cortes. -->
+<Scene id="control" tone="media">
   <StillBackground src="/escenas/3-torre.jpg" />
-  <!-- "Un poco atenuado" (SPEC), no borrado: ver el comentario de Departamento. -->
   <div class="absolute inset-0 -z-10 bg-arena/15" aria-hidden="true"></div>
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
     <div class="max-w-xl">
@@ -44,11 +43,18 @@ const RESERVED_COLOR = '#d9a443';
         data-reveal
         style="--d:120ms"
       />
+      <T
+        as="p"
+        es={t.es.small}
+        en={t.en.small}
+        lang={lang}
+        class="mt-4 block text-sm text-piedra"
+        data-reveal
+        style="--d:220ms"
+      />
     </div>
 
-    <div class="mx-auto w-[300px] shrink-0 sm:mx-0" data-reveal style="--d:220ms">
-      <!-- Mockup de laptop: HTML/CSS sobre la escena, no una imagen. Misma sombra que el
-           celular de Departamento para que resalte por sí mismo sobre la torre. -->
+    <div class="mx-auto w-[300px] shrink-0 sm:mx-0" data-reveal style="--d:280ms">
       <div class="rounded-t-xl border-[6px] border-b-0 border-grafito bg-grafito p-3 shadow-2xl shadow-noche">
         <div class="rounded-md bg-cal px-4 py-3">
           <T

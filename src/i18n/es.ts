@@ -35,31 +35,24 @@ export const es: Dictionary = {
     contacto: 'Contacto',
   },
   scenes: {
-    piedra: {
-      railLabel: 'Piedra',
+    presentacion: {
+      railLabel: 'Presentación',
       heading: 'Sus compradores eligen su departamento desde el celular.',
       sub: 'Showroom virtual 3D con inventario en vivo para preventas.',
+      small: 'Para desarrolladoras que venden algo que todavía no existe.',
     },
-    cimientos: {
-      railLabel: 'Cimientos',
-      heading: 'Vender en preventa es vender algo que todavía no existe.',
-      points: ['Sin nada que mostrar', 'Inventario en Excel', 'Leads que no dicen qué quieren'],
-    },
-    torre: {
-      railLabel: 'La torre',
-      heading: 'Su torre en 3D, con la disponibilidad real de cada departamento.',
+    experiencia: {
+      railLabel: 'Experiencia',
       tag: 'Maqueta 3D',
-    },
-    departamento: {
-      railLabel: 'El departamento',
-      heading: 'El comprador elige, y a su asesor le llega el lead con la unidad exacta.',
+      heading: 'Su comprador explora la torre, ve qué está disponible y le escribe por el departamento exacto.',
       fichaLabels: ['Plano', 'Precio', 'Pagos'],
       whatsappMessage: 'Hola, me interesa el 804',
     },
-    vendido: {
-      railLabel: 'Vendido',
-      heading: 'Su equipo marca apartado o vendido, y se actualiza en todas las pantallas.',
+    control: {
+      railLabel: 'Control',
       tag: 'Panel de ventas',
+      heading: 'Su equipo actualiza precios, apartados y vendidos, y todo se refleja al instante.',
+      small: 'Sin Excel ni mensajes de "¿sigue disponible?".',
     },
     paquete: {
       railLabel: 'El paquete',

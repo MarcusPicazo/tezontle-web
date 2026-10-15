@@ -11,43 +11,45 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const t = { es: es.scenes.departamento, en: en.scenes.departamento };
+const t = { es: es.scenes.experiencia, en: en.scenes.experiencia };
 const [planoEs, precioEs, pagosEs] = t.es.fichaLabels;
 const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
 ---
 
-<Scene id="departamento" tone="media">
-  <!-- SPEC §3: durante las escenas 3-5 el fondo es el último cuadro de clip-2 (la torre
-       completa), atenuado. Esta escena vive dentro del mismo ScrollWorld que Torre (ver
-       HomeContent.astro): el fondo es el mismo fotograma fijo, sin cortes. StillBackground es
-       solo el respaldo para cuando no hay ese mundo con video (sin JS o SPEC §4). -->
+<!-- Escena B: experiencia del comprador. Fijada (como Cierre, pero más corta: ver
+     pinHeight) para que, dentro de una sola pantalla, la torre termine de subir (clip-2,
+     ocupa todo el fijado) y LUEGO entren el celular y WhatsApp — src/scripts/experienciaPin.ts
+     controla ese orden ligado al scroll. -->
+<Scene id="experiencia" tone="media" pin pinHeight="150dvh">
   <StillBackground src="/escenas/3-torre.jpg" />
-  <!-- "Un poco atenuado" (SPEC), no borrado: la torre debe seguir viéndose casi como en la
-       escena 3; el celular resalta por su propia sombra, no porque el fondo desaparezca. -->
-  <div class="absolute inset-0 -z-10 bg-linear-to-b from-transparent via-arena/15 via-50% to-arena/15" aria-hidden="true">
-  </div>
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
-    <T
-      as="h2"
-      es={t.es.heading}
-      en={t.en.heading}
-      lang={lang}
-      class="block max-w-xl font-display text-3xl text-grafito sm:text-5xl"
-      data-reveal
-    />
+    <div class="max-w-xl">
+      <T
+        as="span"
+        es={t.es.tag}
+        en={t.en.tag}
+        lang={lang}
+        data-reveal
+        class="inline-flex items-center gap-2 rounded-full bg-laton/20 px-3 py-1 text-sm font-semibold text-grafito"
+      />
+      <T
+        as="h2"
+        es={t.es.heading}
+        en={t.en.heading}
+        lang={lang}
+        class="mt-6 block font-display text-3xl text-grafito sm:text-5xl"
+        data-reveal
+        style="--d:120ms"
+      />
+    </div>
 
     <div class="mx-auto w-[220px] shrink-0 sm:mx-0">
-      <!-- Mockup de celular: HTML/CSS sobre la escena, no una imagen. -->
-      <div
-        data-reveal
-        style="--d:180ms"
-        class="rounded-[2.25rem] border-[6px] border-grafito bg-grafito p-2 shadow-2xl shadow-noche"
-      >
+      <!-- Ocultos hasta que experienciaPin.ts los revela (no [data-reveal]: ese observer es
+           genérico por IntersectionObserver, y esto necesita ir ligado al progreso del
+           fijado, no solo a si ya entró en pantalla — igual que los botones de Cierre. -->
+      <div id="experiencia-phone" class="rounded-[2.25rem] border-[6px] border-grafito bg-grafito p-2 shadow-2xl shadow-noche">
         <div class="mx-auto mb-2 h-1.5 w-12 rounded-full bg-cal/30" aria-hidden="true"></div>
         <div class="rounded-[1.5rem] bg-cal px-4 py-4">
-          <!-- Plano arquitectónico de una sola habitación (muros gruesos, una puerta con
-               hoja y arco de giro, una ventana): el intento anterior con varias habitaciones
-               diminutas no se leía bien a este tamaño; esto sí se reconoce como plano real. -->
           <svg
             viewBox="0 0 64 44"
             class="h-11 w-16 text-piedra"
@@ -87,11 +89,10 @@ const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
 
       <T
         as="p"
+        id="experiencia-whatsapp"
         es={t.es.whatsappMessage}
         en={t.en.whatsappMessage}
         lang={lang}
-        data-reveal
-        style="--d:320ms"
         class="mt-4 block max-w-[220px] rounded-2xl rounded-bl-sm bg-grafito px-4 py-3 text-sm text-arena shadow-lg"
       />
     </div>
