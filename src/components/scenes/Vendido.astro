@@ -1,5 +1,6 @@
 ---
 import Scene from '../Scene.astro';
+import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -14,7 +15,11 @@ const AVAILABLE_COLOR = '#4f9d6e';
 const RESERVED_COLOR = '#d9a443';
 ---
 
-<Scene id="vendido" tone="arena">
+<Scene id="vendido" tone="media">
+  <!-- Mismo fondo que Departamento, por la misma razón (ver su comentario): sigue dentro
+       del ScrollWorld de Torre. -->
+  <StillBackground src="/escenas/3-torre.jpg" />
+  <div class="absolute inset-0 -z-10 bg-arena/55" aria-hidden="true"></div>
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
     <div class="max-w-xl">
       <span

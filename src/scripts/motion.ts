@@ -1,6 +1,7 @@
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initScrollWorld } from './scrollWorld';
 
 declare global {
   interface Window {
@@ -37,6 +38,12 @@ const reveal = new IntersectionObserver(
   { rootMargin: '0px 0px -10% 0px' },
 );
 document.querySelectorAll('[data-reveal]').forEach((el) => reveal.observe(el));
+
+// Recorridos con video (SPEC §3 y §4): la página puede tener más de uno. En modo capturas
+// fijas (ver Layout.astro) no se inicializan: ya se ven las imágenes fijas de cada escena.
+if (!document.documentElement.classList.contains('stills')) {
+  document.querySelectorAll<HTMLElement>('[data-world]').forEach((world) => initScrollWorld(world, reduceMotion));
+}
 
 // Raíl de progreso: marca el punto activo según la escena visible en el centro de la pantalla.
 const railDots = new Map<string, HTMLElement>();

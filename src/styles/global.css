@@ -158,9 +158,15 @@ address {
     transform: scale(1.4);
   }
 
-  /* Capturas por escena (SPEC §4): se ocultan por defecto porque ninguna escena las usa
-     todavía (vuelven como fallback del video en el paso de las escenas con scroll). */
+  /* Capturas por escena (SPEC §4): visibles por defecto (así funcionan sin JS), se ocultan
+     solo cuando el JS decidió animar el recorrido de verdad (.js sin .stills). El mundo con
+     scroll (ScrollWorld.astro) hace lo contrario con [data-stage], así nunca se ven los dos
+     fondos a la vez. */
   .still-bg {
+    display: block;
+  }
+
+  html.js:not(.stills) .still-bg {
     display: none;
   }
 
