@@ -223,9 +223,12 @@ const f = { es: t.es.form, en: t.en.form };
     transition: background-color 200ms var(--ease-fluid);
   }
 
+  /* Antes un blanco casi imperceptible (rgba 0.08): ahora gris piedra, claramente visible
+     y distinto del latón de la opción ya elegida (abajo), para no confundir "esto tiene el
+     cursor encima" con "esto ya está seleccionado". */
   .select-option:hover,
   .select-option:focus-visible {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: color-mix(in oklab, var(--color-piedra) 35%, transparent);
   }
 
   .select-option[aria-selected='true'] {
