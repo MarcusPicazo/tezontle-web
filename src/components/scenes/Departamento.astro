@@ -1,6 +1,5 @@
 ---
 import Scene from '../Scene.astro';
-import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -11,10 +10,9 @@ const { t } = Astro.props;
 const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
 ---
 
-<Scene id="departamento" tone="canvas">
-  <StillBackground src="/stills/departamento.jpg" />
+<Scene id="departamento" tone="arena">
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
-    <h2 class="max-w-xl font-display text-3xl text-cal sm:text-5xl" data-reveal>
+    <h2 class="max-w-xl font-display text-3xl text-grafito sm:text-5xl" data-reveal>
       {t.heading}
     </h2>
 

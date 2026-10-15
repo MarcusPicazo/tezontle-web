@@ -11,6 +11,7 @@
 /* Tokens de marca — SPEC §2. Único lugar donde se definen los colores y tipografías. */
 @theme {
   --color-grafito: #2b2b2b;
+  --color-tinta-suave: #5a544c;
   --color-arena: #f4efe8;
   --color-cal: #fbf9f5;
   --color-laton: #c8a27a;
@@ -151,18 +152,15 @@ address {
       transform 700ms var(--ease-fluid);
   }
 
+  /* Rojo tezontle: solo el símbolo del logo y esta marca activa (SPEC §2). */
   .rail-dot.is-active {
-    background-color: var(--color-laton);
+    background-color: var(--color-rojo-tezontle);
     transform: scale(1.4);
   }
 
-  /* Capturas por escena (SPEC §4): visibles por defecto (así funcionan sin JS), se
-     ocultan solo cuando el JS decidió cargar la escena 3D de verdad (.js sin .stills). */
+  /* Capturas por escena (SPEC §4): se ocultan por defecto porque ninguna escena las usa
+     todavía (vuelven como fallback del video en el paso de las escenas con scroll). */
   .still-bg {
-    display: block;
-  }
-
-  html.js:not(.stills) .still-bg {
     display: none;
   }
 

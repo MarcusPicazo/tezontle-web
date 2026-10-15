@@ -1,6 +1,5 @@
 ---
 import Scene from '../Scene.astro';
-import StoneTexture from '../StoneTexture.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -10,12 +9,9 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="nombre" tone="noche">
-  <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-    <StoneTexture class="h-full w-full" />
-  </div>
-  <span aria-hidden="true" class="mb-8 block h-1.5 w-16 rounded-full bg-rojo-tezontle" data-reveal></span>
-  <p class="max-w-2xl font-display text-2xl text-cal sm:text-4xl" data-reveal style="--d:120ms">
+<Scene id="nombre" tone="arena">
+  <span aria-hidden="true" class="mb-8 block h-1.5 w-16 rounded-full bg-laton" data-reveal></span>
+  <p class="max-w-2xl font-display text-2xl text-grafito sm:text-4xl" data-reveal style="--d:120ms">
     {t.heading}
   </p>
 </Scene>

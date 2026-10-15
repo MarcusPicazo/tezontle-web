@@ -1,6 +1,5 @@
 ---
 import Scene from '../Scene.astro';
-import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -9,24 +8,22 @@ interface Props {
 
 const { t } = Astro.props;
 
-// Mismos colores que src/three/tower-status.ts (disponible/vendida) — mantener en
-// sincronía a mano si cambian ahí. El punto de la fila enfocada arranca "disponible";
-// src/scripts/motion.ts lo anima a "vendida" con el mismo scroll que mueve la torre 3D.
+// El punto de la fila enfocada arranca "disponible"; src/scripts/motion.ts lo anima a
+// "vendida" con el mismo scroll que recorre esta escena.
 const AVAILABLE_COLOR = '#4f9d6e';
 const RESERVED_COLOR = '#d9a443';
 ---
 
-<Scene id="vendido" tone="canvas">
-  <StillBackground src="/stills/vendido.jpg" />
+<Scene id="vendido" tone="arena">
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
     <div class="max-w-xl">
       <span
         data-reveal
-        class="inline-flex items-center gap-2 rounded-full bg-laton/20 px-3 py-1 text-sm font-semibold text-cal"
+        class="inline-flex items-center gap-2 rounded-full bg-laton/20 px-3 py-1 text-sm font-semibold text-grafito"
       >
         {t.tag}
       </span>
-      <h2 class="mt-6 font-display text-3xl text-cal sm:text-5xl" data-reveal style="--d:120ms">
+      <h2 class="mt-6 font-display text-3xl text-grafito sm:text-5xl" data-reveal style="--d:120ms">
         {t.heading}
       </h2>
     </div>

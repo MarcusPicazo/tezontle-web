@@ -1,6 +1,5 @@
 ---
 import Scene from '../Scene.astro';
-import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -10,17 +9,16 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="piedra" tone="canvas">
-  <StillBackground src="/stills/piedra.jpg" />
+<Scene id="piedra" tone="arena">
   <p class="flex gap-1.5" aria-hidden="true" data-reveal>
-    <span class="h-2 w-10 rounded-full bg-cal/30"></span>
-    <span class="h-2 w-10 rounded-full bg-rojo-tezontle"></span>
-    <span class="h-2 w-10 rounded-full bg-cal/30"></span>
+    <span class="h-2 w-10 rounded-full bg-grafito/15"></span>
+    <span class="h-2 w-10 rounded-full bg-laton"></span>
+    <span class="h-2 w-10 rounded-full bg-grafito/15"></span>
   </p>
-  <h1 class="mt-8 max-w-2xl font-display text-4xl text-cal sm:text-6xl" data-reveal style="--d:120ms">
+  <h1 class="mt-8 max-w-2xl font-display text-4xl text-grafito sm:text-6xl" data-reveal style="--d:120ms">
     {t.heading}
   </h1>
-  <p class="mt-6 max-w-lg text-lg text-cal/75" data-reveal style="--d:260ms">
+  <p class="mt-6 max-w-lg text-lg text-tinta-suave" data-reveal style="--d:260ms">
     {t.sub}
   </p>
 </Scene>

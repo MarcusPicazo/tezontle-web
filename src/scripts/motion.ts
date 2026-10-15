@@ -60,9 +60,8 @@ if (scenes.length && railDots.size) {
   scenes.forEach((scene) => progress.observe(scene));
 }
 
-// Punto de la fila enfocada en el mockup de laptop (escena 5): mismo scroll y mismos
-// colores que tiñen esa unidad en la torre 3D (src/three/tower-status.ts), para que las
-// dos lecturas de "se vendió sola" queden sincronizadas.
+// Punto de la fila enfocada en el mockup de laptop (escena 5): pasa de "disponible" a
+// "vendida" con el mismo scroll que recorre la escena.
 const focusDot = document.getElementById('panel-focus-dot');
 if (focusDot && !reduceMotion) {
   const AVAILABLE_RGB = [79, 157, 110];

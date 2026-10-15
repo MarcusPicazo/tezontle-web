@@ -2,12 +2,13 @@
 
 Lee SPEC.md antes de cualquier tarea: es la fuente de verdad.
 
-- Stack fijo: Astro, Tailwind 4, GSAP ScrollTrigger, Lenis, React Three Fiber como isla. No
-  instales otras librerías sin explicarme para qué y pedir confirmación.
+- Stack fijo: Astro, Tailwind 4, GSAP ScrollTrigger, Lenis. Sin Three.js ni React Three Fiber
+  (la torre es video). No instales otras librerías sin explicarme para qué y pedir confirmación.
 - Una tarea a la vez. Antes de tareas grandes, dame un plan corto. Al terminar, dime cómo verificarlo.
 - Si algo de la SPEC es ambiguo, pregunta en vez de inventar. No inventes cifras, clientes,
   testimonios ni logos de terceros.
-- Colores y tipografías solo los de la SPEC, definidos como tokens en src/styles/global.css.
+- Colores y tipografías solo los de la SPEC, definidos como tokens en src/styles/global.css, y
+  usados como dice la tabla de SPEC §2 (el sitio es claro: fondo arena).
 - Textos solo desde src/i18n (es y en). Configuración solo desde src/data/site.ts.
 - Rendimiento es parte del producto: piensa primero en celular.
 - No importes código de E:\aura-demo ni de E:\arko-landing: puedes LEERLOS como referencia y copiar lo necesario.

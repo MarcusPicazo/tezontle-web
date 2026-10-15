@@ -1,7 +1,7 @@
 ---
 interface Props {
   id: string;
-  tone?: 'noche' | 'arena' | 'cal' | 'canvas';
+  tone?: 'noche' | 'arena' | 'cal';
 }
 
 const { id, tone = 'arena' } = Astro.props;
@@ -10,8 +10,6 @@ const toneClass = {
   noche: 'bg-noche text-cal',
   arena: 'bg-arena text-grafito',
   cal: 'bg-cal text-grafito',
-  // Transparente: deja ver la escena 3D fija de fondo (escenas 1-3, SPEC §4).
-  canvas: 'bg-transparent text-cal',
 }[tone];
 ---
 
