@@ -1,0 +1,21 @@
+---
+// Texto traducible sin recarga de página: deja ambos idiomas en el DOM (data-es/data-en)
+// para que src/scripts/i18n.ts pueda barrerlo con el scroll ya resuelto en el servidor (el
+// texto visible de entrada ya es el de `lang`, así que funciona igual sin JS). Técnica de
+// E:\referencias\taylor-website\js\i18n.js (.i18n-text + data-es/data-en), copiada y
+// adaptada: aquí es un componente en vez de marcar el HTML a mano en cada escena.
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  es: string;
+  en: string;
+  lang: 'es' | 'en';
+  /** Astro soporta tags dinámicos con una variable capitalizada: por defecto <span>, pero
+   * los títulos deben seguir siendo <h1>/<h2> de verdad (SEO y accesibilidad). */
+  as?: string;
+  class?: string;
+}
+
+const { es, en, lang, as: Tag = 'span', class: className, ...rest } = Astro.props;
+const text = lang === 'es' ? es : en;
+---
+
+<Tag class:list={['i18n-text', className]} data-es={es} data-en={en} {...rest} set:html={text} />

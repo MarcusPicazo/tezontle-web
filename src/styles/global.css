@@ -170,6 +170,14 @@ address {
     display: none;
   }
 
+  /* Cambio de idioma con barrido (referencia Taylor, js/i18n.js): estado base para el
+     clip-path. inline-block es necesario para que el recorte se vea bien y para que el
+     ancho real del texto sirva para ordenar el barrido de izquierda a derecha. */
+  .i18n-text {
+    display: inline-block;
+    clip-path: inset(0% 0% 0% 0%);
+  }
+
   /* SPEC §8: Safari de iPhone. Tailwind 4 no agrega el prefijo -webkit- para
      backdrop-filter (lo necesitan las versiones de iOS anteriores a la 18), así que el
      vidrio esmerilado del header, el raíl y las tarjetas se perdía ahí sin esto. Reusa

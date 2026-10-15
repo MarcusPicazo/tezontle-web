@@ -1,15 +1,19 @@
 ---
 import Scene from '../Scene.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
-  t: Dictionary['scenes']['nombre'];
+  lang: Dictionary['lang'];
 }
 
-const { t } = Astro.props;
+const { lang } = Astro.props;
+const t = { es: es.scenes.nombre, en: en.scenes.nombre };
 ---
 
-<Scene id="nombre" tone="media">
+<Scene id="nombre" tone="media" dark>
   <!-- Imagen a pantalla completa (SPEC §3 escena 8): es oscura, así que el texto va en cal
        sobre un degradado oscuro del lado del texto (máximo 40% del ancho), no sobre el velo
        claro de las demás escenas con media. Arriba y abajo se desvanece hacia las escenas
@@ -27,7 +31,13 @@ const { t } = Astro.props;
     <div class="absolute inset-x-0 bottom-0 h-[15dvh] bg-linear-to-t from-arena to-transparent"></div>
   </div>
   <span aria-hidden="true" class="mb-8 block h-1.5 w-16 rounded-full bg-laton" data-reveal></span>
-  <p class="max-w-2xl font-display text-2xl text-cal sm:text-4xl" data-reveal style="--d:120ms">
-    {t.heading}
-  </p>
+  <T
+    as="p"
+    es={t.es.heading}
+    en={t.en.heading}
+    lang={lang}
+    class="block max-w-2xl font-display text-2xl text-cal sm:text-4xl"
+    data-reveal
+    style="--d:120ms"
+  />
 </Scene>

@@ -1,14 +1,19 @@
 ---
 import Scene from '../Scene.astro';
 import StillBackground from '../StillBackground.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
-  t: Dictionary['scenes']['departamento'];
+  lang: Dictionary['lang'];
 }
 
-const { t } = Astro.props;
-const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
+const { lang } = Astro.props;
+const t = { es: es.scenes.departamento, en: en.scenes.departamento };
+const [planoEs, precioEs, pagosEs] = t.es.fichaLabels;
+const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
 ---
 
 <Scene id="departamento" tone="media">
@@ -22,9 +27,14 @@ const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
   <div class="absolute inset-0 -z-10 bg-linear-to-b from-transparent via-arena/15 via-50% to-arena/15" aria-hidden="true">
   </div>
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
-    <h2 class="max-w-xl font-display text-3xl text-grafito sm:text-5xl" data-reveal>
-      {t.heading}
-    </h2>
+    <T
+      as="h2"
+      es={t.es.heading}
+      en={t.en.heading}
+      lang={lang}
+      class="block max-w-xl font-display text-3xl text-grafito sm:text-5xl"
+      data-reveal
+    />
 
     <div class="mx-auto w-[220px] shrink-0 sm:mx-0">
       <!-- Mockup de celular: HTML/CSS sobre la escena, no una imagen. -->
@@ -49,15 +59,15 @@ const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
           </svg>
           <dl class="mt-4 space-y-3 text-xs">
             <div class="flex items-center justify-between">
-              <dt class="font-semibold text-grafito">{planoLabel}</dt>
+              <T as="dt" es={planoEs} en={planoEn} lang={lang} class="block font-semibold text-grafito" />
               <dd class="h-2 w-10 rounded-full bg-grafito/15" aria-hidden="true"></dd>
             </div>
             <div class="flex items-center justify-between">
-              <dt class="font-semibold text-grafito">{precioLabel}</dt>
+              <T as="dt" es={precioEs} en={precioEn} lang={lang} class="block font-semibold text-grafito" />
               <dd class="h-2 w-14 rounded-full bg-grafito/15" aria-hidden="true"></dd>
             </div>
             <div>
-              <dt class="font-semibold text-grafito">{pagosLabel}</dt>
+              <T as="dt" es={pagosEs} en={pagosEn} lang={lang} class="block font-semibold text-grafito" />
               <dd class="mt-1.5 flex gap-1" aria-hidden="true">
                 <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
                 <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
@@ -68,13 +78,15 @@ const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
         </div>
       </div>
 
-      <p
+      <T
+        as="p"
+        es={t.es.whatsappMessage}
+        en={t.en.whatsappMessage}
+        lang={lang}
         data-reveal
         style="--d:320ms"
-        class="mt-4 max-w-[220px] rounded-2xl rounded-bl-sm bg-grafito px-4 py-3 text-sm text-arena shadow-lg"
-      >
-        {t.whatsappMessage}
-      </p>
+        class="mt-4 block max-w-[220px] rounded-2xl rounded-bl-sm bg-grafito px-4 py-3 text-sm text-arena shadow-lg"
+      />
     </div>
   </div>
 </Scene>
