@@ -31,10 +31,11 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Barra de scroll a tono con la marca en vez de la del sistema. */
+/* Barra de scroll con los tonos cálidos de la marca (latón sobre arena) en vez de la del
+   sistema. */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-piedra) var(--color-arena);
+  scrollbar-color: var(--color-laton) var(--color-arena);
 }
 
 ::-webkit-scrollbar {
@@ -46,13 +47,13 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-piedra);
+  background-color: var(--color-laton);
   border-radius: 9999px;
   border: 2px solid var(--color-arena);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-laton);
+  background-color: var(--color-tinta-suave);
 }
 
 h1,
