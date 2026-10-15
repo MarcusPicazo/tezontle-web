@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initScrollWorld } from './scrollWorld';
 import { initHeader } from './header';
 import { initI18n } from './i18n';
+import { initScrollHint } from './scrollHint';
 
 declare global {
   interface Window {
@@ -44,6 +45,7 @@ document.querySelectorAll('[data-reveal]:not([data-pin-reveal])').forEach((el) =
 
 initI18n();
 initHeader(reduceMotion);
+initScrollHint();
 
 // Recorridos con video (SPEC §3 y §4): la página puede tener más de uno. En modo capturas
 // fijas (ver Layout.astro) no se inicializan: ya se ven las imágenes fijas de cada escena.

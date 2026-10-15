@@ -11,6 +11,7 @@ export interface Dictionary {
     skipToContent: string;
     switchTo: string;
     switchToLabel: string;
+    scrollHint: string;
   };
   progress: {
     label: string;

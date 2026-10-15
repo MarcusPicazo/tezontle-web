@@ -4,7 +4,8 @@ import { switchLanguage } from './i18n';
 
 // Header flotante (SPEC, técnica de E:\referencias\taylor-website\js\animations.js): vidrio
 // esmerilado al pasar 50px de scroll, transparente arriba. Mismo patrón que el resto del
-// sitio: toggleClass en vez de un listener de scroll a mano.
+// sitio: toggleClass en vez de un listener de scroll a mano. Una sola apariencia siempre,
+// igual que la referencia: no cambia de tinte según la escena de atrás.
 export function initHeader(reduceMotion: boolean) {
   const header = document.getElementById('site-header');
   if (!header) return;
@@ -14,26 +15,6 @@ export function initHeader(reduceMotion: boolean) {
     end: 99999,
     toggleClass: { className: 'floating-nav', targets: header },
   });
-
-  // Header oscuro sobre las escenas oscuras (SPEC: la banda noche y la piedra, marcadas con
-  // data-header-theme="dark" en Scene.astro): detecta si esa escena toca la franja de arriba,
-  // del alto del propio header, no el centro de la pantalla como el raíl de progreso.
-  const darkScenes = document.querySelectorAll<HTMLElement>('[data-header-theme="dark"]');
-  if (darkScenes.length) {
-    const darkObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            header.classList.add('header-dark');
-            return;
-          }
-        }
-        header.classList.remove('header-dark');
-      },
-      { rootMargin: '0px 0px -92% 0px' },
-    );
-    darkScenes.forEach((scene) => darkObserver.observe(scene));
-  }
 
   // Panel de idioma: el propio header se expande (SPEC), no un menú flotante encima.
   const trigger = document.getElementById('lang-trigger');
