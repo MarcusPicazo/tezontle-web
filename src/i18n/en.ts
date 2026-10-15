@@ -19,12 +19,20 @@ export const en: Dictionary = {
     sectionsLabel: 'Sections',
     links: {
       showroom: '3D showroom',
+      paquete: 'The package',
       comoTrabajamos: 'How we work',
       contacto: 'Contact',
     },
   },
   progress: {
     label: 'Tour progress',
+  },
+  rail: {
+    inicio: 'Home',
+    showroom: 'Showroom',
+    paquete: 'Package',
+    proceso: 'Process',
+    contacto: 'Contact',
   },
   scenes: {
     piedra: {
@@ -53,20 +61,67 @@ export const en: Dictionary = {
       heading: 'Your team marks units reserved or sold, and every screen updates.',
       tag: 'Sales panel',
     },
-    historia: {
-      railLabel: 'The story',
-      heading: "And a cinematic site that tells your project's story.",
-      tag: 'Landing',
+    paquete: {
+      railLabel: 'The package',
+      heading: 'The complete package',
+      intro: "Three pieces that work together, built with your project: your renders, floor plans, prices and brand.",
+      blocks: [
+        {
+          tag: '01',
+          title: '3D model',
+          body: 'Your tower in interactive 3D. Buyers explore it floor by floor, see plans, prices and real availability, and message you on WhatsApp with the exact unit.',
+          bullets: ['Works on phone and desktop', 'Live availability by color', 'Per-unit WhatsApp contact'],
+          button: 'Visit demo',
+        },
+        {
+          tag: '02',
+          title: 'Sales panel',
+          body: 'Where your team controls inventory: update prices, mark units reserved or sold, and the 3D model updates instantly.',
+          bullets: ['User access for your team', 'Real-time changes', 'No more availability spreadsheets'],
+          button: 'Request a panel demo',
+        },
+        {
+          tag: '03',
+          title: 'Cinematic landing',
+          body: "Your development's site: a video tour that moves with the scroll, with your renders, amenities and location, leading straight to the 3D model.",
+          bullets: ['Scroll-driven video', 'Views with your renders', 'Direct link to the 3D model and WhatsApp'],
+          button: 'Visit demo',
+        },
+      ],
+      table: {
+        essentialLabel: 'Essential',
+        completeLabel: 'Complete',
+        rows: ['3D model with WhatsApp contact', 'Sales panel', 'Cinematic landing and render views'],
+        thirdRowEssential: 'Add-on',
+      },
+      quoteNote: 'Quote within 24 hours based on your project.',
+      quoteButton: 'Request a quote',
+      demoLink: 'See the demo',
     },
     comoTrabajamos: {
       railLabel: 'How we work',
       heading: 'How we work',
       steps: ['Send us renders, plans and prices.', 'Ready in two weeks.', 'Published with your brand.'],
     },
-    nombre: {
-      railLabel: 'The name',
+    contacto: {
+      railLabel: 'Contact',
       heading:
         "Tezontle is the volcanic stone that built Mexico City. We lay the digital foundation to sell what's being built.",
+      form: {
+        title: "Let's talk about your project",
+        name: 'Name',
+        company: 'Developer',
+        city: 'Project city',
+        unitsLabel: 'Number of units',
+        unitsOptions: ['Fewer than 50', '50 to 150', 'More than 150'],
+        phone: 'WhatsApp or phone',
+        message: 'Message',
+        messageOptional: 'Message (optional)',
+        submit: 'Send via WhatsApp',
+        required: 'Required field',
+        agendar: 'Book a call',
+        replyNote: 'We reply within 24 hours.',
+      },
     },
     cierre: {
       railLabel: 'Closing',

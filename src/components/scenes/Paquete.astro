@@ -1,0 +1,192 @@
+---
+import Scene from '../Scene.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
+import type { Dictionary } from '../../i18n/types';
+import { site, buildWhatsappHref } from '../../data/site';
+import { publicFileExists } from '../../utils/publicFile';
+
+interface Props {
+  lang: Dictionary['lang'];
+}
+
+const { lang } = Astro.props;
+const t = { es: es.scenes.paquete, en: en.scenes.paquete };
+
+// Rutas fijas (SPEC): los archivos todavía no existen, el usuario los agrega después. Sin
+// video → póster; sin póster tampoco → marco piedra con el nombre del servicio (nunca un
+// nombre de archivo ni texto técnico visible).
+const assets = [
+  { video: '/video/paquete-maqueta.mp4', poster: '/paquete/maqueta.jpg' },
+  { video: '/video/paquete-panel.mp4', poster: '/paquete/panel.jpg' },
+  { video: '/video/paquete-landing.mp4', poster: '/paquete/landing.jpg' },
+] as const;
+
+const panelDemoHref = buildWhatsappHref('Hola, quiero ver una demo del panel de ventas de Tezontle 3D.');
+
+const blocks = t.es.blocks.map((_, i) => {
+  const hasVideo = publicFileExists(assets[i].video);
+  const hasPoster = publicFileExists(assets[i].poster);
+  const href = [site.demoMaquetaUrl, panelDemoHref, site.demoLandingUrl][i];
+  // Botón "muerto" solo si el placeholder sigue en "#": en ese caso cae a #contacto en vez
+  // de no llevar a ningún lado (SPEC: "ningún botón muerto"). El de WhatsApp (panel) siempre
+  // tiene destino real, no depende de ningún placeholder.
+  const isWhatsapp = i === 1;
+  return {
+    ...assets[i],
+    hasVideo,
+    hasPoster,
+    href: isWhatsapp || href !== '#' ? href : '#contacto',
+    external: isWhatsapp || href !== '#',
+  };
+});
+---
+
+<Scene id="paquete" tone="arena">
+  <T
+    as="h2"
+    es={t.es.heading}
+    en={t.en.heading}
+    lang={lang}
+    class="block max-w-2xl font-display text-3xl text-grafito sm:text-5xl"
+    data-reveal
+  />
+  <T
+    as="p"
+    es={t.es.intro}
+    en={t.en.intro}
+    lang={lang}
+    class="mt-5 block max-w-xl text-lg text-tinta-suave"
+    data-reveal
+    style="--d:100ms"
+  />
+
+  <div class="mt-16 flex flex-col gap-20">
+    {
+      t.es.blocks.map((blockEs, i) => {
+        const blockEn = t.en.blocks[i];
+        const asset = blocks[i];
+        return (
+          <article
+            data-reveal
+            class:list={[
+              'flex flex-col gap-8 lg:items-center lg:gap-12',
+              i % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row',
+            ]}
+          >
+            <div class="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-piedra/15 shadow-xl shadow-noche/10 lg:w-1/2">
+              {asset.hasVideo ? (
+                <video
+                  data-lazy-video
+                  class="h-full w-full object-cover"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster={asset.hasPoster ? asset.poster : undefined}
+                >
+                  <source data-src={asset.video} type="video/mp4" />
+                </video>
+              ) : asset.hasPoster ? (
+                <img src={asset.poster} alt="" class="h-full w-full object-cover" loading="lazy" />
+              ) : (
+                <div class="flex h-full w-full flex-col items-center justify-center gap-3 bg-piedra/20 px-6 text-center">
+                  <svg viewBox="0 0 48 48" class="h-10 w-10 text-piedra" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <rect x="6" y="10" width="36" height="28" rx="3" />
+                    <path d="M19 20.5 29 24 19 27.5Z" fill="currentColor" stroke="none" />
+                  </svg>
+                  <T as="p" es={blockEs.title} en={blockEn.title} lang={lang} class="block font-display text-lg text-tinta-suave" />
+                </div>
+              )}
+            </div>
+
+            <div class="lg:w-1/2">
+              <span class="inline-flex items-center gap-2 rounded-full bg-laton/20 px-3 py-1 text-sm font-semibold text-grafito">
+                {blockEs.tag}
+              </span>
+              <T as="h3" es={blockEs.title} en={blockEn.title} lang={lang} class="mt-4 block font-display text-2xl text-grafito sm:text-3xl" />
+              <T as="p" es={blockEs.body} en={blockEn.body} lang={lang} class="mt-3 block text-tinta-suave" />
+              <ul class="mt-5 space-y-2">
+                {blockEs.bullets.map((bulletEs, bi) => (
+                  <li class="flex items-start gap-2.5 text-sm text-grafito">
+                    <svg viewBox="0 0 16 16" class="mt-0.5 h-4 w-4 shrink-0 text-laton" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M3 8.5 L6.5 12 L13 4.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <T es={bulletEs} en={blockEn.bullets[bi]} lang={lang} />
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={asset.href}
+                target={asset.external ? '_blank' : undefined}
+                rel={asset.external ? 'noopener noreferrer' : undefined}
+                data-analytics-event={`Paquete ${blockEs.tag}`}
+                class="btn btn-ghost-dark mt-6"
+              >
+                <T es={blockEs.button} en={blockEn.button} lang={lang} />
+              </a>
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+
+  <div data-reveal class="mt-20 overflow-hidden rounded-2xl bg-cal ring-1 ring-grafito/10">
+    <table class="w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-grafito/10">
+          <th class="px-5 py-4 font-medium text-tinta-suave"></th>
+          <th class="px-5 py-4 text-center font-display text-base text-grafito">
+            <T es={t.es.table.essentialLabel} en={t.en.table.essentialLabel} lang={lang} />
+          </th>
+          <th class="px-5 py-4 text-center font-display text-base text-grafito">
+            <T es={t.es.table.completeLabel} en={t.en.table.completeLabel} lang={lang} />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          t.es.table.rows.map((rowEs, i) => (
+            <tr class="border-b border-grafito/10 last:border-0">
+              <td class="px-5 py-4 text-grafito">
+                <T es={rowEs} en={t.en.table.rows[i]} lang={lang} />
+              </td>
+              <td class="px-5 py-4 text-center">
+                {i === 2 ? (
+                  <span class="text-xs font-semibold text-tinta-suave">
+                    <T es={t.es.table.thirdRowEssential} en={t.en.table.thirdRowEssential} lang={lang} />
+                  </span>
+                ) : (
+                  <svg viewBox="0 0 16 16" class="mx-auto h-4 w-4 text-laton" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M3 8.5 L6.5 12 L13 4.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                )}
+              </td>
+              <td class="px-5 py-4 text-center">
+                <svg viewBox="0 0 16 16" class="mx-auto h-4 w-4 text-laton" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M3 8.5 L6.5 12 L13 4.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div data-reveal class="mt-8 flex flex-wrap items-center gap-5">
+    <p class="text-sm text-tinta-suave">
+      <T es={t.es.quoteNote} en={t.en.quoteNote} lang={lang} />
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a href="#contacto" data-analytics-event="Pedir cotización" class="btn btn-primary">
+        <T es={t.es.quoteButton} en={t.en.quoteButton} lang={lang} />
+      </a>
+      <a href={site.demoUrl === '#' ? '#contacto' : site.demoUrl} data-analytics-event="Ver demo (paquete)" class="btn btn-ghost-dark">
+        <T es={t.es.demoLink} en={t.en.demoLink} lang={lang} />
+      </a>
+    </div>
+  </div>
+</Scene>

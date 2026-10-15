@@ -6,6 +6,9 @@ import { initHeader } from './header';
 import { initI18n } from './i18n';
 import { initScrollHint } from './scrollHint';
 import { initCierrePin } from './cierrePin';
+import { initLazyVideos } from './lazyVideo';
+import { initContactForm } from './contactForm';
+import { sceneToGroup, type SceneId } from '../data/scenes';
 
 declare global {
   interface Window {
@@ -52,23 +55,35 @@ initScrollHint();
 // fijas (ver Layout.astro) no se inicializan: ya se ven las imágenes fijas de cada escena.
 if (!document.documentElement.classList.contains('stills')) {
   document.querySelectorAll<HTMLElement>('[data-world]').forEach((world) => initScrollWorld(world, reduceMotion));
+  initLazyVideos();
 }
 
-// Raíl de progreso: marca el punto activo según la escena visible en el centro de la pantalla.
+initContactForm();
+
+// Raíl de progreso + enlaces del header: un solo observer prende el punto del raíl Y el
+// enlace del header a la vez (mismo grupo, src/data/scenes.ts: sceneToGroup), según qué
+// escena esté en el centro de la pantalla.
 const railDots = new Map<string, HTMLElement>();
 document.querySelectorAll<HTMLElement>('[data-rail-dot]').forEach((dot) => {
-  const target = dot.dataset.railDot;
-  if (target) railDots.set(target, dot);
+  const group = dot.dataset.railDot;
+  if (group) railDots.set(group, dot);
+});
+
+const navLinks = new Map<string, HTMLElement>();
+document.querySelectorAll<HTMLElement>('[data-nav-link]').forEach((link) => {
+  const group = link.dataset.navLink;
+  if (group) navLinks.set(group, link);
 });
 
 const scenes = document.querySelectorAll<HTMLElement>('[data-scene]');
-if (scenes.length && railDots.size) {
+if (scenes.length && (railDots.size || navLinks.size)) {
   const progress = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        const dot = railDots.get(entry.target.id);
-        if (!dot) continue;
-        dot.classList.toggle('is-active', entry.isIntersecting);
+        const group = sceneToGroup[entry.target.id as SceneId];
+        if (!group) continue;
+        railDots.get(group)?.classList.toggle('is-active', entry.isIntersecting);
+        navLinks.get(group)?.classList.toggle('is-active', entry.isIntersecting);
       }
     },
     { rootMargin: '-45% 0px -45% 0px' },

@@ -35,7 +35,8 @@ Nada de fondos oscuros fuera de lo que dice la tabla.
 
 ## 3. Recorrido (escenas del scroll) — textos en español / inglés
 Texto a la izquierda, imagen/video ocupando la pantalla detrás (los encuadres dejan espacio
-vacío a la izquierda para el texto). Raíl de progreso lateral en escritorio.
+vacío a la izquierda para el texto). Raíl de progreso lateral en escritorio: 5 puntos
+agrupados (no uno por escena), sincronizados con los enlaces del header — ver más abajo.
 
 1. **Piedra** — imagen `1-piedra`: bloques de tezontle sueltos sobre fondo arena.
    ES: "Sus compradores eligen su departamento desde el celular."
@@ -58,21 +59,50 @@ vacío a la izquierda para el texto). Raíl de progreso lateral en escritorio.
    ES: "Su equipo marca apartado o vendido, y se actualiza en todas las pantallas." Etiqueta: "Panel de ventas".
    EN: "Your team marks units reserved or sold, and every screen updates." Tag: "Sales panel".
    Durante 3–5 el fondo es el último cuadro de `clip-2` (la torre completa), un poco atenuado.
-6. **La historia** — banda noche con el video `aura-recorrido` de la landing de Aura.
-   ES: "Y un sitio cinematográfico que cuenta su proyecto." Etiqueta: "Landing".
-   EN: "And a cinematic site that tells your project's story."
+6. **El paquete** (`#paquete`) — fondo arena. Título "El paquete completo" / "The complete
+   package" + entrada ("Tres piezas que trabajan juntas…" / "Three pieces that work
+   together…"). Tres bloques alternados (video 16:10 a un lado, texto al otro; en móvil
+   video arriba y texto abajo), cada uno con etiqueta, título, 1–2 frases, 3 viñetas y un
+   botón:
+   - **01 Maqueta 3D** — "Su torre en 3D, interactiva…" · botón "Visitar demo" → `demoMaquetaUrl`.
+   - **02 Panel de ventas** — "Donde su equipo controla el inventario…" · botón "Solicitar
+     demo del panel" → WhatsApp con mensaje propio.
+   - **03 Landing cinematográfica** — "El sitio de su desarrollo…" (aquí vive ahora el video
+     `aura-recorrido`, antes escena "La historia") · botón "Visitar demo" → `demoLandingUrl`.
+   Videos en `public/video/paquete-{maqueta,panel,landing}.mp4` + pósteres en
+   `public/paquete/{maqueta,panel,landing}.jpg` (no existen todavía — sin video cae al
+   póster, sin póster a un marco piedra con el nombre del servicio). Debajo, tabla
+   Esencial/Completo sin precios (maqueta+WhatsApp y panel en ambas columnas; landing
+   "Adicional" en Esencial, incluida en Completo) + nota de cotización en 24h, botón
+   "Pedir cotización" (→ `#contacto`) y link "Ver la demo". Nunca la palabra "CRM".
 7. **Cómo trabajamos** — tres tarjetas cal sobre arena.
    ES: "1. Nos envía renders, planos y precios. 2. En dos semanas está listo. 3. Lo publicamos con su marca."
    EN: "1. Send us renders, plans and prices. 2. Ready in two weeks. 3. Published with your brand."
-8. **El nombre** — imagen `5-piedra-detalle` (textura de tezontle) a pantalla completa, con un
-   velo claro para que el texto grafito se lea.
-   ES: "El tezontle es la piedra volcánica con la que se levantó la Ciudad de México. Nosotros
-   ponemos la base digital para vender lo que se construye."
-   EN: "Tezontle is the volcanic stone that built Mexico City. We lay the digital foundation to sell what's being built."
+8. **Contacto** (`#contacto`, antes "El nombre") — imagen `5-piedra-detalle` a pantalla
+   completa con degradado oscuro. Texto de la piedra a la izquierda (se conserva):
+   ES: "El tezontle es la piedra volcánica con la que se levantó la Ciudad de México.
+   Nosotros ponemos la base digital para vender lo que se construye."
+   EN: "Tezontle is the volcanic stone that built Mexico City. We lay the digital
+   foundation to sell what's being built."
+   A la derecha (abajo en móvil), tarjeta de vidrio oscuro "Hablemos de su proyecto" con
+   formulario (Nombre, Desarrolladora, Ciudad del proyecto, Número de departamentos,
+   WhatsApp o teléfono, Mensaje opcional) — botón "Enviar por WhatsApp" arma el mensaje con
+   los datos y abre `wa.me`, sin backend ni datos guardados en ningún servidor. Debajo:
+   "Agendar llamada", correo, aviso de respuesta en 24 horas.
 9. **Cierre** — `clip-3` con el scroll: la luz pasa de día a atardecer sobre la torre.
    ES: "Véala funcionando." Botones: "Ver la demo" · "Agendar llamada" · WhatsApp.
    EN: "See it live." Buttons: "See the demo" · "Book a call" · WhatsApp.
 Pie: aviso de privacidad, © Tezontle 3D, selector ES/EN, correo.
+
+### Header y raíl
+Header: El showroom 3D (`#torre`) · El paquete (`#paquete`) · Cómo trabajamos
+(`#comoTrabajamos`) · Contacto (`#contacto`) + botón "Ver la demo". El raíl lateral agrupa
+las 9 escenas en 5 puntos sincronizados con el header (mismo observer): Inicio (escenas
+1–2, = logo) · Showroom (3–5) · Paquete · Proceso (Cómo trabajamos) · Contacto (Contacto +
+Cierre + pie). Al entrar una escena en el centro de la pantalla se marcan a la vez el punto
+del raíl y el enlace del header de su grupo (texto al 100% + línea latón fija debajo);
+nombre del grupo visible al pasar el cursor o enfocar el punto. Clic en cualquiera de los
+dos usa scroll suave con aceleración/desaceleración (Lenis). Se oculta en móvil.
 
 ## 4. Imágenes y videos
 ### Archivos (el material original vive en E:\material tezontle web\)
@@ -97,7 +127,11 @@ Pie: aviso de privacidad, © Tezontle 3D, selector ES/EN, correo.
 
 ## 5. Configuración (src/data/site.ts)
 - demoUrl: URL de la demo de Aura (placeholder "#").
+- demoMaquetaUrl / demoLandingUrl: demos de la maqueta 3D y la landing (sección "El
+  paquete"), placeholder "#".
 - whatsapp: número y mensaje ("Hola, quiero ver una demo de Tezontle 3D."), placeholder.
+  buildWhatsappHref(mensaje) arma enlaces de wa.me con mensajes a la medida (demo del panel
+  en "El paquete", formulario de #contacto).
 - calendarUrl: enlace de Cal.com o Calendly, placeholder.
 - email: hola@tezontle3d.com (placeholder).
 - Todos los textos ES/EN en src/i18n/es.ts y en.ts.
