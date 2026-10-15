@@ -55,6 +55,10 @@ const finishSwitch = (lang: 'es' | 'en') => {
   // recorrido con scroll se desincroniza de ahí en adelante.
   window.tezontleLenis?.resize();
   ScrollTrigger.refresh();
+  // Algunos elementos reconstruyen su contenido tras el barrido (p. ej. las palabras sueltas
+  // del título de la escena 9, ver src/scripts/cierrePin.ts): el innerHTML ya quedó en el
+  // idioma nuevo arriba, así que este es el momento correcto para que lo vuelvan a armar.
+  window.dispatchEvent(new Event('tezontle:langswitch'));
 };
 
 export function switchLanguage(newLang: 'es' | 'en', reduceMotion: boolean) {

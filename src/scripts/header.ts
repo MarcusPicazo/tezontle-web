@@ -1,4 +1,3 @@
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { switchLanguage } from './i18n';
 
@@ -16,7 +15,9 @@ export function initHeader(reduceMotion: boolean) {
     toggleClass: { className: 'floating-nav', targets: header },
   });
 
-  // Panel de idioma: el propio header se expande (SPEC), no un menú flotante encima.
+  // Panel de idioma: una tarjeta propia anclada bajo el botón (LanguageSwitch.astro hace la
+  // transición entera en CSS, con opacidad y escala — no hace falta GSAP aquí), no el header
+  // completo expandiéndose.
   const trigger = document.getElementById('lang-trigger');
   const panel = document.getElementById('lang-panel');
   if (!trigger || !panel) return;
@@ -28,16 +29,6 @@ export function initHeader(reduceMotion: boolean) {
     open = next;
     header.classList.toggle('panel-open', open);
     trigger.setAttribute('aria-expanded', String(open));
-
-    if (reduceMotion) {
-      gsap.set(panel, { height: open ? 'auto' : 0 });
-      return;
-    }
-    if (open) {
-      gsap.fromTo(panel, { height: 0 }, { height: panel.scrollHeight, duration: 0.5, ease: 'power3.out' });
-    } else {
-      gsap.to(panel, { height: 0, duration: 0.4, ease: 'power3.in' });
-    }
   };
 
   trigger.addEventListener('click', () => setOpen(!open));

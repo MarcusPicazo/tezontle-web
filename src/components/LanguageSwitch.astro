@@ -1,10 +1,9 @@
 ---
-// Panel de opciones del selector de idioma: vive como hermano de #header-row dentro de
-// #header-shell (Header.astro), para que sea el propio header el que se expanda hacia abajo
-// (SPEC), no un menú flotante encima del contenido. El botón que lo abre está en Header.astro;
-// aquí solo las dos opciones. El cambio real de texto lo hace src/scripts/i18n.ts (barrido,
-// técnica de E:\referencias\taylor-website\js\i18n.js); src/scripts/header.ts solo abre/cierra
-// esta tarjeta y llama a ese barrido cuando se elige una opción.
+// Panel de opciones del selector de idioma: tarjeta propia anclada bajo el botón (vive
+// dentro del div.relative que lo envuelve en Header.astro), no el header completo
+// expandiéndose. El cambio real de texto lo hace src/scripts/i18n.ts (barrido, técnica de
+// E:\referencias\taylor-website\js\i18n.js); src/scripts/header.ts solo abre/cierra esta
+// tarjeta (una clase, la transición es puro CSS) y llama a ese barrido al elegir una opción.
 import type { Dictionary } from '../i18n/types';
 
 interface Props {
@@ -19,8 +18,13 @@ const options = [
 ];
 ---
 
-<div id="lang-panel" role="listbox" aria-label="Idioma / Language" class="lang-panel">
-  <ul class="ml-auto flex w-full max-w-xs flex-col gap-1 p-2 sm:p-3">
+<div
+  id="lang-panel"
+  role="listbox"
+  aria-label="Idioma / Language"
+  class="lang-panel absolute top-[calc(100%+10px)] right-0 w-56 origin-top-right rounded-2xl p-1.5"
+>
+  <ul class="flex flex-col gap-1">
     {
       options.map((opt) => (
         <li>
@@ -34,7 +38,7 @@ const options = [
             <img src={opt.flag} alt="" aria-hidden="true" class="h-4 w-6 shrink-0 rounded-[2px] object-cover" />
             <span class="flex-1 font-medium">{opt.label}</span>
             <svg
-              class="lang-check h-4 w-4 shrink-0 text-rojo-tezontle"
+              class="lang-check h-4 w-4 shrink-0 text-laton"
               viewBox="0 0 16 16"
               fill="none"
               stroke="currentColor"
@@ -51,12 +55,22 @@ const options = [
 </div>
 
 <style>
-  /* Oculto por defecto; header.ts anima la altura con GSAP al abrir/cerrar (no con CSS puro)
-     para poder medir el alto real del contenido, que cambia entre ES y EN. */
+  /* Tarjeta propia, siempre oscura (igual que la píldora del header al pasar 50px), sin
+     depender de si el header está transparente arriba o no: flota con su propio fondo. */
   .lang-panel {
-    height: 0;
-    overflow: hidden;
+    background: color-mix(in oklab, var(--color-grafito) 90%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 20px 40px -8px rgba(21, 23, 28, 0.35);
     opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+    pointer-events: none;
+    transition:
+      opacity 250ms var(--ease-fluid),
+      transform 250ms var(--ease-fluid);
   }
 
   /* #site-header vive en Header.astro, fuera del alcance de este componente: sin :global()
@@ -64,20 +78,22 @@ const options = [
      #site-header real del DOM (tiene el scope de Header.astro, no el de este archivo). */
   :global(#site-header.panel-open) .lang-panel {
     opacity: 1;
+    transform: none;
+    pointer-events: auto;
   }
 
   .lang-option {
-    color: var(--header-ink);
+    color: var(--color-cal);
+    transition: background-color 200ms var(--ease-fluid);
   }
 
   .lang-option:hover,
   .lang-option:focus-visible {
-    background-color: var(--header-ink-soft);
+    background-color: rgba(255, 255, 255, 0.08);
   }
 
   .lang-option[aria-selected='true'] {
-    background-color: var(--color-arena);
-    color: var(--color-grafito);
+    background-color: rgba(255, 255, 255, 0.08);
   }
 
   .lang-check {
@@ -86,5 +102,12 @@ const options = [
 
   .lang-option[aria-selected='true'] .lang-check {
     opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lang-panel {
+      transition: opacity 150ms linear;
+      transform: none;
+    }
   }
 </style>

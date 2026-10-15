@@ -12,7 +12,10 @@ export const es: Dictionary = {
     skipToContent: 'Saltar al contenido',
     switchTo: 'EN',
     switchToLabel: 'Ver en inglés',
-    scrollHint: 'Sigue bajando',
+    scrollHint: {
+      hero: 'Empiece a bajar',
+      rest: 'Siga bajando',
+    },
     sectionsLabel: 'Secciones',
     links: {
       showroom: 'El showroom 3D',

@@ -1,9 +1,10 @@
 ---
 // Header flotante (técnica de E:\referencias\taylor-website: index.html #navbar-wrapper,
 // css/style.css #navbar/.floating-nav, js/animations.js el ScrollTrigger que pone esa
-// clase), adaptado a los tokens de Tezontle. Una sola apariencia siempre (igual que la
-// referencia): transparente arriba, vidrio esmerilado al pasar 50px — nunca cambia de tinte
-// según la escena de atrás. src/scripts/header.ts solo pone esa clase .floating-nav.
+// clase), adaptado a los tokens de Tezontle. Una sola versión oscura (vidrio grafito) para
+// todas las escenas: arriba del todo sigue transparente con texto grafito (va sobre la
+// escena 1, clara); al pasar 50px aparece la píldora y el texto cambia a cal con la misma
+// transición. src/scripts/header.ts solo pone la clase .floating-nav con el scroll.
 import type { Dictionary } from '../i18n/types';
 import LanguageSwitch from './LanguageSwitch.astro';
 import T from './T.astro';
@@ -22,73 +23,75 @@ const { dict } = Astro.props;
   <div id="header-shell" class="w-full max-w-[1200px]">
     <div id="header-row" class="flex items-center justify-between gap-4 px-4 sm:px-6">
       <a href={dict.lang === 'es' ? '/' : '/en/'} class="flex shrink-0 items-center" aria-label="Tezontle 3D">
-        <img src="/logo.svg" alt="" class="h-5 w-auto sm:h-6" />
+        <img src="/logo.svg" alt="" class="header-logo h-6 w-auto sm:h-7 lg:h-8" />
+        <img src="/logo-light.svg" alt="" aria-hidden="true" class="header-logo header-logo-light h-6 w-auto sm:h-7 lg:h-8" />
       </a>
 
-      <!-- Enlaces a secciones clave (SPEC: el header necesitaba "opciones", como el de
-           referencia/taylor-website). Ocultos hasta lg: el selector de idioma de este sitio
+      <!-- Enlaces a secciones clave. Ocultos hasta lg: el selector de idioma de este sitio
            ocupa más que el de la referencia, así que a md: todavía no cabían cómodos. -->
       <nav aria-label={dict.nav.sectionsLabel} class="hidden items-center gap-6 lg:flex">
-        <a href="#torre" class="nav-link text-sm font-medium whitespace-nowrap">
+        <a href="#torre" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.showroom} en={en.nav.links.showroom} lang={dict.lang} />
         </a>
-        <a href="#comoTrabajamos" class="nav-link text-sm font-medium whitespace-nowrap">
+        <a href="#comoTrabajamos" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.comoTrabajamos} en={en.nav.links.comoTrabajamos} lang={dict.lang} />
         </a>
-        <a href="#cierre" class="nav-link text-sm font-medium whitespace-nowrap">
+        <a href="#cierre" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.contacto} en={en.nav.links.contacto} lang={dict.lang} />
         </a>
       </nav>
 
       <div class="flex shrink-0 items-center gap-2 sm:gap-3">
-        <button
-          type="button"
-          id="lang-trigger"
-          aria-expanded="false"
-          aria-haspopup="listbox"
-          aria-controls="lang-panel"
-          class="lang-trigger flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold sm:px-3"
-        >
-          <img
-            id="lang-trigger-flag"
-            src={dict.lang === 'es' ? '/flags/mx.svg' : '/flags/gb.svg'}
-            data-flag-es="/flags/mx.svg"
-            data-flag-en="/flags/gb.svg"
-            alt=""
-            aria-hidden="true"
-            class="h-3.5 w-5 shrink-0 rounded-[2px] object-cover"
-          />
-          <span id="lang-trigger-code" data-code-es="ES" data-code-en="EN">{dict.lang === 'es' ? 'ES' : 'EN'}</span>
-          <svg
-            class="lang-chevron h-2.5 w-3 shrink-0 transition-transform duration-300"
-            viewBox="0 0 12 8"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            aria-hidden="true"
+        <div class="relative">
+          <button
+            type="button"
+            id="lang-trigger"
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-controls="lang-panel"
+            class="lang-trigger flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm font-semibold sm:px-3"
           >
-            <path d="M1 1.5 L6 6.5 L11 1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
+            <img
+              id="lang-trigger-flag"
+              src={dict.lang === 'es' ? '/flags/mx.svg' : '/flags/gb.svg'}
+              data-flag-es="/flags/mx.svg"
+              data-flag-en="/flags/gb.svg"
+              alt=""
+              aria-hidden="true"
+              class="h-3.5 w-5 shrink-0 rounded-[2px] object-cover"
+            />
+            <span id="lang-trigger-code" data-code-es="ES" data-code-en="EN">{dict.lang === 'es' ? 'ES' : 'EN'}</span>
+            <svg
+              class="lang-chevron h-2.5 w-3 shrink-0 transition-transform duration-300"
+              viewBox="0 0 12 8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+            >
+              <path d="M1 1.5 L6 6.5 L11 1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
 
-        <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary shrink-0 whitespace-nowrap">
+          <LanguageSwitch dict={dict} />
+        </div>
+
+        <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary shrink-0 whitespace-nowrap font-semibold">
           <T es={es.scenes.cierre.buttons.demo} en={en.scenes.cierre.buttons.demo} lang={dict.lang} />
         </a>
       </div>
     </div>
-
-    <LanguageSwitch dict={dict} />
   </div>
 </header>
 
 <style define:vars={{ ease: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
   #header-shell {
-    background: color-mix(in oklab, var(--color-cal) 0%, transparent);
+    background: transparent;
     backdrop-filter: blur(0px) saturate(100%);
     -webkit-backdrop-filter: blur(0px) saturate(100%);
     border: 1px solid transparent;
     border-radius: 9999px;
-    overflow: hidden;
+    box-shadow: none;
     transition:
       background-color 600ms var(--ease),
       border-color 600ms var(--ease),
@@ -96,41 +99,73 @@ const { dict } = Astro.props;
       border-radius 400ms var(--ease);
   }
 
-  #site-header.floating-nav #header-shell,
-  #site-header.panel-open #header-shell {
-    background: color-mix(in oklab, var(--color-cal) 65%, transparent);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border-color: color-mix(in oklab, var(--color-grafito) 8%, transparent);
-    box-shadow: 0 20px 40px -10px color-mix(in oklab, var(--color-grafito) 15%, transparent);
-  }
-
-  #site-header.panel-open #header-shell {
-    border-radius: 24px;
+  #site-header.floating-nav #header-shell {
+    background: color-mix(in oklab, var(--color-grafito) 72%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 12px 32px rgba(21, 23, 28, 0.18);
   }
 
   #header-row {
-    height: 76px;
+    height: 64px;
     transition: height 600ms var(--ease);
   }
 
   #site-header.floating-nav #header-row {
-    height: 60px;
+    height: 56px;
   }
 
-  /* Tinta del header: una sola, siempre (igual que la referencia de Taylor: nunca cambia
-     según lo que haya detrás). Las piezas hijas (LanguageSwitch.astro) leen estas variables. */
+  /* Tinta del header: grafito mientras es transparente (va sobre la escena 1, clara), cal
+     en cuanto aparece la píldora oscura — nunca según qué escena haya detrás, siempre según
+     este único estado de scroll. Las piezas hijas (LanguageSwitch.astro) leen estas
+     variables, así no hay que repetir la condición en cada una. */
   #site-header {
     --header-ink: var(--color-grafito);
     --header-ink-soft: color-mix(in oklab, var(--color-grafito) 8%, transparent);
+    --header-ink-soft-hover: color-mix(in oklab, var(--color-grafito) 14%, transparent);
+  }
+
+  #site-header.floating-nav {
+    --header-ink: var(--color-cal);
+    --header-ink-soft: rgba(255, 255, 255, 0.08);
+    --header-ink-soft-hover: rgba(255, 255, 255, 0.16);
+  }
+
+  .header-logo-light {
+    display: none;
+  }
+
+  #site-header.floating-nav .header-logo {
+    display: none;
+  }
+
+  #site-header.floating-nav .header-logo-light {
+    display: block;
   }
 
   .nav-link {
+    position: relative;
+    display: inline-block;
     color: var(--header-ink);
-    opacity: 0.7;
+    opacity: 0.85;
+    padding-bottom: 2px;
     transition:
       opacity 300ms var(--ease),
       color 400ms var(--ease);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--color-laton);
+    transition: right 300ms var(--ease);
   }
 
   .nav-link:hover,
@@ -138,17 +173,21 @@ const { dict } = Astro.props;
     opacity: 1;
   }
 
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    right: 0;
+  }
+
   .lang-trigger {
+    background-color: var(--header-ink-soft);
     color: var(--header-ink);
-    box-shadow: inset 0 0 0 1px var(--header-ink-soft);
     transition:
       color 400ms var(--ease),
-      box-shadow 400ms var(--ease),
-      background-color 300ms var(--ease);
+      background-color 400ms var(--ease);
   }
 
   .lang-trigger:hover {
-    background-color: var(--header-ink-soft);
+    background-color: var(--header-ink-soft-hover);
   }
 
   #site-header.panel-open .lang-chevron {

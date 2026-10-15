@@ -12,7 +12,10 @@ export const en: Dictionary = {
     skipToContent: 'Skip to content',
     switchTo: 'ES',
     switchToLabel: 'View in Spanish',
-    scrollHint: 'Keep scrolling',
+    scrollHint: {
+      hero: 'Start scrolling',
+      rest: 'Keep scrolling',
+    },
     sectionsLabel: 'Sections',
     links: {
       showroom: '3D showroom',

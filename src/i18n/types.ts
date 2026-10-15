@@ -11,7 +11,11 @@ export interface Dictionary {
     skipToContent: string;
     switchTo: string;
     switchToLabel: string;
-    scrollHint: string;
+    /** "Empiece a bajar" en la primera escena, "Siga bajando" en el resto — ver ScrollHint.astro. */
+    scrollHint: {
+      hero: string;
+      rest: string;
+    };
     sectionsLabel: string;
     /** Enlaces del header a secciones clave (SPEC: "necesita tener opciones", como el de Taylor). */
     links: {
