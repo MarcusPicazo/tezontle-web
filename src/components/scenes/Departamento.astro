@@ -45,24 +45,24 @@ const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
       >
         <div class="mx-auto mb-2 h-1.5 w-12 rounded-full bg-cal/30" aria-hidden="true"></div>
         <div class="rounded-[1.5rem] bg-cal px-4 py-4">
-          <!-- Plano arquitectónico simplificado (sala, dos recámaras, baño y arcos de
-               puerta), no un cuadrado con dos líneas: SPEC pidió que se leyera como un plano
-               real. -->
+          <!-- Plano arquitectónico de una sola habitación (muros gruesos, una puerta con
+               hoja y arco de giro, una ventana): el intento anterior con varias habitaciones
+               diminutas no se leía bien a este tamaño; esto sí se reconoce como plano real. -->
           <svg
             viewBox="0 0 64 44"
             class="h-11 w-16 text-piedra"
             fill="none"
             stroke="currentColor"
-            stroke-width="1.5"
             stroke-linecap="round"
             aria-hidden="true"
           >
-            <rect x="2" y="2" width="60" height="40" rx="1.5" stroke-width="2"></rect>
-            <path d="M24 2v12M24 24v18"></path>
-            <path d="M24 24h15M45 24v18"></path>
-            <path d="M24 12 A10 10 0 0 1 24 24" stroke-width="1"></path>
-            <path d="M45 24 A8 8 0 0 1 37 32" stroke-width="1"></path>
-            <rect x="48" y="28" width="9" height="8" rx="4" stroke-width="1"></rect>
+            <path d="M6 6H58" stroke-width="3"></path>
+            <path d="M6 6V38" stroke-width="3"></path>
+            <path d="M58 6V38" stroke-width="3"></path>
+            <path d="M6 38H24M40 38H58" stroke-width="3"></path>
+            <path d="M24 38V22" stroke-width="1.5"></path>
+            <path d="M40 38 A16 16 0 0 1 24 22" stroke-width="1"></path>
+            <path d="M28 3H46M28 3V6M46 3V6" stroke-width="1.5"></path>
           </svg>
           <dl class="mt-4 space-y-3 text-xs">
             <div class="flex items-center justify-between">
