@@ -25,23 +25,36 @@ const leftToRightDelays = (elements: Element[], totalSpread: number) => {
   return (_i: number, target: Element) => delays.get(target) ?? 0;
 };
 
-// Cambia el texto de un elemento y, si vive dentro de un botón (ancho "auto", a la medida
-// de su contenido), anima ese ancho de forma continua en vez de dejar que salte de golpe al
-// nuevo tamaño: "Ver la demo" y "See the demo" no miden lo mismo. clearProps al terminar
-// para que el botón vuelva a su ancho automático (si no, quedaría fijo en píxeles y no
-// respondería bien a un cambio de layout más adelante, como un resize).
+// Cambia el texto de un elemento y anima lo que cambie de tamaño en vez de dejarlo saltar
+// de golpe: un botón de ancho "auto" (p. ej. "Ver la demo"/"See the demo") anima su ancho;
+// un párrafo o viñeta que pasa a ocupar otro número de líneas en el otro idioma (el inglés
+// y el español casi nunca miden lo mismo) anima su alto — si no, todo lo que viene debajo
+// (viñetas, botón) se reacomoda de golpe y se pierde la sensación de orden del sitio.
+// clearProps al terminar para que el elemento vuelva a medirse solo (si no, quedaría fijo
+// en píxeles y no respondería bien a un cambio de layout más adelante, como un resize).
 const swapText = (el: HTMLElement, lang: 'es' | 'en') => {
   const html = lang === 'es' ? el.dataset.es : el.dataset.en;
   if (html === undefined) return;
+
   const btn = el.closest<HTMLElement>('.btn');
-  if (!btn) {
+  if (btn) {
+    const oldWidth = btn.getBoundingClientRect().width;
     el.innerHTML = html;
+    const newWidth = btn.getBoundingClientRect().width;
+    gsap.fromTo(btn, { width: oldWidth }, { width: newWidth, duration: 0.5, ease: 'power2.inOut', clearProps: 'width' });
     return;
   }
-  const oldWidth = btn.getBoundingClientRect().width;
+
+  const oldHeight = el.getBoundingClientRect().height;
   el.innerHTML = html;
-  const newWidth = btn.getBoundingClientRect().width;
-  gsap.fromTo(btn, { width: oldWidth }, { width: newWidth, duration: 0.5, ease: 'power2.inOut', clearProps: 'width' });
+  const newHeight = el.getBoundingClientRect().height;
+  if (Math.abs(newHeight - oldHeight) > 1) {
+    gsap.fromTo(
+      el,
+      { height: oldHeight, overflow: 'hidden' },
+      { height: newHeight, duration: 0.45, ease: 'power2.inOut', clearProps: 'height,overflow' },
+    );
+  }
 };
 
 const updateAria = (lang: 'es' | 'en') => {

@@ -10,7 +10,6 @@ import LanguageSwitch from './LanguageSwitch.astro';
 import T from './T.astro';
 import { es } from '../i18n/es';
 import { en } from '../i18n/en';
-import { site } from '../data/site';
 
 interface Props {
   dict: Dictionary;
@@ -88,7 +87,9 @@ const { dict } = Astro.props;
           <LanguageSwitch dict={dict} />
         </div>
 
-        <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary shrink-0 whitespace-nowrap font-semibold">
+        <!-- Lleva directo a "El paquete completo" (ahí están las demos reales de cada
+             pieza), no a site.demoUrl (sigue siendo placeholder "#"). -->
+        <a href="#paquete" data-analytics-event="Ver demo" class="btn btn-primary shrink-0 whitespace-nowrap font-semibold">
           <T es={es.scenes.cierre.buttons.demo} en={en.scenes.cierre.buttons.demo} lang={dict.lang} />
         </a>
       </div>

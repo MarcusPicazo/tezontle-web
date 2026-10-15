@@ -27,7 +27,7 @@ function initSmoothNav() {
     goTo(0);
   });
 
-  document.querySelectorAll<HTMLAnchorElement>('#site-header nav a[href^="#"], #progress-rail a[href^="#"]').forEach((link) => {
+  document.querySelectorAll<HTMLAnchorElement>('#site-header a[href^="#"], #progress-rail a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       const id = link.getAttribute('href')?.slice(1);
       const section = id ? document.getElementById(id) : null;
