@@ -16,7 +16,13 @@ export function initContactForm() {
     const fields = [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name]')];
     const lines = fields
       .map((field) => {
-        const value = field.value.trim();
+        // <select>: el value es una clave estable (units-0, units-1…), no texto — el
+        // mensaje debe llevar lo que el visitante ve en pantalla, en el idioma que esté
+        // viendo (la opción elegida ya cambia de idioma con el switch, ver Contacto.astro).
+        const value =
+          field instanceof HTMLSelectElement
+            ? (field.options[field.selectedIndex]?.textContent ?? '').trim()
+            : field.value.trim();
         if (!value) return null;
         const label = form.querySelector(`label[for="${field.id}"]`)?.textContent?.trim();
         return label ? `${label}: ${value}` : value;

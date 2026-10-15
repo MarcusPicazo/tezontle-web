@@ -73,10 +73,16 @@ const f = { es: t.es.form, en: t.en.form };
           <label for="contact-units" class="block text-sm font-medium text-cal/90">
             <T es={f.es.unitsLabel} en={f.en.unitsLabel} lang={lang} />
           </label>
+          <!-- value estable (no el texto visible): el texto de cada <option> sí cambia de
+               idioma con el switch (swapText en i18n.ts recorre .i18n-text, <option>
+               incluido), pero un <option> no puede llevar data-es/data-en en innerHTML Y un
+               value aparte sincronizado sin JS dedicado — contactForm.ts lee el TEXTO
+               visible de la opción elegida, no este value, así el mensaje de WhatsApp
+               siempre sale en el idioma que se ve en pantalla. -->
           <select id="contact-units" name="units" required class="contact-field mt-1.5">
             <option value="" disabled selected></option>
             {f.es.unitsOptions.map((optEs, i) => (
-              <option value={lang === 'es' ? optEs : f.en.unitsOptions[i]} data-es={optEs} data-en={f.en.unitsOptions[i]}>
+              <option value={`units-${i}`} class="i18n-text" data-es={optEs} data-en={f.en.unitsOptions[i]}>
                 {lang === 'es' ? optEs : f.en.unitsOptions[i]}
               </option>
             ))}
@@ -150,9 +156,18 @@ const f = { es: t.es.form, en: t.en.form };
     border-color: transparent;
   }
 
-  /* El <select> nativo no hereda el fondo oscuro en su lista desplegada en todos los
-     navegadores: forzamos un color de opción legible por si acaso. */
+  /* El <select> nativo no hereda el fondo oscuro de la tarjeta en su lista desplegada (la
+     pinta el sistema operativo, blanca por defecto): forzamos los mismos tonos grafito/cal
+     que el panel de idioma (LanguageSwitch.astro) para que no desentone. Soportado en
+     Chrome/Edge/Firefox; Safari sigue pintando su propio panel del sistema, sin romper
+     nada (el texto es legible de cualquier forma). */
   .contact-field option {
+    background-color: var(--color-grafito);
+    color: var(--color-cal);
+  }
+
+  .contact-field option:checked {
+    background-color: var(--color-laton);
     color: var(--color-grafito);
   }
 </style>
