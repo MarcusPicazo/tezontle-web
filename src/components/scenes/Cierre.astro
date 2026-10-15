@@ -19,18 +19,24 @@ const t = { es: es.scenes.cierre, en: en.scenes.cierre };
 
 <Scene id="cierre" tone="media" pin>
   <StillBackground src="/escenas/4-atardecer.jpg" />
+  <!-- Título, línea de progreso y botones ligados al scroll del fijado (no de golpe):
+       src/scripts/cierrePin.ts. data-pin-reveal los saca del IntersectionObserver genérico
+       de motion.ts; data-reveal es el respaldo con prefers-reduced-motion (fade simple, sin
+       palabra por palabra ni línea). -->
   <T
     as="h2"
+    id="cierre-title"
     es={t.es.heading}
     en={t.en.heading}
     lang={lang}
     class="block max-w-xl font-display text-4xl text-grafito sm:text-6xl"
     data-reveal
+    data-pin-reveal
   />
-  <!-- Entra hasta el último tramo del fijado (SPEC: escena 9), no desde el inicio como el
-       resto de [data-reveal]: src/scripts/motion.ts lo controla con el scroll, no con el
-       IntersectionObserver genérico. -->
-  <div data-reveal data-pin-reveal class="mt-10 flex flex-wrap gap-3">
+  <div id="cierre-progress" class="mt-6 h-px w-full max-w-xs rounded-full bg-grafito/15" aria-hidden="true">
+    <div id="cierre-progress-fill" class="h-full w-0 rounded-full bg-laton"></div>
+  </div>
+  <div id="cierre-buttons" data-reveal data-pin-reveal class="mt-8 flex flex-wrap gap-3">
     <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary">
       <T es={t.es.buttons.demo} en={t.en.buttons.demo} lang={lang} />
     </a>

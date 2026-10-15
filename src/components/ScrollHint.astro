@@ -1,8 +1,8 @@
 ---
-// Aviso de "sigue bajando": aparece cuando el usuario deja de hacer scroll y todavía falta
-// recorrido (src/scripts/scrollHint.ts mide la inactividad, no un IntersectionObserver —
-// aquí sí hace falta un listener de scroll real, no hay forma de detectar "dejó de moverse"
-// de otro modo). Se esconde apenas vuelve a hacer scroll o al llegar cerca del pie.
+// Aviso de "siga bajando" para toda la página (técnica de
+// E:\referencias\taylor-website: index.html #scroll-hint + js/main.js initScrollHint),
+// copiada y adaptada a los tokens de Tezontle. src/scripts/scrollHint.ts hace el mismo
+// setInterval(200ms) que la referencia para decidir si se muestra.
 import type { Dictionary } from '../i18n/types';
 import T from './T.astro';
 import { es } from '../i18n/es';
@@ -15,29 +15,32 @@ interface Props {
 const { dict } = Astro.props;
 ---
 
-<div id="scroll-hint" class="scroll-hint pointer-events-none fixed inset-x-0 bottom-6 z-40 flex justify-center sm:bottom-8" aria-hidden="true">
-  <div
-    class="flex items-center gap-2 rounded-full bg-cal/85 px-4 py-2 text-sm font-semibold text-grafito shadow-lg ring-1 ring-grafito/10 backdrop-blur-xl"
-  >
-    <T es={es.nav.scrollHint} en={en.nav.scrollHint} lang={dict.lang} />
-    <svg class="scroll-hint-arrow h-4 w-4 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M8 3v9M4 9l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path>
-    </svg>
-  </div>
+<div
+  id="scroll-hint"
+  class="scroll-hint pointer-events-none fixed inset-x-0 bottom-8 z-40 flex flex-col items-center gap-2 opacity-0 transition-opacity duration-700"
+  aria-hidden="true"
+>
+  <T
+    as="span"
+    id="scroll-hint-text"
+    es={es.nav.scrollHint.hero}
+    en={en.nav.scrollHint.hero}
+    lang={dict.lang}
+    data-hero-es={es.nav.scrollHint.hero}
+    data-hero-en={en.nav.scrollHint.hero}
+    data-rest-es={es.nav.scrollHint.rest}
+    data-rest-en={en.nav.scrollHint.rest}
+    class="block text-sm font-semibold tracking-[0.2em] text-grafito/60 uppercase"
+  />
+  <svg class="scroll-hint-arrow h-5 w-5 text-grafito/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
 </div>
 
 <style>
-  .scroll-hint {
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 500ms var(--ease-fluid),
-      transform 500ms var(--ease-fluid);
-  }
-
-  .scroll-hint.is-visible {
-    opacity: 1;
-    transform: none;
+  .scroll-hint.is-dark #scroll-hint-text,
+  .scroll-hint.is-dark .scroll-hint-arrow {
+    color: color-mix(in oklab, var(--color-cal) 70%, transparent);
   }
 
   .scroll-hint-arrow {

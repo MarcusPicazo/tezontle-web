@@ -5,6 +5,7 @@ import { initScrollWorld } from './scrollWorld';
 import { initHeader } from './header';
 import { initI18n } from './i18n';
 import { initScrollHint } from './scrollHint';
+import { initCierrePin } from './cierrePin';
 
 declare global {
   interface Window {
@@ -76,22 +77,9 @@ if (scenes.length && railDots.size) {
 }
 
 // Escena 9: va fijada (Scene.astro con `pin`) para que clip-3 tenga scroll de sobra y se
-// note el cambio de luz. El título entra al llegar como cualquier [data-reveal]; los
-// botones, en cambio, esperan al último tramo del fijado.
-const pinButtons = document.querySelector<HTMLElement>('#cierre [data-pin-reveal]');
-if (pinButtons) {
-  if (reduceMotion) {
-    pinButtons.classList.add('is-in');
-  } else {
-    ScrollTrigger.create({
-      trigger: '#cierre',
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: true,
-      onUpdate: (self) => pinButtons.classList.toggle('is-in', self.progress >= 0.7),
-    });
-  }
-}
+// note el cambio de luz. Título palabra por palabra, línea de progreso y entrada de los
+// botones, todo ligado al scroll (src/scripts/cierrePin.ts).
+initCierrePin(reduceMotion);
 
 // Punto de la fila enfocada en el mockup de laptop (escena 5): pasa de "disponible" a
 // "vendida" con el mismo scroll que recorre la escena.
