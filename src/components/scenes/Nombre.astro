@@ -15,7 +15,10 @@ const { t } = Astro.props;
        claro de las demás escenas con media. Arriba y abajo se desvanece hacia las escenas
        vecinas (cal antes, arena después) para que no se note un corte duro. -->
   <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-    <img src="/escenas/5-piedra-detalle.jpg" alt="" class="h-full w-full object-cover" loading="lazy" />
+    <!-- Sin loading="lazy": a diferencia de los fondos de StillBackground (ocultos hasta que
+         JS decide si hacen falta), esta imagen es el fondo real y siempre visible de la
+         escena; con lazy no siempre terminaba de bajar los 288 KB antes de llegar aquí. -->
+    <img src="/escenas/5-piedra-detalle.jpg" alt="" fetchpriority="low" class="h-full w-full object-cover" />
     <div
       class="absolute inset-0 bg-linear-to-r from-noche/70 from-0% via-noche/50 via-30% to-transparent to-70% sm:via-15% sm:to-40%"
     >

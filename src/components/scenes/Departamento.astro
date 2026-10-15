@@ -17,7 +17,9 @@ const [planoLabel, precioLabel, pagosLabel] = t.fichaLabels;
        HomeContent.astro): el fondo es el mismo fotograma fijo, sin cortes. StillBackground es
        solo el respaldo para cuando no hay ese mundo con video (sin JS o SPEC §4). -->
   <StillBackground src="/escenas/3-torre.jpg" />
-  <div class="absolute inset-0 -z-10 bg-linear-to-b from-transparent via-arena/55 via-50% to-arena/55" aria-hidden="true">
+  <!-- "Un poco atenuado" (SPEC), no borrado: la torre debe seguir viéndose casi como en la
+       escena 3; el celular resalta por su propia sombra, no porque el fondo desaparezca. -->
+  <div class="absolute inset-0 -z-10 bg-linear-to-b from-transparent via-arena/15 via-50% to-arena/15" aria-hidden="true">
   </div>
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
     <h2 class="max-w-xl font-display text-3xl text-grafito sm:text-5xl" data-reveal>
