@@ -52,7 +52,9 @@ const updateAria = (lang: 'es' | 'en') => {
 };
 
 const updateTrigger = (lang: 'es' | 'en') => {
+  const flag = document.getElementById('lang-trigger-flag') as HTMLImageElement | null;
   const code = document.getElementById('lang-trigger-code');
+  if (flag) flag.src = (lang === 'es' ? flag.dataset.flagEs : flag.dataset.flagEn) ?? flag.src;
   if (code) code.textContent = lang === 'es' ? (code.dataset.codeEs ?? 'ES') : (code.dataset.codeEn ?? 'EN');
   document.querySelectorAll<HTMLElement>('[data-lang-option]').forEach((opt) => {
     opt.setAttribute('aria-selected', String(opt.dataset.langOption === lang));
