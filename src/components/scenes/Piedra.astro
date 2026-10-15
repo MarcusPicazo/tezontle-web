@@ -1,5 +1,6 @@
 ---
 import Scene from '../Scene.astro';
+import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -9,7 +10,8 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="piedra" tone="arena">
+<Scene id="piedra" tone="media">
+  <StillBackground src="/escenas/1-piedra.jpg" />
   <p class="flex gap-1.5" aria-hidden="true" data-reveal>
     <span class="h-2 w-10 rounded-full bg-grafito/15"></span>
     <span class="h-2 w-10 rounded-full bg-laton"></span>

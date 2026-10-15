@@ -39,6 +39,20 @@ const organizationJsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
       document.documentElement.classList.add('js');
+      // SPEC §4: fallback a imágenes fijas por escena con prefers-reduced-motion, ahorro de
+      // datos o conexión lenta. Síncrono y en el <head> para que no haya parpadeo entre el
+      // fallback y el video.
+      (function () {
+        try {
+          var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var conn = navigator.connection;
+          var saveData = !!(conn && conn.saveData);
+          var slow = !!(conn && conn.effectiveType && /2g/.test(conn.effectiveType));
+          if (reduceMotion || saveData || slow) {
+            document.documentElement.classList.add('stills');
+          }
+        } catch (e) {}
+      })();
     </script>
     <title>{dict.meta.title}</title>
     <meta name="description" content={dict.meta.description} />

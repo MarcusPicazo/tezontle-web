@@ -9,9 +9,16 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<Scene id="nombre" tone="arena">
+<Scene id="nombre" tone="media">
+  <!-- Imagen a pantalla completa (SPEC §3 escena 8): es oscura, así que el texto va en cal
+       sobre un degradado oscuro del lado del texto, no sobre el velo claro de las demás
+       escenas con media. -->
+  <div class="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <img src="/escenas/5-piedra-detalle.jpg" alt="" class="h-full w-full object-cover" loading="lazy" />
+    <div class="absolute inset-0 bg-linear-to-r from-noche/80 from-5% via-noche/35 via-40% to-transparent to-75%"></div>
+  </div>
   <span aria-hidden="true" class="mb-8 block h-1.5 w-16 rounded-full bg-laton" data-reveal></span>
-  <p class="max-w-2xl font-display text-2xl text-grafito sm:text-4xl" data-reveal style="--d:120ms">
+  <p class="max-w-2xl font-display text-2xl text-cal sm:text-4xl" data-reveal style="--d:120ms">
     {t.heading}
   </p>
 </Scene>
