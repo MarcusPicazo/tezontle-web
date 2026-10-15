@@ -22,6 +22,8 @@ export const site = {
   calendarUrl: '#',
   // Placeholder: correo de contacto.
   email: 'hola@tezontle3d.com',
+  // Placeholder: LinkedIn de la empresa (pie de página).
+  linkedinUrl: '#',
 };
 
 export const whatsapp = {

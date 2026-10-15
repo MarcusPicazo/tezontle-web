@@ -134,9 +134,12 @@ export const es: Dictionary = {
     },
   },
   footer: {
+    tagline: 'Showroom virtual 3D con inventario en vivo para preventas.',
     privacy: 'Aviso de privacidad',
     rights: 'Todos los derechos reservados.',
     contactLabel: 'Escríbenos',
+    whatsappLabel: 'Escríbenos por WhatsApp',
+    linkedinLabel: 'Tezontle 3D en LinkedIn',
   },
   privacyPage: {
     title: 'Aviso de privacidad · Tezontle 3D',

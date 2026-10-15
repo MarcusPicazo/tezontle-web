@@ -8,6 +8,7 @@ import { initScrollHint } from './scrollHint';
 import { initCierrePin } from './cierrePin';
 import { initLazyVideos } from './lazyVideo';
 import { initContactForm } from './contactForm';
+import { initCustomSelect } from './customSelect';
 import { sceneToGroup, type SceneId } from '../data/scenes';
 
 declare global {
@@ -59,6 +60,7 @@ if (!document.documentElement.classList.contains('stills')) {
 }
 
 initContactForm();
+initCustomSelect('contact-units');
 
 // Raíl de progreso + enlaces del header: un solo observer prende el punto del raíl Y el
 // enlace del header a la vez (mismo grupo, src/data/scenes.ts: sceneToGroup), según qué
