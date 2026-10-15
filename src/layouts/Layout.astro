@@ -38,6 +38,11 @@ const organizationJsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
+      // El navegador restaura el scroll anterior al refrescar (scroll restoration nativo):
+      // en un sitio de una sola página con escenas fijadas, eso puede dejar al visitante a
+      // medio recorrido sin contexto. Siempre debe empezar desde arriba.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
       document.documentElement.classList.add('js');
       // SPEC §4: fallback a imágenes fijas por escena con prefers-reduced-motion, ahorro de
       // datos o conexión lenta. Síncrono y en el <head> para que no haya parpadeo entre el

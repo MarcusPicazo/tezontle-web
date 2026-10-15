@@ -22,7 +22,12 @@ const { dict } = Astro.props;
 <header id="site-header" class="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6 sm:px-6">
   <div id="header-shell" class="w-full max-w-[1200px]">
     <div id="header-row" class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6">
-      <a href={dict.lang === 'es' ? '/' : '/en/'} class="flex shrink-0 items-center justify-self-start" aria-label="Tezontle 3D">
+      <a
+        id="header-logo-link"
+        href={dict.lang === 'es' ? '/' : '/en/'}
+        class="flex shrink-0 items-center justify-self-start"
+        aria-label="Tezontle 3D"
+      >
         <img src="/logo.svg" alt="" class="header-logo h-6 w-auto sm:h-7 lg:h-8" />
         <img src="/logo-light.svg" alt="" aria-hidden="true" class="header-logo header-logo-light h-6 w-auto sm:h-7 lg:h-8" />
       </a>
