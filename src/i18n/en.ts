@@ -13,6 +13,12 @@ export const en: Dictionary = {
     switchTo: 'ES',
     switchToLabel: 'View in Spanish',
     scrollHint: 'Keep scrolling',
+    sectionsLabel: 'Sections',
+    links: {
+      showroom: '3D showroom',
+      comoTrabajamos: 'How we work',
+      contacto: 'Contact',
+    },
   },
   progress: {
     label: 'Tour progress',

@@ -25,6 +25,21 @@ const { dict } = Astro.props;
         <img src="/logo.svg" alt="" class="h-5 w-auto sm:h-6" />
       </a>
 
+      <!-- Enlaces a secciones clave (SPEC: el header necesitaba "opciones", como el de
+           referencia/taylor-website). Ocultos hasta lg: el selector de idioma de este sitio
+           ocupa más que el de la referencia, así que a md: todavía no cabían cómodos. -->
+      <nav aria-label={dict.nav.sectionsLabel} class="hidden items-center gap-6 lg:flex">
+        <a href="#torre" class="nav-link text-sm font-medium whitespace-nowrap">
+          <T es={es.nav.links.showroom} en={en.nav.links.showroom} lang={dict.lang} />
+        </a>
+        <a href="#comoTrabajamos" class="nav-link text-sm font-medium whitespace-nowrap">
+          <T es={es.nav.links.comoTrabajamos} en={en.nav.links.comoTrabajamos} lang={dict.lang} />
+        </a>
+        <a href="#cierre" class="nav-link text-sm font-medium whitespace-nowrap">
+          <T es={es.nav.links.contacto} en={en.nav.links.contacto} lang={dict.lang} />
+        </a>
+      </nav>
+
       <div class="flex shrink-0 items-center gap-2 sm:gap-3">
         <button
           type="button"
@@ -108,6 +123,19 @@ const { dict } = Astro.props;
   #site-header {
     --header-ink: var(--color-grafito);
     --header-ink-soft: color-mix(in oklab, var(--color-grafito) 8%, transparent);
+  }
+
+  .nav-link {
+    color: var(--header-ink);
+    opacity: 0.7;
+    transition:
+      opacity 300ms var(--ease),
+      color 400ms var(--ease);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    opacity: 1;
   }
 
   .lang-trigger {

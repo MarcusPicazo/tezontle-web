@@ -12,6 +12,13 @@ export interface Dictionary {
     switchTo: string;
     switchToLabel: string;
     scrollHint: string;
+    sectionsLabel: string;
+    /** Enlaces del header a secciones clave (SPEC: "necesita tener opciones", como el de Taylor). */
+    links: {
+      showroom: string;
+      comoTrabajamos: string;
+      contacto: string;
+    };
   };
   progress: {
     label: string;
