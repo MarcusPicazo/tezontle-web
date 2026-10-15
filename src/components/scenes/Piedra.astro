@@ -1,13 +1,17 @@
 ---
 import Scene from '../Scene.astro';
 import StillBackground from '../StillBackground.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
-  t: Dictionary['scenes']['piedra'];
+  lang: Dictionary['lang'];
 }
 
-const { t } = Astro.props;
+const { lang } = Astro.props;
+const t = { es: es.scenes.piedra, en: en.scenes.piedra };
 ---
 
 <Scene id="piedra" tone="media">
@@ -17,10 +21,22 @@ const { t } = Astro.props;
     <span class="h-2 w-10 rounded-full bg-laton"></span>
     <span class="h-2 w-10 rounded-full bg-grafito/15"></span>
   </p>
-  <h1 class="mt-8 max-w-2xl font-display text-4xl text-grafito sm:text-6xl" data-reveal style="--d:120ms">
-    {t.heading}
-  </h1>
-  <p class="mt-6 max-w-lg text-lg text-tinta-suave" data-reveal style="--d:260ms">
-    {t.sub}
-  </p>
+  <T
+    as="h1"
+    es={t.es.heading}
+    en={t.en.heading}
+    lang={lang}
+    class="mt-8 block max-w-2xl font-display text-4xl text-grafito sm:text-6xl"
+    data-reveal
+    style="--d:120ms"
+  />
+  <T
+    as="p"
+    es={t.es.sub}
+    en={t.en.sub}
+    lang={lang}
+    class="mt-6 block max-w-lg text-lg text-tinta-suave"
+    data-reveal
+    style="--d:260ms"
+  />
 </Scene>

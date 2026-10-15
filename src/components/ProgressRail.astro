@@ -1,6 +1,8 @@
 ---
 import type { Dictionary } from '../i18n/types';
 import { sceneOrder } from '../data/scenes';
+import { es } from '../i18n/es';
+import { en } from '../i18n/en';
 
 interface Props {
   dict: Dictionary;
@@ -21,6 +23,8 @@ const { dict } = Astro.props;
             href={`#${id}`}
             data-rail-dot={id}
             aria-label={dict.scenes[id].railLabel}
+            data-aria-es={es.scenes[id].railLabel}
+            data-aria-en={en.scenes[id].railLabel}
             class="rail-dot"
           />
         </li>

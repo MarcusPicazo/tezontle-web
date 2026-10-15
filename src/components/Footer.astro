@@ -1,6 +1,9 @@
 ---
 import type { Dictionary } from '../i18n/types';
 import { brand, site } from '../data/site';
+import T from './T.astro';
+import { es } from '../i18n/es';
+import { en } from '../i18n/en';
 
 interface Props {
   dict: Dictionary;
@@ -15,15 +18,17 @@ const altHref = dict.lang === 'es' ? '/en/' : '/';
 <footer class="relative z-10 border-t border-piedra/20 bg-cal px-6 py-10 text-grafito sm:px-10">
   <div class="mx-auto flex max-w-5xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
     <p class="font-display text-sm text-tinta-suave">
-      © {year} {brand.fullName}. {dict.footer.rights}
+      © {year} {brand.fullName}. <T es={es.footer.rights} en={en.footer.rights} lang={dict.lang} />
     </p>
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
       <a href={privacyHref} class="link decoration-grafito/30 hover:decoration-laton">
-        {dict.footer.privacy}
+        <T es={es.footer.privacy} en={en.footer.privacy} lang={dict.lang} />
       </a>
       <a href={`mailto:${site.email}`} class="link decoration-grafito/30 hover:decoration-laton">
-        {dict.footer.contactLabel}: {site.email}
+        <T es={es.footer.contactLabel} en={en.footer.contactLabel} lang={dict.lang} />: {site.email}
       </a>
+      <!-- Link directo a la ruta /en (SEO): independiente del barrido instantáneo del
+           header, siempre ofrece el idioma contrario al de ESTA página servida. -->
       <a
         href={altHref}
         aria-label={dict.nav.switchToLabel}

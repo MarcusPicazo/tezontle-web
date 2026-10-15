@@ -39,20 +39,20 @@ const atardecer = {
 <ProgressRail dict={dict} />
 <main id="contenido" class="relative z-10">
   <ScrollWorld frames={subida.frames} clips={subida.clips} eager>
-    <Piedra t={dict.scenes.piedra} />
-    <Cimientos t={dict.scenes.cimientos} />
-    <Torre t={dict.scenes.torre} />
+    <Piedra lang={dict.lang} />
+    <Cimientos lang={dict.lang} />
+    <Torre lang={dict.lang} />
     <!-- SPEC §3: durante 3-5 el fondo sigue siendo el último cuadro de clip-2 (la torre
          completa), un poco atenuado — por eso Departamento y Vendido van dentro de este
          mismo mundo en vez de tener el suyo. -->
-    <Departamento t={dict.scenes.departamento} />
-    <Vendido t={dict.scenes.vendido} />
+    <Departamento lang={dict.lang} />
+    <Vendido lang={dict.lang} />
   </ScrollWorld>
-  <Historia t={dict.scenes.historia} />
-  <ComoTrabajamos t={dict.scenes.comoTrabajamos} />
-  <Nombre t={dict.scenes.nombre} />
+  <Historia lang={dict.lang} />
+  <ComoTrabajamos lang={dict.lang} />
+  <Nombre lang={dict.lang} />
   <ScrollWorld frames={atardecer.frames} clips={atardecer.clips}>
-    <Cierre t={dict.scenes.cierre} />
+    <Cierre lang={dict.lang} />
   </ScrollWorld>
 </main>
 <Footer dict={dict} />

@@ -1,13 +1,17 @@
 ---
 import Scene from '../Scene.astro';
 import StillBackground from '../StillBackground.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
-  t: Dictionary['scenes']['vendido'];
+  lang: Dictionary['lang'];
 }
 
-const { t } = Astro.props;
+const { lang } = Astro.props;
+const t = { es: es.scenes.vendido, en: en.scenes.vendido };
 
 // El punto de la fila enfocada arranca "disponible"; src/scripts/motion.ts lo anima a
 // "vendida" con el mismo scroll que recorre esta escena.
@@ -23,15 +27,23 @@ const RESERVED_COLOR = '#d9a443';
   <div class="absolute inset-0 -z-10 bg-arena/15" aria-hidden="true"></div>
   <div class="flex flex-col gap-10 sm:flex-row sm:items-center sm:justify-between">
     <div class="max-w-xl">
-      <span
+      <T
+        as="span"
+        es={t.es.tag}
+        en={t.en.tag}
+        lang={lang}
         data-reveal
         class="inline-flex items-center gap-2 rounded-full bg-laton/20 px-3 py-1 text-sm font-semibold text-grafito"
-      >
-        {t.tag}
-      </span>
-      <h2 class="mt-6 font-display text-3xl text-grafito sm:text-5xl" data-reveal style="--d:120ms">
-        {t.heading}
-      </h2>
+      />
+      <T
+        as="h2"
+        es={t.es.heading}
+        en={t.en.heading}
+        lang={lang}
+        class="mt-6 block font-display text-3xl text-grafito sm:text-5xl"
+        data-reveal
+        style="--d:120ms"
+      />
     </div>
 
     <div class="mx-auto w-[300px] shrink-0 sm:mx-0" data-reveal style="--d:220ms">
@@ -39,7 +51,13 @@ const RESERVED_COLOR = '#d9a443';
            celular de Departamento para que resalte por sí mismo sobre la torre. -->
       <div class="rounded-t-xl border-[6px] border-b-0 border-grafito bg-grafito p-3 shadow-2xl shadow-noche">
         <div class="rounded-md bg-cal px-4 py-3">
-          <p class="text-[11px] font-semibold tracking-wide text-grafito/70 uppercase">{t.tag}</p>
+          <T
+            as="p"
+            es={t.es.tag}
+            en={t.en.tag}
+            lang={lang}
+            class="block text-[11px] font-semibold tracking-wide text-grafito/70 uppercase"
+          />
           <ul class="mt-3 space-y-1.5 text-sm text-grafito">
             <li class="flex items-center justify-between rounded-lg bg-grafito/5 px-3 py-2">
               <span>701</span>
