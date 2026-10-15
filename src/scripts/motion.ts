@@ -6,6 +6,7 @@ import { initHeader } from './header';
 import { initI18n } from './i18n';
 import { initScrollHint } from './scrollHint';
 import { initCierrePin } from './cierrePin';
+import { initExperienciaPin } from './experienciaPin';
 import { initLazyVideos } from './lazyVideo';
 import { initContactForm } from './contactForm';
 import { initCustomSelect } from './customSelect';
@@ -93,13 +94,17 @@ if (scenes.length && (railDots.size || navLinks.size)) {
   scenes.forEach((scene) => progress.observe(scene));
 }
 
-// Escena 9: va fijada (Scene.astro con `pin`) para que clip-3 tenga scroll de sobra y se
+// Cierre: va fijado (Scene.astro con `pin`) para que clip-3 tenga scroll de sobra y se
 // note el cambio de luz. Título palabra por palabra, línea de progreso y entrada de los
 // botones, todo ligado al scroll (src/scripts/cierrePin.ts).
 initCierrePin(reduceMotion);
 
-// Punto de la fila enfocada en el mockup de laptop (escena 5): pasa de "disponible" a
-// "vendida" con el mismo scroll que recorre la escena.
+// Escena B (experiencia): también fijada, pero más corta — la torre sube y luego entran el
+// celular y WhatsApp en una sola pantalla (src/scripts/experienciaPin.ts).
+initExperienciaPin(reduceMotion);
+
+// Punto de la fila enfocada en el mockup de laptop (escena C, control): pasa de
+// "disponible" a "vendida" con el mismo scroll que recorre la escena.
 const focusDot = document.getElementById('panel-focus-dot');
 if (focusDot && !reduceMotion) {
   const AVAILABLE_RGB = [79, 157, 110];
@@ -107,7 +112,7 @@ if (focusDot && !reduceMotion) {
   const lerpChannel = (a: number, b: number, t: number) => Math.round(a + (b - a) * t);
 
   ScrollTrigger.create({
-    trigger: '#vendido',
+    trigger: '#control',
     start: 'top bottom',
     end: 'bottom top',
     scrub: true,

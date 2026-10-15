@@ -47,32 +47,29 @@ export interface Dictionary {
     contacto: string;
   };
   scenes: {
-    piedra: {
+    /** Escena A: presentación — título, subtítulo, línea pequeña y los 2 botones. */
+    presentacion: {
       railLabel: string;
       heading: string;
       sub: string;
+      small: string;
     };
-    cimientos: {
+    /** Escena B: experiencia del comprador — fijada (como cierre), torre + mockup de
+     * celular + WhatsApp en una sola pantalla (src/scripts/experienciaPin.ts). */
+    experiencia: {
       railLabel: string;
-      heading: string;
-      points: string[];
-    };
-    torre: {
-      railLabel: string;
-      heading: string;
       tag: string;
-    };
-    departamento: {
-      railLabel: string;
       heading: string;
-      /** Orden fijo: plano, precio, esquema de pagos — SPEC §3 escena 4. */
+      /** Orden fijo: plano, precio, esquema de pagos. */
       fichaLabels: [string, string, string];
       whatsappMessage: string;
     };
-    vendido: {
+    /** Escena C: control del equipo comercial — mockup de laptop, panel de ventas. */
+    control: {
       railLabel: string;
-      heading: string;
       tag: string;
+      heading: string;
+      small: string;
     };
     /** "El paquete": 3 bloques (maqueta, panel, landing) + tabla Esencial/Completo. Orden
      * fijo, igual que fichaLabels en departamento. */

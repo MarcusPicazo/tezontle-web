@@ -4,11 +4,9 @@ import Footer from './Footer.astro';
 import ProgressRail from './ProgressRail.astro';
 import ScrollHint from './ScrollHint.astro';
 import ScrollWorld from './ScrollWorld.astro';
-import Piedra from './scenes/Piedra.astro';
-import Cimientos from './scenes/Cimientos.astro';
-import Torre from './scenes/Torre.astro';
-import Departamento from './scenes/Departamento.astro';
-import Vendido from './scenes/Vendido.astro';
+import Presentacion from './scenes/Presentacion.astro';
+import Experiencia from './scenes/Experiencia.astro';
+import Control from './scenes/Control.astro';
 import Paquete from './scenes/Paquete.astro';
 import ComoTrabajamos from './scenes/ComoTrabajamos.astro';
 import Contacto from './scenes/Contacto.astro';
@@ -21,8 +19,10 @@ interface Props {
 
 const { dict } = Astro.props;
 
-// SPEC §3 y §4: escenas 1-3 comparten un mundo (clip-1 las une 1→2, clip-2 las une 2→3);
-// la escena 9 es su propio mundo, solo (clip-3, 3→4).
+// SPEC §3 y §4: escenas A-C comparten un mundo (clip-1 avanza durante A entera, clip-2
+// durante B entera y se queda fijo en su último cuadro para C); el cierre es su propio
+// mundo, solo (clip-3). Ni los fotogramas ni los clips cambiaron al bajar de 5 escenas a
+// 3: cada clip simplemente pasa a ocupar el scroll completo de su escena.
 const subida = {
   frames: [{ src: '/escenas/1-piedra.jpg' }, { src: '/escenas/2-cimientos.jpg' }, { src: '/escenas/3-torre.jpg' }],
   clips: [
@@ -40,14 +40,9 @@ const atardecer = {
 <ProgressRail dict={dict} />
 <main id="contenido" class="relative z-10">
   <ScrollWorld frames={subida.frames} clips={subida.clips} eager>
-    <Piedra lang={dict.lang} />
-    <Cimientos lang={dict.lang} />
-    <Torre lang={dict.lang} />
-    <!-- SPEC §3: durante 3-5 el fondo sigue siendo el último cuadro de clip-2 (la torre
-         completa), un poco atenuado — por eso Departamento y Vendido van dentro de este
-         mismo mundo en vez de tener el suyo. -->
-    <Departamento lang={dict.lang} />
-    <Vendido lang={dict.lang} />
+    <Presentacion lang={dict.lang} />
+    <Experiencia lang={dict.lang} />
+    <Control lang={dict.lang} />
   </ScrollWorld>
   <Paquete lang={dict.lang} />
   <ComoTrabajamos lang={dict.lang} />

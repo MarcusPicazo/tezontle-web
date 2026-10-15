@@ -9,7 +9,7 @@ const BOTTOM_MARGIN = 4;
 export function initScrollHint() {
   const hint = document.getElementById('scroll-hint');
   const textEl = document.getElementById('scroll-hint-text') as HTMLElement | null;
-  const heroEl = document.getElementById('piedra');
+  const heroEl = document.getElementById('presentacion');
   if (!hint || !textEl || !heroEl) return;
 
   // Escenas oscuras (la banda noche y la piedra, Scene.astro con `dark`): el aviso pasa a
