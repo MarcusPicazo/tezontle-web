@@ -31,6 +31,14 @@ function splitWords(el: HTMLElement) {
   });
   el.replaceChildren();
   words.forEach((span, i) => {
+    // Ocultas desde que se crean, no solo desde el primer onUpdate: el ScrollTrigger de
+    // abajo es scrub puro (sin pin de GSAP, Scene.astro fija con position:sticky), así que
+    // antes del primer evento de scroll estas palabras no tienen ningún estilo inline y se
+    // ven a su opacidad por defecto (1) — el título completo destellaba de golpe un
+    // instante antes de que la escena fijada arrancara su propia entrada palabra por
+    // palabra, como si "Véala funcionando" apareciera dos veces.
+    span.style.opacity = '0';
+    span.style.transform = 'translateY(12px)';
     el.appendChild(span);
     if (i < words.length - 1) el.appendChild(document.createTextNode(' '));
   });
