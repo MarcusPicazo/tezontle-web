@@ -10,8 +10,10 @@ const clamp = gsap.utils.clamp(0, 1);
 const TITLE_WORD_BAND = 0.22; // fracción del fijado en la que terminan de entrar las palabras
 const TITLE_RISE_END = 0.75; // hasta dónde sigue subiendo el título
 const TITLE_RISE_PX = 40;
-const BUTTONS_START = 0.75; // "último 25%"
+const BUTTONS_START = 0.75; // empiezan a entrar en el último 25%
+const BUTTONS_END = 0.9; // pero ya quedan nítidos antes del final: no debe depender de llegar al último pixel del scroll
 const BUTTONS_RISE_PX = 12;
+const BUTTONS_BLUR_PX = 12;
 
 let words: HTMLElement[] = [];
 
@@ -57,7 +59,7 @@ export function initCierrePin(reduceMotion: boolean) {
     gsap.set(title, { opacity: 1, filter: 'none' }); // limpia el estado inicial de [data-reveal]
     if (buttons) {
       buttons.style.transition = 'none';
-      gsap.set(buttons, { autoAlpha: 0, y: BUTTONS_RISE_PX });
+      gsap.set(buttons, { autoAlpha: 0, y: BUTTONS_RISE_PX, filter: `blur(${BUTTONS_BLUR_PX}px)` });
     }
   }
 
@@ -82,8 +84,20 @@ export function initCierrePin(reduceMotion: boolean) {
       if (title) title.style.transform = `translateY(${-TITLE_RISE_PX * clamp(progress / TITLE_RISE_END)}px)`;
 
       if (buttons) {
-        const buttonProgress = clamp((progress - BUTTONS_START) / (1 - BUTTONS_START));
-        gsap.set(buttons, { autoAlpha: buttonProgress, y: (1 - buttonProgress) * BUTTONS_RISE_PX });
+        const buttonProgress = clamp((progress - BUTTONS_START) / (BUTTONS_END - BUTTONS_START));
+        if (buttonProgress >= 1) {
+          // 'none' explícito, no clearProps: [data-reveal] trae su propio filter:blur(12px)
+          // en la hoja global (nunca le llega [data-reveal].is-in a este elemento), así que
+          // quitar el estilo en línea solo deja ver esa regla de nuevo — quedaba borroso otra
+          // vez justo cuando debía verse nítido.
+          gsap.set(buttons, { autoAlpha: 1, y: 0, filter: 'none' });
+        } else {
+          gsap.set(buttons, {
+            autoAlpha: buttonProgress,
+            y: (1 - buttonProgress) * BUTTONS_RISE_PX,
+            filter: `blur(${(1 - buttonProgress) * BUTTONS_BLUR_PX}px)`,
+          });
+        }
       }
     },
   });

@@ -45,17 +45,24 @@ const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
       >
         <div class="mx-auto mb-2 h-1.5 w-12 rounded-full bg-cal/30" aria-hidden="true"></div>
         <div class="rounded-[1.5rem] bg-cal px-4 py-4">
+          <!-- Plano arquitectónico simplificado (sala, dos recámaras, baño y arcos de
+               puerta), no un cuadrado con dos líneas: SPEC pidió que se leyera como un plano
+               real. -->
           <svg
             viewBox="0 0 64 44"
             class="h-11 w-16 text-piedra"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="1.5"
+            stroke-linecap="round"
             aria-hidden="true"
           >
-            <rect x="2" y="2" width="60" height="40" rx="2"></rect>
-            <line x1="32" y1="2" x2="32" y2="26"></line>
-            <line x1="2" y1="26" x2="62" y2="26"></line>
+            <rect x="2" y="2" width="60" height="40" rx="1.5" stroke-width="2"></rect>
+            <path d="M24 2v12M24 24v18"></path>
+            <path d="M24 24h15M45 24v18"></path>
+            <path d="M24 12 A10 10 0 0 1 24 24" stroke-width="1"></path>
+            <path d="M45 24 A8 8 0 0 1 37 32" stroke-width="1"></path>
+            <rect x="48" y="28" width="9" height="8" rx="4" stroke-width="1"></rect>
           </svg>
           <dl class="mt-4 space-y-3 text-xs">
             <div class="flex items-center justify-between">
