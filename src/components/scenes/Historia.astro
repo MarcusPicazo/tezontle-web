@@ -1,6 +1,5 @@
 ---
 import Scene from '../Scene.astro';
-import Pending from '../Pending.astro';
 import type { Dictionary } from '../../i18n/types';
 
 interface Props {
@@ -43,8 +42,4 @@ const { t } = Astro.props;
       </span>
     </span>
   </div>
-  <Pending class="mt-4 max-w-xl bg-cal/10 text-cal/70 ring-cal/20">
-    Falta public/video/aura-recorrido.mp4: cuando exista, cambiar el &lt;img&gt; del póster por
-    &lt;video poster="/video/aura-recorrido-poster.svg" controls&gt;.
-  </Pending>
 </Scene>

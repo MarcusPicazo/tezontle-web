@@ -62,18 +62,19 @@ const { frames, clips, eager = false } = Astro.props;
       </div>
     </div>
 
-    <!-- Degradados: del lado del texto para que se lea, y arriba/abajo para que el corte
-         hacia el fondo arena del resto del sitio no se note. -->
+    <!-- Degradados: solo del lado del texto y nada sobre el edificio. En celular el texto
+         ocupa casi todo el ancho (no hay "mitad derecha" a la que no llegar), así que el
+         velo cubre más; desde sm: (donde el texto sí queda a la izquierda) se achica al
+         40% del ancho que pediste. Un desvanecido corto abajo evita el corte hacia el arena
+         del resto del sitio. El fotograma/video se queda nítido y con su color real. -->
     <div
       aria-hidden="true"
-      class="pointer-events-none absolute inset-0 bg-linear-to-r from-arena from-5% via-arena/75 via-45% to-transparent to-90%"
+      class="pointer-events-none absolute inset-0 bg-linear-to-r from-arena from-0% via-arena/65 via-30% to-transparent to-70% sm:via-15% sm:to-40%"
     >
     </div>
-    <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-arena to-transparent">
-    </div>
     <div
       aria-hidden="true"
-      class="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-arena to-transparent"
+      class="pointer-events-none absolute inset-x-0 bottom-0 h-[12dvh] bg-linear-to-t from-arena to-transparent"
     >
     </div>
   </div>
