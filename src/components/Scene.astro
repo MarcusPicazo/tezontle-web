@@ -2,9 +2,12 @@
 interface Props {
   id: string;
   tone?: 'noche' | 'arena' | 'cal' | 'media';
+  /** Fija el contenido en pantalla durante un recorrido más largo (SPEC: escena 9, para que
+   * el video tenga suficiente scroll para notarse) en vez de pasar en un solo tramo. */
+  pin?: boolean;
 }
 
-const { id, tone = 'arena' } = Astro.props;
+const { id, tone = 'arena', pin = false } = Astro.props;
 
 const toneClass = {
   noche: 'bg-noche text-cal',
@@ -15,8 +18,22 @@ const toneClass = {
 }[tone];
 ---
 
-<section id={id} data-scene class:list={['relative flex min-h-dvh items-center px-6 py-28 sm:px-10', toneClass]}>
-  <div class="mx-auto w-full max-w-5xl">
-    <slot />
-  </div>
+<section
+  id={id}
+  data-scene
+  class:list={['relative px-6 sm:px-10', pin ? 'min-h-[250dvh]' : 'flex min-h-dvh items-center py-28', toneClass]}
+>
+  {
+    pin ? (
+      <div class="sticky top-0 flex h-dvh items-center py-28">
+        <div class="mx-auto w-full max-w-5xl">
+          <slot />
+        </div>
+      </div>
+    ) : (
+      <div class="mx-auto w-full max-w-5xl">
+        <slot />
+      </div>
+    )
+  }
 </section>

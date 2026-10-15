@@ -1,6 +1,5 @@
 ---
 import Scene from '../Scene.astro';
-import Pending from '../Pending.astro';
 import StillBackground from '../StillBackground.astro';
 import type { Dictionary } from '../../i18n/types';
 import { site, whatsappHref } from '../../data/site';
@@ -10,17 +9,21 @@ interface Props {
 }
 
 const { t } = Astro.props;
+
+// demoUrl, calendarUrl y whatsapp.number en src/data/site.ts son placeholders.
 ---
 
-<Scene id="cierre" tone="media">
+<Scene id="cierre" tone="media" pin>
   <StillBackground src="/escenas/4-atardecer.jpg" />
   <h2 class="max-w-xl font-display text-4xl text-grafito sm:text-6xl" data-reveal>
     {t.heading}
   </h2>
-  <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:150ms">
+  <!-- Entra hasta el último tramo del fijado (SPEC: escena 9), no desde el inicio como el
+       resto de [data-reveal]: src/scripts/motion.ts lo controla con el scroll, no con el
+       IntersectionObserver genérico. -->
+  <div data-reveal data-pin-reveal class="mt-10 flex flex-wrap gap-3">
     <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary">{t.buttons.demo}</a>
     <a href={site.calendarUrl} data-analytics-event="Agendar" class="btn btn-ghost-dark">{t.buttons.agendar}</a>
     <a href={whatsappHref} data-analytics-event="WhatsApp" class="btn btn-ghost-dark">{t.buttons.whatsapp}</a>
   </div>
-  <Pending class="mt-6 max-w-xl">demoUrl, calendarUrl y whatsapp.number en src/data/site.ts son placeholders.</Pending>
 </Scene>

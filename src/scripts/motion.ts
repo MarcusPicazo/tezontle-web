@@ -37,7 +37,8 @@ const reveal = new IntersectionObserver(
   },
   { rootMargin: '0px 0px -10% 0px' },
 );
-document.querySelectorAll('[data-reveal]').forEach((el) => reveal.observe(el));
+// [data-pin-reveal] no usa este observer: entra con el scroll dentro de un fijado, más abajo.
+document.querySelectorAll('[data-reveal]:not([data-pin-reveal])').forEach((el) => reveal.observe(el));
 
 // Recorridos con video (SPEC §3 y §4): la página puede tener más de uno. En modo capturas
 // fijas (ver Layout.astro) no se inicializan: ya se ven las imágenes fijas de cada escena.
@@ -65,6 +66,24 @@ if (scenes.length && railDots.size) {
     { rootMargin: '-45% 0px -45% 0px' },
   );
   scenes.forEach((scene) => progress.observe(scene));
+}
+
+// Escena 9: va fijada (Scene.astro con `pin`) para que clip-3 tenga scroll de sobra y se
+// note el cambio de luz. El título entra al llegar como cualquier [data-reveal]; los
+// botones, en cambio, esperan al último tramo del fijado.
+const pinButtons = document.querySelector<HTMLElement>('#cierre [data-pin-reveal]');
+if (pinButtons) {
+  if (reduceMotion) {
+    pinButtons.classList.add('is-in');
+  } else {
+    ScrollTrigger.create({
+      trigger: '#cierre',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate: (self) => pinButtons.classList.toggle('is-in', self.progress >= 0.7),
+    });
+  }
 }
 
 // Punto de la fila enfocada en el mockup de laptop (escena 5): pasa de "disponible" a
