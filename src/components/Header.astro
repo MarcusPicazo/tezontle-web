@@ -21,15 +21,17 @@ const { dict } = Astro.props;
 
 <header id="site-header" class="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6 sm:px-6">
   <div id="header-shell" class="w-full max-w-[1200px]">
-    <div id="header-row" class="flex items-center justify-between gap-4 px-4 sm:px-6">
-      <a href={dict.lang === 'es' ? '/' : '/en/'} class="flex shrink-0 items-center" aria-label="Tezontle 3D">
+    <div id="header-row" class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6">
+      <a href={dict.lang === 'es' ? '/' : '/en/'} class="flex shrink-0 items-center justify-self-start" aria-label="Tezontle 3D">
         <img src="/logo.svg" alt="" class="header-logo h-6 w-auto sm:h-7 lg:h-8" />
         <img src="/logo-light.svg" alt="" aria-hidden="true" class="header-logo header-logo-light h-6 w-auto sm:h-7 lg:h-8" />
       </a>
 
-      <!-- Enlaces a secciones clave. Ocultos hasta lg: el selector de idioma de este sitio
-           ocupa más que el de la referencia, así que a md: todavía no cabían cómodos. -->
-      <nav aria-label={dict.nav.sectionsLabel} class="hidden items-center gap-6 lg:flex">
+      <!-- Enlaces a secciones clave, centrados de verdad (grid 1fr/auto/1fr, no
+           justify-between: con columnas de ancho distinto a los lados no quedaban al centro).
+           Ocultos hasta lg: el selector de idioma de este sitio ocupa más que el de la
+           referencia, así que a md: todavía no cabían cómodos. -->
+      <nav aria-label={dict.nav.sectionsLabel} class="col-start-2 hidden items-center gap-6 lg:flex">
         <a href="#torre" class="nav-link text-[15px] font-medium whitespace-nowrap">
           <T es={es.nav.links.showroom} en={en.nav.links.showroom} lang={dict.lang} />
         </a>
@@ -41,7 +43,7 @@ const { dict } = Astro.props;
         </a>
       </nav>
 
-      <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+      <div class="col-start-3 flex shrink-0 items-center justify-self-end gap-2 sm:gap-3">
         <div class="relative">
           <button
             type="button"

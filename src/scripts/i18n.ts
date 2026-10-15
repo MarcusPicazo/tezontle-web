@@ -25,6 +25,25 @@ const leftToRightDelays = (elements: Element[], totalSpread: number) => {
   return (_i: number, target: Element) => delays.get(target) ?? 0;
 };
 
+// Cambia el texto de un elemento y, si vive dentro de un botón (ancho "auto", a la medida
+// de su contenido), anima ese ancho de forma continua en vez de dejar que salte de golpe al
+// nuevo tamaño: "Ver la demo" y "See the demo" no miden lo mismo. clearProps al terminar
+// para que el botón vuelva a su ancho automático (si no, quedaría fijo en píxeles y no
+// respondería bien a un cambio de layout más adelante, como un resize).
+const swapText = (el: HTMLElement, lang: 'es' | 'en') => {
+  const html = lang === 'es' ? el.dataset.es : el.dataset.en;
+  if (html === undefined) return;
+  const btn = el.closest<HTMLElement>('.btn');
+  if (!btn) {
+    el.innerHTML = html;
+    return;
+  }
+  const oldWidth = btn.getBoundingClientRect().width;
+  el.innerHTML = html;
+  const newWidth = btn.getBoundingClientRect().width;
+  gsap.fromTo(btn, { width: oldWidth }, { width: newWidth, duration: 0.5, ease: 'power2.inOut', clearProps: 'width' });
+};
+
 const updateAria = (lang: 'es' | 'en') => {
   document.querySelectorAll<HTMLElement>('[data-aria-es]').forEach((el) => {
     const value = lang === 'es' ? el.dataset.ariaEs : el.dataset.ariaEn;
@@ -72,10 +91,7 @@ export function switchLanguage(newLang: 'es' | 'en', reduceMotion: boolean) {
       opacity: 0,
       duration: 0.2,
       onComplete: () => {
-        elements.forEach((el) => {
-          const html = newLang === 'es' ? el.dataset.es : el.dataset.en;
-          if (html !== undefined) el.innerHTML = html;
-        });
+        elements.forEach((el) => swapText(el, newLang));
         updateAria(newLang);
         gsap.to(elements, { opacity: 1, duration: 0.2, onComplete: () => finishSwitch(newLang) });
       },
@@ -91,10 +107,7 @@ export function switchLanguage(newLang: 'es' | 'en', reduceMotion: boolean) {
     ease: 'sine.inOut',
     stagger: leftToRightDelays(elements, 0.55),
     onComplete: () => {
-      elements.forEach((el) => {
-        const html = newLang === 'es' ? el.dataset.es : el.dataset.en;
-        if (html !== undefined) el.innerHTML = html;
-      });
+      elements.forEach((el) => swapText(el, newLang));
       updateAria(newLang);
 
       // Prepara el barrido de entrada, ya con las posiciones recalculadas (el texto nuevo
