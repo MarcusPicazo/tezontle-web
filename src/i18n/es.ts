@@ -12,6 +12,7 @@ export const es: Dictionary = {
     skipToContent: 'Saltar al contenido',
     switchTo: 'EN',
     switchToLabel: 'Ver en inglés',
+    scrollHint: 'Sigue bajando',
   },
   progress: {
     label: 'Progreso del recorrido',

@@ -1,8 +1,9 @@
 ---
 // Header flotante (técnica de E:\referencias\taylor-website: index.html #navbar-wrapper,
 // css/style.css #navbar/.floating-nav, js/animations.js el ScrollTrigger que pone esa
-// clase), adaptado a los tokens de Tezontle. src/scripts/header.ts pone .floating-nav al
-// pasar 50px de scroll y .header-dark sobre las escenas oscuras (Scene.astro con `dark`).
+// clase), adaptado a los tokens de Tezontle. Una sola apariencia siempre (igual que la
+// referencia): transparente arriba, vidrio esmerilado al pasar 50px — nunca cambia de tinte
+// según la escena de atrás. src/scripts/header.ts solo pone esa clase .floating-nav.
 import type { Dictionary } from '../i18n/types';
 import LanguageSwitch from './LanguageSwitch.astro';
 import T from './T.astro';
@@ -21,11 +22,10 @@ const { dict } = Astro.props;
   <div id="header-shell" class="w-full max-w-[1200px]">
     <div id="header-row" class="flex items-center justify-between gap-4 px-4 sm:px-6">
       <a href={dict.lang === 'es' ? '/' : '/en/'} class="flex shrink-0 items-center" aria-label="Tezontle 3D">
-        <img src="/logo.svg" alt="" class="header-logo h-6 w-auto" />
-        <img src="/logo-light.svg" alt="" aria-hidden="true" class="header-logo header-logo-light h-6 w-auto" />
+        <img src="/logo.svg" alt="" class="h-5 w-auto sm:h-6" />
       </a>
 
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex shrink-0 items-center gap-2 sm:gap-3">
         <button
           type="button"
           id="lang-trigger"
@@ -56,7 +56,7 @@ const { dict } = Astro.props;
           </svg>
         </button>
 
-        <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary">
+        <a href={site.demoUrl} data-analytics-event="Ver demo" class="btn btn-primary shrink-0 whitespace-nowrap">
           <T es={es.scenes.cierre.buttons.demo} en={en.scenes.cierre.buttons.demo} lang={dict.lang} />
         </a>
       </div>
@@ -90,13 +90,6 @@ const { dict } = Astro.props;
     box-shadow: 0 20px 40px -10px color-mix(in oklab, var(--color-grafito) 15%, transparent);
   }
 
-  #site-header.header-dark.floating-nav #header-shell,
-  #site-header.header-dark.panel-open #header-shell {
-    background: color-mix(in oklab, var(--color-noche) 55%, transparent);
-    border-color: color-mix(in oklab, var(--color-cal) 12%, transparent);
-    box-shadow: 0 20px 40px -10px color-mix(in oklab, black 35%, transparent);
-  }
-
   #site-header.panel-open #header-shell {
     border-radius: 24px;
   }
@@ -110,28 +103,11 @@ const { dict } = Astro.props;
     height: 60px;
   }
 
-  /* Tinta del header: grafito por defecto, cal sobre escenas oscuras (SPEC). Las piezas
-     hijas (LanguageSwitch.astro) leen estas variables, así no hay que repetir el estado. */
+  /* Tinta del header: una sola, siempre (igual que la referencia de Taylor: nunca cambia
+     según lo que haya detrás). Las piezas hijas (LanguageSwitch.astro) leen estas variables. */
   #site-header {
     --header-ink: var(--color-grafito);
     --header-ink-soft: color-mix(in oklab, var(--color-grafito) 8%, transparent);
-  }
-
-  #site-header.header-dark {
-    --header-ink: var(--color-cal);
-    --header-ink-soft: color-mix(in oklab, var(--color-cal) 15%, transparent);
-  }
-
-  .header-logo-light {
-    display: none;
-  }
-
-  #site-header.header-dark .header-logo {
-    display: none;
-  }
-
-  #site-header.header-dark .header-logo-light {
-    display: block;
   }
 
   .lang-trigger {

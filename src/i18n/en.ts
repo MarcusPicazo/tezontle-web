@@ -12,6 +12,7 @@ export const en: Dictionary = {
     skipToContent: 'Skip to content',
     switchTo: 'ES',
     switchToLabel: 'View in Spanish',
+    scrollHint: 'Keep scrolling',
   },
   progress: {
     label: 'Tour progress',
