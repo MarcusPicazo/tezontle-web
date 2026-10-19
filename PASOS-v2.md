@@ -1,6 +1,6 @@
 # Tezontle web · Pasos v2 (video IA en lugar de torre 3D)
 
-Todo el material va en **E:\material tezontle web\** (créala). Nada en C:.
+Todo el material va en **E:\tezontle-material\** (sitio web en `01-sitio-web\`). Nada en C:.
 
 ---
 
@@ -48,7 +48,7 @@ Same image, same tower, same camera, same backdrop. Change only the light: warm 
 Macro close-up of the porous surface of red-brown tezontle volcanic stone, soft natural daylight, shallow depth of field, warm sand tones, calm and premium, lots of even texture, no objects, no text. 16:9.
 ```
 
-Guarda las 5 en E:\material tezontle web\ con esos nombres exactos. **Mándamelas antes de hacer los videos.**
+Guarda las 5 en E:\tezontle-material\01-sitio-web\imagenes\ con esos nombres exactos. **Mándamelas antes de hacer los videos.**
 
 ---
 
@@ -71,12 +71,12 @@ Static camera with a very slow push-in. The daylight gradually turns into warm g
 ```
 
 Si un video sale con disolvencia (se ve "fantasma" a la mitad): regenera subiendo solo el primer cuadro.
-Guárdalos en E:\material tezontle web\ y **mándamelos para revisar**.
+Guárdalos en E:\tezontle-material\01-sitio-web\videos\ y **mándamelos para revisar**.
 
 ---
 
 ## ☐ Paso 4 · Grabar el producto real (10 minutos)
-Crea E:\material tezontle web\grabaciones\
+Crea E:\tezontle-material\01-sitio-web\grabaciones\
 
 1. Abre una terminal en E:\aura-demo → `pnpm dev` → abre http://localhost:5173/aura en Chrome.
 2. Para verlo como celular: F12 → Ctrl+Shift+M → elige iPhone 14.
@@ -90,7 +90,7 @@ Crea E:\material tezontle web\grabaciones\
 
 ## ☐ Paso 5 · Video con el scroll (Claude Code, cuando tengas los 3 clips)
 ```
-Lee SPEC.md §3 y §4. Las imágenes y los clips están en E:\material tezontle web\. Cópialos a public/ con los mismos nombres y recodifica los clips con ffmpeg como dice §4 (versión 1920 y 960). Lee como referencia world.ts en E:\arko-landing\src y copia la técnica: escena 1 imagen 1-piedra, escena 2 clip-1, escena 3 clip-2, escena 8 la imagen 5-piedra-detalle, escena 9 clip-3. Todo avanza y retrocede con el scroll. Agrega el fallback de imágenes fijas. Dime cómo verificarlo.
+Lee SPEC.md §3 y §4. Las imágenes están en E:\tezontle-material\01-sitio-web\imagenes\ y los clips en E:\tezontle-material\01-sitio-web\videos\. Cópialos a public/ con los mismos nombres y recodifica los clips con ffmpeg como dice §4 (versión 1920 y 960). Lee como referencia world.ts en E:\arko-landing\src y copia la técnica: escena 1 imagen 1-piedra, escena 2 clip-1, escena 3 clip-2, escena 8 la imagen 5-piedra-detalle, escena 9 clip-3. Todo avanza y retrocede con el scroll. Agrega el fallback de imágenes fijas. Dime cómo verificarlo.
 ```
 Graba un video haciendo scroll de arriba abajo y de regreso → mándamelo.
 
@@ -98,7 +98,7 @@ Graba un video haciendo scroll de arriba abajo y de regreso → mándamelo.
 
 ## ☐ Paso 6 · Mockups con las grabaciones (Claude Code)
 ```
-Lee SPEC.md §3 escenas 3 a 6 y §4. Las grabaciones están en E:\material tezontle web\grabaciones\. Recórtalas y comprímelas como dice §4 (con póster). Escenas 3 y 4: mockup de celular en HTML/CSS con grab-selector.mp4 dentro de la pantalla y, en la escena 4, un globo de WhatsApp "Hola, me interesa el 804" que entra con el scroll. Escena 5: mockup de laptop con grab-panel.mp4. Escena 6: aura-recorrido.mp4 en la banda noche. Los videos solo se cargan cerca de la pantalla y se pausan fuera. Dime cómo verificarlo.
+Lee SPEC.md §3 escenas 3 a 6 y §4. Las grabaciones están en E:\tezontle-material\01-sitio-web\grabaciones\. Recórtalas y comprímelas como dice §4 (con póster). Escenas 3 y 4: mockup de celular en HTML/CSS con grab-selector.mp4 dentro de la pantalla y, en la escena 4, un globo de WhatsApp "Hola, me interesa el 804" que entra con el scroll. Escena 5: mockup de laptop con grab-panel.mp4. Escena 6: aura-recorrido.mp4 en la banda noche. Los videos solo se cargan cerca de la pantalla y se pausan fuera. Dime cómo verificarlo.
 ```
 
 ---
