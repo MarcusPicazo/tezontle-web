@@ -109,7 +109,7 @@ nombre del grupo visible al pasar el cursor o enfocar el punto. Clic en cualquie
 dos usa scroll suave con aceleración/desaceleración (Lenis). Se oculta en móvil.
 
 ## 4. Imágenes y videos
-### Archivos (el material original vive en E:\material tezontle web\)
+### Archivos (el material original vive en E:\tezontle-material\01-sitio-web\: imágenes en `imagenes\`, clips en `videos\`, grabaciones en `grabaciones\`)
 - Imágenes: `1-piedra.jpg`, `2-cimientos.jpg`, `3-torre.jpg`, `4-atardecer.jpg`, `5-piedra-detalle.jpg`.
 - Videos IA (Google Flow, primer y último cuadro encadenados): `clip-1.mp4` (1→2),
   `clip-2.mp4` (2→3), `clip-3.mp4` (3→4).
