@@ -7,6 +7,7 @@ import { initI18n } from './i18n';
 import { initScrollHint } from './scrollHint';
 import { initCierrePin } from './cierrePin';
 import { initExperienciaPin } from './experienciaPin';
+import { initWhatsappFab } from './whatsappFab';
 import { initLazyVideos } from './lazyVideo';
 import { initContactForm } from './contactForm';
 import { initCustomSelect } from './customSelect';
@@ -52,6 +53,7 @@ document.querySelectorAll('[data-reveal]:not([data-pin-reveal])').forEach((el) =
 initI18n();
 initHeader(reduceMotion);
 initScrollHint();
+initWhatsappFab(reduceMotion);
 
 // Recorridos con video (SPEC §3 y §4): la página puede tener más de uno. En modo capturas
 // fijas (ver Layout.astro) no se inicializan: ya se ven las imágenes fijas de cada escena.

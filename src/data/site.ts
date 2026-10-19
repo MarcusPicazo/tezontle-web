@@ -27,8 +27,8 @@ export const site = {
 };
 
 export const whatsapp = {
-  // Placeholder: número con lada de país, sin signos.
-  number: '5215500000000',
+  // Número real de Tezontle 3D: +52 735 106 0241.
+  number: '527351060241',
   message: 'Hola, quiero ver una demo de Tezontle 3D.',
 };
 
