@@ -12,6 +12,13 @@ const STORAGE_KEY = 'tezontle-lang';
 const HTML_LANG = { es: 'es-MX', en: 'en' };
 
 let currentLang: 'es' | 'en' = (document.documentElement.lang === 'en' ? 'en' : 'es') as 'es' | 'en';
+// currentLang recién se actualiza al terminar (finishSwitch), así que por sí solo
+// "newLang === currentLang" no bloquea un segundo toque DURANTE el barrido (p. ej. volver a
+// tocar el mismo idioma, o el contrario, antes de que termine) — en celular es facilísimo
+// tocar dos veces por accidente. Sin este candado, dos barridos corriendo a la vez sobre los
+// mismos elementos (clip-path, ancho de los botones) se pisan y el botón queda roto: ancho
+// fijo de una medida vieja con el texto de la otra, o un texto a medio recortar.
+let isSwitching = false;
 
 // Delay explícito por elemento según su posición horizontal real en pantalla (izquierda
 // primero), no el stagger por eje de GSAP (con decenas de elementos repartidos en toda la
@@ -75,6 +82,7 @@ const updateTrigger = (lang: 'es' | 'en') => {
 };
 
 const finishSwitch = (lang: 'es' | 'en') => {
+  isSwitching = false;
   currentLang = lang;
   document.documentElement.lang = HTML_LANG[lang];
   try {
@@ -94,7 +102,8 @@ const finishSwitch = (lang: 'es' | 'en') => {
 };
 
 export function switchLanguage(newLang: 'es' | 'en', reduceMotion: boolean) {
-  if (newLang === currentLang) return;
+  if (newLang === currentLang || isSwitching) return;
+  isSwitching = true;
   const elements = [...document.querySelectorAll<HTMLElement>('.i18n-text')];
 
   updateTrigger(newLang);
