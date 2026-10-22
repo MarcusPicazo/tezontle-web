@@ -18,9 +18,12 @@ const t = { es: es.scenes.paquete, en: en.scenes.paquete };
 // video → póster; sin póster tampoco → marco piedra con el nombre del servicio (nunca un
 // nombre de archivo ni texto técnico visible).
 const assets = [
-  { video: '/video/paquete-maqueta.mp4', poster: '/paquete/maqueta.jpg' },
-  { video: '/video/paquete-panel.mp4', poster: '/paquete/panel.jpg' },
-  { video: '/video/paquete-landing.mp4', poster: '/paquete/landing.jpg' },
+  { video: '/video/paquete-maqueta.mp4', poster: '/paquete/maqueta.jpg', objectPosition: 'center' },
+  // object-cover recorta igual de ambos lados por default; el panel es más ancho que el
+  // marco 16:10 y ese recorte simétrico se comía el menú de la izquierda (Resumen,
+  // Inventario, Operaciones...). "left" lo deja completo y recorta solo del lado derecho.
+  { video: '/video/paquete-panel.mp4', poster: '/paquete/panel.jpg', objectPosition: 'left' },
+  { video: '/video/paquete-landing.mp4', poster: '/paquete/landing.jpg', objectPosition: 'center' },
 ] as const;
 
 const panelDemoHref = buildWhatsappHref('Hola, quiero ver una demo del panel de ventas de Tezontle 3D.');
@@ -80,6 +83,7 @@ const blocks = t.es.blocks.map((_, i) => {
                 <video
                   data-lazy-video
                   class="h-full w-full object-cover"
+                  style={`object-position: ${asset.objectPosition}`}
                   muted
                   loop
                   playsinline
@@ -89,7 +93,13 @@ const blocks = t.es.blocks.map((_, i) => {
                   <source data-src={asset.video} type="video/mp4" />
                 </video>
               ) : asset.hasPoster ? (
-                <img src={asset.poster} alt="" class="h-full w-full object-cover" loading="lazy" />
+                <img
+                  src={asset.poster}
+                  alt=""
+                  class="h-full w-full object-cover"
+                  style={`object-position: ${asset.objectPosition}`}
+                  loading="lazy"
+                />
               ) : (
                 <div class="flex h-full w-full flex-col items-center justify-center gap-3 bg-piedra/20 px-6 text-center">
                   <svg viewBox="0 0 48 48" class="h-10 w-10 text-piedra" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
