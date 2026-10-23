@@ -16,12 +16,17 @@ import Faq from './scenes/Faq.astro';
 import Contacto from './scenes/Contacto.astro';
 import Cierre from './scenes/Cierre.astro';
 import type { Dictionary } from '../i18n/types';
+import { featuresReady } from '../utils/publicFile';
 
 interface Props {
   dict: Dictionary;
 }
 
 const { dict } = Astro.props;
+// "Qué hace la maqueta" necesita sus 6 videos para no verse como tarjetas vacías (ver
+// src/utils/publicFile.ts): mientras falte alguno, ni la sección ni su enlace del header
+// (Header.astro recibe el mismo booleano) aparecen.
+const showFeatures = featuresReady();
 
 // SPEC §3 y §4: escenas A-C comparten un mundo (clip-1 avanza durante A entera, clip-2
 // durante B entera y se queda fijo en su último cuadro para C); el cierre es su propio
@@ -40,7 +45,7 @@ const atardecer = {
 };
 ---
 
-<Header dict={dict} />
+<Header dict={dict} showFeatures={showFeatures} />
 <ProgressRail dict={dict} />
 <main id="contenido" class="relative z-10">
   <ScrollWorld frames={subida.frames} clips={subida.clips} eager>
@@ -49,7 +54,7 @@ const atardecer = {
     <Control lang={dict.lang} />
   </ScrollWorld>
   <Paquete lang={dict.lang} />
-  <Caracteristicas lang={dict.lang} />
+  {showFeatures && <Caracteristicas lang={dict.lang} />}
   <DondeEncaja lang={dict.lang} />
   <Intercambio lang={dict.lang} />
   <Faq lang={dict.lang} />

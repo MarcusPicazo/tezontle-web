@@ -121,14 +121,14 @@ export const en: Dictionary = {
       sendLabel: 'You send us',
       sendBody: 'Renders, PDF floor plans and a price list. No CAD, no Revit, no 3D models.',
       receiveLabel: 'You get',
-      receiveBody: 'A 3D model, sales panel and landing page, ready in two weeks with your brand.',
+      receiveBody: 'A 3D model, sales panel and landing page, ready from two weeks with your brand.',
     },
     faq: {
       railLabel: 'FAQ',
       heading: 'Frequently asked questions',
       items: [
         { question: 'Do I need 3D models or Revit files?', answer: 'No. We work with your renders, PDF floor plans and price list.' },
-        { question: 'How long does it take?', answer: 'Two weeks from when we receive your material.' },
+        { question: 'How long does it take?', answer: 'Up to 60 units, two weeks; larger projects or multiple towers, three weeks. Counted from when we receive all your material.' },
         { question: 'Does it work on mobile?', answer: 'Yes, on phone, tablet and computer, nothing to download.' },
         { question: 'Who updates prices and availability?', answer: 'Your team, from the sales panel, reflected instantly.' },
         { question: 'Can it be used in the sales room?', answer: 'Yes, on a screen or tablet with presentation mode.' },

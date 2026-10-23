@@ -12,9 +12,11 @@ interface Props {
 
 const { dict } = Astro.props;
 
+// Sin bandera de país (solo el idioma, "ES"/"EN", como el selector de la demo real):
+// Header.astro usa el mismo criterio para su disparador.
 const options = [
-  { lang: 'es' as const, flag: '/flags/mx.svg', label: 'Español' },
-  { lang: 'en' as const, flag: '/flags/gb.svg', label: 'English' },
+  { lang: 'es' as const, label: 'Español' },
+  { lang: 'en' as const, label: 'English' },
 ];
 ---
 
@@ -35,7 +37,6 @@ const options = [
             data-lang-option={opt.lang}
             class="lang-option flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm"
           >
-            <img src={opt.flag} alt="" aria-hidden="true" class="h-4 w-6 shrink-0 rounded-[2px] object-cover" />
             <span class="flex-1 font-medium">{opt.label}</span>
             <svg
               class="lang-check h-4 w-4 shrink-0 text-laton"
