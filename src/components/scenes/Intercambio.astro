@@ -1,0 +1,46 @@
+---
+import Scene from '../Scene.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
+import type { Dictionary } from '../../i18n/types';
+
+interface Props {
+  lang: Dictionary['lang'];
+}
+
+const { lang } = Astro.props;
+const t = { es: es.scenes.intercambio, en: en.scenes.intercambio };
+---
+
+<!-- Antes "Cómo trabajamos" (3 tarjetas con pasos numerados); ahora dos columnas unidas
+     por una línea con flecha: lo que el cliente manda, lo que recibe a cambio. -->
+<Scene id="intercambio" tone="cal">
+  <T
+    as="h2"
+    es={t.es.heading}
+    en={t.en.heading}
+    lang={lang}
+    class="block max-w-2xl font-display text-3xl text-grafito sm:text-5xl"
+    data-reveal
+  />
+
+  <div class="mt-12 flex flex-col items-stretch gap-4 lg:flex-row lg:items-center lg:gap-6">
+    <div data-reveal class="flex-1 rounded-2xl bg-arena px-6 py-8 ring-1 ring-grafito/10">
+      <T as="p" es={t.es.sendLabel} en={t.en.sendLabel} lang={lang} class="block text-xs font-semibold tracking-[0.15em] text-piedra uppercase" />
+      <T as="p" es={t.es.sendBody} en={t.en.sendBody} lang={lang} class="mt-3 block font-display text-xl text-grafito sm:text-2xl" />
+    </div>
+
+    <!-- La flecha: horizontal en escritorio, apuntando hacia abajo en celular. -->
+    <div data-reveal style="--d:120ms" aria-hidden="true" class="flex shrink-0 items-center justify-center text-laton">
+      <svg viewBox="0 0 24 24" class="h-7 w-7 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 12h16M14 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <div data-reveal style="--d:200ms" class="flex-1 rounded-2xl bg-grafito px-6 py-8">
+      <T as="p" es={t.es.receiveLabel} en={t.en.receiveLabel} lang={lang} class="block text-xs font-semibold tracking-[0.15em] text-laton uppercase" />
+      <T as="p" es={t.es.receiveBody} en={t.en.receiveBody} lang={lang} class="mt-3 block font-display text-xl text-cal sm:text-2xl" />
+    </div>
+  </div>
+</Scene>

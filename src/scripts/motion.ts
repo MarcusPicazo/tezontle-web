@@ -74,10 +74,15 @@ document.querySelectorAll<HTMLElement>('[data-rail-dot]').forEach((dot) => {
   if (group) railDots.set(group, dot);
 });
 
-const navLinks = new Map<string, HTMLElement>();
+// Mapa de arreglos: "Funciones" y "El paquete" comparten grupo (los dos pertenecen al
+// mismo punto del raíl), así que un grupo puede tener más de un enlace del header.
+const navLinks = new Map<string, HTMLElement[]>();
 document.querySelectorAll<HTMLElement>('[data-nav-link]').forEach((link) => {
   const group = link.dataset.navLink;
-  if (group) navLinks.set(group, link);
+  if (!group) return;
+  const list = navLinks.get(group) ?? [];
+  list.push(link);
+  navLinks.set(group, list);
 });
 
 const scenes = document.querySelectorAll<HTMLElement>('[data-scene]');
@@ -88,7 +93,7 @@ if (scenes.length && (railDots.size || navLinks.size)) {
         const group = sceneToGroup[entry.target.id as SceneId];
         if (!group) continue;
         railDots.get(group)?.classList.toggle('is-active', entry.isIntersecting);
-        navLinks.get(group)?.classList.toggle('is-active', entry.isIntersecting);
+        navLinks.get(group)?.forEach((link) => link.classList.toggle('is-active', entry.isIntersecting));
       }
     },
     { rootMargin: '-45% 0px -45% 0px' },
