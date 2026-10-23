@@ -121,14 +121,14 @@ export const es: Dictionary = {
       sendLabel: 'Nos envía',
       sendBody: 'Renders, planos en PDF y lista de precios. Sin CAD, sin Revit, sin modelos 3D.',
       receiveLabel: 'Recibe',
-      receiveBody: 'Maqueta 3D, panel de ventas y landing, listos en dos semanas con su marca.',
+      receiveBody: 'Maqueta 3D, panel de ventas y landing, listos desde dos semanas con su marca.',
     },
     faq: {
       railLabel: 'Preguntas',
       heading: 'Preguntas frecuentes',
       items: [
         { question: '¿Necesito modelos 3D o archivos de Revit?', answer: 'No. Trabajamos con sus renders, planos en PDF y lista de precios.' },
-        { question: '¿Cuánto tarda?', answer: 'Dos semanas desde que recibimos su material.' },
+        { question: '¿Cuánto tarda?', answer: 'Hasta 60 departamentos, dos semanas; proyectos más grandes o con varias torres, tres semanas. Contamos desde que recibimos todo su material.' },
         { question: '¿Funciona en celular?', answer: 'Sí, en celular, tableta y computadora, sin descargar nada.' },
         { question: '¿Quién actualiza precios y disponibilidad?', answer: 'Su equipo, desde el panel de ventas, y se ve al instante.' },
         { question: '¿Se puede usar en la sala de ventas?', answer: 'Sí, en pantalla o tableta con el modo presentación.' },

@@ -7,3 +7,12 @@ import { join } from 'node:path';
 export function publicFileExists(relPath: string): boolean {
   return existsSync(join(process.cwd(), 'public', relPath));
 }
+
+// "Qué hace la maqueta" necesita sus 6 videos para no verse como tarjetas vacías: mientras
+// falte alguno, la sección entera (y su enlace en el header) se oculta en vez de mostrarse
+// a medias. En cuanto existan los 6, aparece sola — nada que prender a mano.
+const FEATURE_KEYS = ['disponibilidad', 'sol', 'pagos', 'plantas', 'vistas', 'contacto'] as const;
+
+export function featuresReady(): boolean {
+  return FEATURE_KEYS.every((key) => publicFileExists(`/features/feat-${key}.mp4`));
+}

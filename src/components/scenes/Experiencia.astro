@@ -12,8 +12,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = { es: es.scenes.experiencia, en: en.scenes.experiencia };
-const [planoEs, precioEs, pagosEs] = t.es.fichaLabels;
-const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
 ---
 
 <!-- Escena B: experiencia del comprador. Fijada (como Cierre, pero más corta: ver
@@ -49,41 +47,15 @@ const [planoEn, precioEn, pagosEn] = t.en.fichaLabels;
            fijado, no solo a si ya entró en pantalla — igual que los botones de Cierre. -->
       <div id="experiencia-phone" class="rounded-[2.25rem] border-[6px] border-grafito bg-grafito p-2 shadow-2xl shadow-noche">
         <div class="mx-auto mb-2 h-1.5 w-12 rounded-full bg-cal/30" aria-hidden="true"></div>
-        <div class="rounded-[1.5rem] bg-cal px-4 py-4">
-          <svg
-            viewBox="0 0 64 44"
-            class="h-11 w-16 text-piedra"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            aria-hidden="true"
-          >
-            <path d="M6 6H58" stroke-width="3"></path>
-            <path d="M6 6V38" stroke-width="3"></path>
-            <path d="M58 6V38" stroke-width="3"></path>
-            <path d="M6 38H24M40 38H58" stroke-width="3"></path>
-            <path d="M24 38V22" stroke-width="1.5"></path>
-            <path d="M40 38 A16 16 0 0 1 24 22" stroke-width="1"></path>
-            <path d="M28 3H46M28 3V6M46 3V6" stroke-width="1.5"></path>
-          </svg>
-          <dl class="mt-4 space-y-3 text-xs">
-            <div class="flex items-center justify-between">
-              <T as="dt" es={planoEs} en={planoEn} lang={lang} class="block font-semibold text-grafito" />
-              <dd class="h-2 w-10 rounded-full bg-grafito/15" aria-hidden="true"></dd>
-            </div>
-            <div class="flex items-center justify-between">
-              <T as="dt" es={precioEs} en={precioEn} lang={lang} class="block font-semibold text-grafito" />
-              <dd class="h-2 w-14 rounded-full bg-grafito/15" aria-hidden="true"></dd>
-            </div>
-            <div>
-              <T as="dt" es={pagosEs} en={pagosEn} lang={lang} class="block font-semibold text-grafito" />
-              <dd class="mt-1.5 flex gap-1" aria-hidden="true">
-                <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
-                <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
-                <span class="h-1.5 flex-1 rounded-full bg-laton/50"></span>
-              </dd>
-            </div>
-          </dl>
+        <!-- Captura real de la demo (aura-demo-kappa.vercel.app), ficha de la unidad 804
+             con plano, precio y esquema de pagos — ya no un dibujo con rayitas grises. -->
+        <div class="aspect-[9/17] overflow-hidden rounded-[1.5rem] bg-cal">
+          <img
+            src="/mockups/departamento-804.jpg"
+            alt=""
+            class="h-full w-full object-cover object-top"
+            loading="lazy"
+          />
         </div>
       </div>
 

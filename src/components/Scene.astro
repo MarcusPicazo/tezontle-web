@@ -14,9 +14,15 @@ interface Props {
   /** Escenas oscuras (noche, o media con imagen oscura): src/scripts/scrollHint.ts lo lee
    * para poner el aviso de "siga bajando" en cal en vez de grafito mientras está encima. */
   dark?: boolean;
+  /** Las escenas del recorrido (torre, cierre...) llenan la pantalla a propósito, cada una
+   * es "un momento". Las secciones de contenido más cortas (preguntas frecuentes, pasos...)
+   * no necesitan ese mínimo: forzarlo ahí solo deja aire vacío de sobra y separa demasiado
+   * una sección de la siguiente. Sin efecto en escenas fijadas (pin), que miden su alto con
+   * pinHeight. */
+  fullHeight?: boolean;
 }
 
-const { id, tone = 'arena', pin = false, pinHeight = '250dvh', dark = false } = Astro.props;
+const { id, tone = 'arena', pin = false, pinHeight = '250dvh', dark = false, fullHeight = true } = Astro.props;
 
 const toneClass = {
   noche: 'bg-noche text-cal',
@@ -31,7 +37,11 @@ const toneClass = {
   id={id}
   data-scene
   data-dark-scene={dark ? 'true' : undefined}
-  class:list={['relative px-6 sm:px-10', pin ? '' : 'flex min-h-dvh items-center py-28', toneClass]}
+  class:list={[
+    'relative px-6 sm:px-10',
+    pin ? '' : fullHeight ? 'flex min-h-dvh items-center py-28' : 'py-16 sm:py-20',
+    toneClass,
+  ]}
   style={pin ? `min-height:${pinHeight}` : undefined}
 >
   {
