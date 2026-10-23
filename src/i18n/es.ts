@@ -20,7 +20,8 @@ export const es: Dictionary = {
     links: {
       showroom: 'El showroom 3D',
       paquete: 'El paquete',
-      comoTrabajamos: 'Cómo trabajamos',
+      caracteristicas: 'Funciones',
+      proceso: 'Proceso',
       contacto: 'Contacto',
     },
   },
@@ -91,10 +92,48 @@ export const es: Dictionary = {
       quoteButton: 'Pedir cotización',
       demoLink: 'Ver la demo',
     },
-    comoTrabajamos: {
-      railLabel: 'Cómo trabajamos',
-      heading: 'Cómo trabajamos',
-      steps: ['Nos envía renders, planos y precios.', 'En dos semanas está listo.', 'Lo publicamos con su marca.'],
+    caracteristicas: {
+      railLabel: 'Funciones',
+      heading: 'Qué hace la maqueta',
+      cards: [
+        { key: 'disponibilidad', title: 'Disponibilidad en vivo', body: 'Disponible, apartado o vendido en cada departamento.' },
+        { key: 'sol', title: 'Sol por fecha y hora', body: 'Qué departamentos tienen sol de tarde, cualquier día del año.' },
+        { key: 'pagos', title: 'Esquema de pagos', body: 'Enganche, mensualidades y entrega, calculados en la ficha.' },
+        { key: 'plantas', title: 'Plantas por nivel', body: 'Cada piso con sus departamentos y su estado.' },
+        { key: 'vistas', title: 'Vistas sobre sus renders', body: 'La aérea y las fachadas con los pisos marcados.' },
+        { key: 'contacto', title: 'Contacto con el departamento exacto', body: 'WhatsApp o formulario con la unidad elegida.' },
+      ],
+    },
+    dondeEncaja: {
+      railLabel: 'Recorrido',
+      heading: 'Dónde encaja en su venta',
+      steps: [
+        'Sus anuncios llevan a la landing del proyecto.',
+        'El comprador recorre la maqueta 3D.',
+        'Elige departamento y ve su esquema de pagos.',
+        'Le escribe a su asesor con la unidad exacta.',
+        'Su equipo aparta y vende desde el panel, y se actualiza en todas las pantallas.',
+      ],
+    },
+    intercambio: {
+      railLabel: 'Proceso',
+      heading: 'Lo que nos envía, lo que recibe',
+      sendLabel: 'Nos envía',
+      sendBody: 'Renders, planos en PDF y lista de precios. Sin CAD, sin Revit, sin modelos 3D.',
+      receiveLabel: 'Recibe',
+      receiveBody: 'Maqueta 3D, panel de ventas y landing, listos en dos semanas con su marca.',
+    },
+    faq: {
+      railLabel: 'Preguntas',
+      heading: 'Preguntas frecuentes',
+      items: [
+        { question: '¿Necesito modelos 3D o archivos de Revit?', answer: 'No. Trabajamos con sus renders, planos en PDF y lista de precios.' },
+        { question: '¿Cuánto tarda?', answer: 'Dos semanas desde que recibimos su material.' },
+        { question: '¿Funciona en celular?', answer: 'Sí, en celular, tableta y computadora, sin descargar nada.' },
+        { question: '¿Quién actualiza precios y disponibilidad?', answer: 'Su equipo, desde el panel de ventas, y se ve al instante.' },
+        { question: '¿Se puede usar en la sala de ventas?', answer: 'Sí, en pantalla o tableta con el modo presentación.' },
+        { question: '¿Cuánto cuesta?', answer: 'Depende del número de unidades y del paquete. Le enviamos cotización en 24 horas.' },
+      ],
     },
     contacto: {
       railLabel: 'Contacto',

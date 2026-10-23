@@ -7,6 +7,19 @@ export interface PaqueteBlock {
   button: string;
 }
 
+/** Una de las 6 tarjetas de "Qué hace la maqueta". key enlaza con el archivo de video
+ * (public/features/feat-{key}.mp4). */
+export interface FeatureCard {
+  key: 'disponibilidad' | 'sol' | 'pagos' | 'plantas' | 'vistas' | 'contacto';
+  title: string;
+  body: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 // Forma compartida de los textos ES/EN. Todo el copy del sitio vive en es.ts y en.ts;
 // nada de texto visible se escribe directo en los componentes .astro.
 export interface Dictionary {
@@ -30,7 +43,8 @@ export interface Dictionary {
     links: {
       showroom: string;
       paquete: string;
-      comoTrabajamos: string;
+      caracteristicas: string;
+      proceso: string;
       contacto: string;
     };
   };
@@ -89,10 +103,34 @@ export interface Dictionary {
       quoteButton: string;
       demoLink: string;
     };
-    comoTrabajamos: {
+    /** 6 tarjetas de video (3x2 en escritorio, 1 columna en celular): qué puede hacer la
+     * maqueta. Comparte grupo de raíl con "paquete". */
+    caracteristicas: {
       railLabel: string;
       heading: string;
-      steps: string[];
+      cards: [FeatureCard, FeatureCard, FeatureCard, FeatureCard, FeatureCard, FeatureCard];
+    };
+    /** 5 pasos en línea: dónde encaja la maqueta en el embudo de venta. */
+    dondeEncaja: {
+      railLabel: string;
+      heading: string;
+      steps: [string, string, string, string, string];
+    };
+    /** Antes "Cómo trabajamos" (3 tarjetas con pasos); ahora dos columnas — lo que el
+     * cliente envía y lo que recibe — unidas por una línea con flecha. */
+    intercambio: {
+      railLabel: string;
+      heading: string;
+      sendLabel: string;
+      sendBody: string;
+      receiveLabel: string;
+      receiveBody: string;
+    };
+    /** Acordeón antes de #contacto, con datos estructurados FAQPage (Faq.astro). */
+    faq: {
+      railLabel: string;
+      heading: string;
+      items: [FaqItem, FaqItem, FaqItem, FaqItem, FaqItem, FaqItem];
     };
     /** Antes "El nombre" (solo la frase del tezontle); ahora también la sección de
      * contacto (SPEC: id="contacto"), con el formulario a la derecha de ese mismo texto. */

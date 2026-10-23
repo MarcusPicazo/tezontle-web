@@ -1,0 +1,79 @@
+---
+import Scene from '../Scene.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
+import type { Dictionary } from '../../i18n/types';
+
+interface Props {
+  lang: Dictionary['lang'];
+}
+
+const { lang } = Astro.props;
+const t = { es: es.scenes.faq, en: en.scenes.faq };
+const items = lang === 'es' ? t.es.items : t.en.items;
+
+// FAQPage (SPEC §7: datos estructurados): en el idioma servido de esta página, con el
+// texto ya resuelto — no hace falta que cambie con el barrido ES/EN en cliente, los
+// buscadores leen el HTML servido.
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Scene id="faq" tone="arena">
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+  <T
+    as="h2"
+    es={t.es.heading}
+    en={t.en.heading}
+    lang={lang}
+    class="block max-w-2xl font-display text-3xl text-grafito sm:text-5xl"
+    data-reveal
+  />
+
+  <div class="mt-10 mx-auto max-w-2xl space-y-3">
+    {
+      t.es.items.map((itemEs, i) => {
+        const itemEn = t.en.items[i];
+        return (
+          <details data-reveal style={`--d:${80 + i * 70}ms`} class="faq-item group rounded-2xl bg-cal px-5 py-4 ring-1 ring-grafito/10">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg text-grafito">
+              <T es={itemEs.question} en={itemEn.question} lang={lang} />
+              <svg
+                aria-hidden="true"
+                class="faq-chevron h-4 w-4 shrink-0 text-piedra transition-transform duration-300"
+                viewBox="0 0 12 8"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path d="M1 1.5 L6 6.5 L11 1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </summary>
+            <T as="p" es={itemEs.answer} en={itemEn.answer} lang={lang} class="mt-3 block text-tinta-suave" />
+          </details>
+        );
+      })
+    }
+  </div>
+</Scene>
+
+<style>
+  /* Oculta la flecha nativa del <summary> (navegador/sistema); la propia sirve de
+     indicador y gira al abrir. */
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+</style>

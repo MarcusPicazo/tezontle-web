@@ -79,10 +79,27 @@ agrupados (no uno por escena), sincronizados con los enlaces del header — ver 
    Esencial/Completo sin precios (maqueta+WhatsApp y panel en ambas columnas; landing
    "Adicional" en Esencial, incluida en Completo) + nota de cotización en 24h, botón
    "Pedir cotización" (→ `#contacto`) y link "Ver la demo". Nunca la palabra "CRM".
-5. **Cómo trabajamos** — tres tarjetas cal sobre arena.
-   ES: "1. Nos envía renders, planos y precios. 2. En dos semanas está listo. 3. Lo publicamos con su marca."
-   EN: "1. Send us renders, plans and prices. 2. Ready in two weeks. 3. Published with your brand."
-6. **Contacto** (`#contacto`, antes "El nombre") — imagen `5-piedra-detalle` a pantalla
+5. **Qué hace la maqueta** (`#caracteristicas`) — fondo arena. Cuadrícula de 6 tarjetas
+   (3×2 en escritorio, 1 columna en celular), cada una con un video corto en loop
+   (silenciado, solo en pantalla), título y una línea: Disponibilidad en vivo · Sol por
+   fecha y hora · Esquema de pagos · Plantas por nivel · Vistas sobre sus renders ·
+   Contacto con el departamento exacto. Videos en
+   `public/features/feat-{disponibilidad,sol,pagos,plantas,vistas,contacto}.mp4` (no
+   existen todavía — sin video, un póster arena con el título, sin marco piedra). Comparte
+   grupo de raíl y enlace del header ("Funciones") con "El paquete".
+6. **Dónde encaja en su venta** (`#dondeEncaja`) — fondo cal. 5 pasos en línea (columna en
+   celular), con una flecha entre cada uno: anuncios → landing → recorre la maqueta →
+   elige departamento y ve pagos → le escribe a su asesor → su equipo aparta/vende desde
+   el panel.
+7. **Lo que nos envía, lo que recibe** (`#intercambio`, antes "Cómo trabajamos") — fondo
+   cal. Dos columnas unidas por una línea con flecha: a la izquierda lo que el cliente
+   manda (renders, planos en PDF, lista de precios — nunca CAD ni Revit ni modelos 3D), a
+   la derecha lo que recibe (maqueta 3D, panel de ventas y landing, en dos semanas con su
+   marca). Enlace del header "Proceso".
+8. **Preguntas frecuentes** (`#faq`) — fondo arena, acordeón de 6 preguntas, justo antes de
+   Contacto. Datos estructurados FAQPage en el HTML servido (no depende del barrido ES/EN
+   en cliente).
+9. **Contacto** (`#contacto`, antes "El nombre") — imagen `5-piedra-detalle` a pantalla
    completa con degradado oscuro. Texto de la piedra a la izquierda (se conserva):
    ES: "El tezontle es la piedra volcánica con la que se levantó la Ciudad de México.
    Nosotros ponemos la base digital para vender lo que se construye."
@@ -93,17 +110,19 @@ agrupados (no uno por escena), sincronizados con los enlaces del header — ver 
    WhatsApp o teléfono, Mensaje opcional) — botón "Enviar por WhatsApp" arma el mensaje con
    los datos y abre `wa.me`, sin backend ni datos guardados en ningún servidor. Debajo:
    "Agendar llamada", correo, aviso de respuesta en 24 horas.
-7. **Cierre** — `clip-3` con el scroll: la luz pasa de día a atardecer sobre la torre.
+10. **Cierre** — `clip-3` con el scroll: la luz pasa de día a atardecer sobre la torre.
    ES: "Véala funcionando." Botones: "Ver la demo" · "Agendar llamada" · WhatsApp.
    EN: "See it live." Buttons: "See the demo" · "Book a call" · WhatsApp.
 Pie: aviso de privacidad, © Tezontle 3D, selector ES/EN, correo.
 
 ### Header y raíl
-Header: El showroom 3D (`#experiencia`) · El paquete (`#paquete`) · Cómo trabajamos
-(`#comoTrabajamos`) · Contacto (`#contacto`) + botón "Ver la demo". El raíl lateral agrupa
-las 7 escenas en 5 puntos sincronizados con el header (mismo observer): Inicio (escena A,
-= logo) · Showroom (B y C) · Paquete · Proceso (Cómo trabajamos) · Contacto (Contacto +
-Cierre + pie). Al entrar una escena en el centro de la pantalla se marcan a la vez el punto
+Header: El showroom 3D (`#experiencia`) · El paquete (`#paquete`) · Funciones
+(`#caracteristicas`) · Proceso (`#dondeEncaja`) · Contacto (`#contacto`) + botón "Ver la
+demo". El raíl lateral agrupa las 10 escenas en 5 puntos sincronizados con el header
+(mismo observer, ahora puede haber más de un enlace del header por punto): Inicio (escena
+A, = logo) · Showroom (B y C) · Paquete (Paquete + Qué hace la maqueta) · Proceso (Dónde
+encaja + Lo que nos envía/recibe) · Contacto (Preguntas frecuentes + Contacto + Cierre +
+pie). Al entrar una escena en el centro de la pantalla se marcan a la vez el punto
 del raíl y el enlace del header de su grupo (texto al 100% + línea latón fija debajo);
 nombre del grupo visible al pasar el cursor o enfocar el punto. Clic en cualquiera de los
 dos usa scroll suave con aceleración/desaceleración (Lenis). Se oculta en móvil.

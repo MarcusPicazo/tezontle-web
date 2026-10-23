@@ -9,7 +9,10 @@ import Presentacion from './scenes/Presentacion.astro';
 import Experiencia from './scenes/Experiencia.astro';
 import Control from './scenes/Control.astro';
 import Paquete from './scenes/Paquete.astro';
-import ComoTrabajamos from './scenes/ComoTrabajamos.astro';
+import Caracteristicas from './scenes/Caracteristicas.astro';
+import DondeEncaja from './scenes/DondeEncaja.astro';
+import Intercambio from './scenes/Intercambio.astro';
+import Faq from './scenes/Faq.astro';
 import Contacto from './scenes/Contacto.astro';
 import Cierre from './scenes/Cierre.astro';
 import type { Dictionary } from '../i18n/types';
@@ -46,7 +49,10 @@ const atardecer = {
     <Control lang={dict.lang} />
   </ScrollWorld>
   <Paquete lang={dict.lang} />
-  <ComoTrabajamos lang={dict.lang} />
+  <Caracteristicas lang={dict.lang} />
+  <DondeEncaja lang={dict.lang} />
+  <Intercambio lang={dict.lang} />
+  <Faq lang={dict.lang} />
   <Contacto lang={dict.lang} />
   <ScrollWorld frames={atardecer.frames} clips={atardecer.clips}>
     <Cierre lang={dict.lang} />

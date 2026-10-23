@@ -1,0 +1,73 @@
+---
+import Scene from '../Scene.astro';
+import T from '../T.astro';
+import { es } from '../../i18n/es';
+import { en } from '../../i18n/en';
+import type { Dictionary } from '../../i18n/types';
+import { publicFileExists } from '../../utils/publicFile';
+
+interface Props {
+  lang: Dictionary['lang'];
+}
+
+const { lang } = Astro.props;
+const t = { es: es.scenes.caracteristicas, en: en.scenes.caracteristicas };
+
+// Rutas fijas (igual que "El paquete"): el usuario agrega los videos después. Aquí el
+// respaldo es más simple (SPEC: "mientras no existan, muestra un póster arena con el
+// título"), sin marco piedra ni ícono — solo el título centrado sobre arena.
+const cards = t.es.cards.map((card) => ({
+  video: `/features/feat-${card.key}.mp4`,
+  hasVideo: publicFileExists(`/features/feat-${card.key}.mp4`),
+}));
+---
+
+<Scene id="caracteristicas" tone="arena">
+  <T
+    as="h2"
+    es={t.es.heading}
+    en={t.en.heading}
+    lang={lang}
+    class="block max-w-2xl font-display text-3xl text-grafito sm:text-5xl"
+    data-reveal
+  />
+
+  <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      t.es.cards.map((cardEs, i) => {
+        const cardEn = t.en.cards[i];
+        const asset = cards[i];
+        return (
+          <article
+            data-reveal
+            style={`--d:${100 + i * 90}ms`}
+            class="overflow-hidden rounded-2xl bg-cal ring-1 ring-grafito/10"
+          >
+            <div class="relative aspect-video w-full overflow-hidden bg-arena">
+              {asset.hasVideo ? (
+                <video
+                  data-lazy-video
+                  class="h-full w-full object-cover"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                >
+                  <source data-src={asset.video} type="video/mp4" />
+                </video>
+              ) : (
+                <div class="flex h-full w-full items-center justify-center px-4 text-center">
+                  <T as="p" es={cardEs.title} en={cardEn.title} lang={lang} class="block font-display text-base text-tinta-suave" />
+                </div>
+              )}
+            </div>
+            <div class="p-5">
+              <T as="h3" es={cardEs.title} en={cardEn.title} lang={lang} class="block font-display text-lg text-grafito" />
+              <T as="p" es={cardEs.body} en={cardEn.body} lang={lang} class="mt-1.5 block text-sm text-tinta-suave" />
+            </div>
+          </article>
+        );
+      })
+    }
+  </div>
+</Scene>

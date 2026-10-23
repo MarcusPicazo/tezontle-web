@@ -20,7 +20,8 @@ export const en: Dictionary = {
     links: {
       showroom: '3D showroom',
       paquete: 'The package',
-      comoTrabajamos: 'How we work',
+      caracteristicas: 'Features',
+      proceso: 'Process',
       contacto: 'Contact',
     },
   },
@@ -91,10 +92,48 @@ export const en: Dictionary = {
       quoteButton: 'Request a quote',
       demoLink: 'See the demo',
     },
-    comoTrabajamos: {
-      railLabel: 'How we work',
-      heading: 'How we work',
-      steps: ['Send us renders, plans and prices.', 'Ready in two weeks.', 'Published with your brand.'],
+    caracteristicas: {
+      railLabel: 'Features',
+      heading: 'What the 3D model does',
+      cards: [
+        { key: 'disponibilidad', title: 'Live availability', body: 'Available, reserved or sold for every unit.' },
+        { key: 'sol', title: 'Sunlight by date and time', body: 'Which units get afternoon sun, any day of the year.' },
+        { key: 'pagos', title: 'Payment plan', body: 'Down payment, installments and delivery, calculated in the unit sheet.' },
+        { key: 'plantas', title: 'Floor plans by level', body: 'Every floor with its units and their status.' },
+        { key: 'vistas', title: 'Views over your renders', body: 'The aerial shot and façades with floors marked.' },
+        { key: 'contacto', title: 'Contact with the exact unit', body: 'WhatsApp or form with the chosen unit.' },
+      ],
+    },
+    dondeEncaja: {
+      railLabel: 'Journey',
+      heading: 'Where it fits in your sales process',
+      steps: [
+        "Your ads lead to the project's landing page.",
+        'The buyer explores the 3D model.',
+        'They choose a unit and see its payment plan.',
+        'They message your advisor with the exact unit.',
+        'Your team reserves and sells from the panel, updated on every screen instantly.',
+      ],
+    },
+    intercambio: {
+      railLabel: 'Process',
+      heading: 'What you send us, what you get',
+      sendLabel: 'You send us',
+      sendBody: 'Renders, PDF floor plans and a price list. No CAD, no Revit, no 3D models.',
+      receiveLabel: 'You get',
+      receiveBody: 'A 3D model, sales panel and landing page, ready in two weeks with your brand.',
+    },
+    faq: {
+      railLabel: 'FAQ',
+      heading: 'Frequently asked questions',
+      items: [
+        { question: 'Do I need 3D models or Revit files?', answer: 'No. We work with your renders, PDF floor plans and price list.' },
+        { question: 'How long does it take?', answer: 'Two weeks from when we receive your material.' },
+        { question: 'Does it work on mobile?', answer: 'Yes, on phone, tablet and computer, nothing to download.' },
+        { question: 'Who updates prices and availability?', answer: 'Your team, from the sales panel, reflected instantly.' },
+        { question: 'Can it be used in the sales room?', answer: 'Yes, on a screen or tablet with presentation mode.' },
+        { question: 'How much does it cost?', answer: "It depends on the number of units and the package. We'll send a quote within 24 hours." },
+      ],
     },
     contacto: {
       railLabel: 'Contact',
