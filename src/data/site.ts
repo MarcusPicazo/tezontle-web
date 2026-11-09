@@ -27,8 +27,11 @@ export const site = {
 };
 
 export const whatsapp = {
-  // Número real de Tezontle 3D: +52 735 106 0241.
-  number: '527351060241',
+  // Número real de Tezontle 3D: +52 56 6184 9661 (antes +52 735 106 0241).
+  number: '525661849661',
+  // Mismo número, formateado para mostrarlo como texto si algún día hace falta (hoy todos
+  // los botones de WhatsApp del sitio son ícono o enlace, nunca el número de corrido).
+  displayNumber: '+52 56 6184 9661',
   message: 'Hola, quiero ver una demo de Tezontle 3D.',
 };
 
